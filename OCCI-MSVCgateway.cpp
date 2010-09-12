@@ -13,6 +13,18 @@ const char * OCCIgateway_SQLException_what(void * _e) {
     return e->what();
 }
 
+const char * OCCIgateway_SQLException_getMessage(void * _e) {
+    SQLException * e = static_cast<SQLException *>(_e);
+
+    return e->getMessage().c_str();
+}
+
+int OCCIgateway_SQLException_getErrorCode(void * _e) {
+    SQLException * e = static_cast<SQLException *>(_e);
+
+    return e->getErrorCode();
+}
+
 /* Environment */
 void OCCIgateway_Environment_dtor(void ** exception, void * _envr) {
     Environment * envr = static_cast<Environment *>(_envr);
@@ -44,4 +56,15 @@ void * OCCIgateway_createEnvironment_charset(void ** exception, const char * cha
         *exception = new SQLException(e);
     }
     return envr;
+}
+
+/* Connection */
+void OCCIgateway_Connection_dtor(void ** exception, void * _conn) {
+    Connection * conn = static_cast<Connection *>(_conn);
+
+    try {
+        delete conn;
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
