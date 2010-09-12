@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C++ Express 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OCCI-MSVCgateway", "OCCI-MSVCgateway.vcproj", "{79F765C7-CEEC-42DE-8C8F-286C9D777638}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OCCI-proxy-test", "OCCI-proxy-test.vcproj", "{A590CB8C-4877-4016-A4BB-334875A113F8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{79F765C7-CEEC-42DE-8C8F-286C9D777638} = {79F765C7-CEEC-42DE-8C8F-286C9D777638}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79F765C7-CEEC-42DE-8C8F-286C9D777638}.Debug|Win32.ActiveCfg = Debug|Win32
+		{79F765C7-CEEC-42DE-8C8F-286C9D777638}.Debug|Win32.Build.0 = Debug|Win32
+		{79F765C7-CEEC-42DE-8C8F-286C9D777638}.Release|Win32.ActiveCfg = Release|Win32
+		{79F765C7-CEEC-42DE-8C8F-286C9D777638}.Release|Win32.Build.0 = Release|Win32
+		{A590CB8C-4877-4016-A4BB-334875A113F8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A590CB8C-4877-4016-A4BB-334875A113F8}.Debug|Win32.Build.0 = Debug|Win32
+		{A590CB8C-4877-4016-A4BB-334875A113F8}.Release|Win32.ActiveCfg = Release|Win32
+		{A590CB8C-4877-4016-A4BB-334875A113F8}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
