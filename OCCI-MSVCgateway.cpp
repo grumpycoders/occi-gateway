@@ -58,6 +58,18 @@ void * OCCIgateway_createEnvironment_charset(void ** exception, const char * cha
     return envr;
 }
 
+void * OCCIgateway_Environment_createConnection(void ** exception, void * _envr, const char * username, const char * password, const char * url) {
+    Connection * conn = NULL;
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        conn = envr->createConnection(username, password, url);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return conn;
+}
+
 /* Connection */
 void OCCIgateway_Connection_dtor(void ** exception, void * _conn) {
     Connection * conn = static_cast<Connection *>(_conn);
