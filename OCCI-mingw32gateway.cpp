@@ -421,6 +421,14 @@ unsigned int occi_proxy::Statement::getMaxIterations() const {
 	return r;
 }
 
+unsigned int occi_proxy::Statement::getMaxParamSize(unsigned int idx) const {
+	void * e = NULL;
+	unsigned int r = 0;
+	r = OCCIgateway_Statement_getMaxParamSize(&e, stmt, idx);
+	checkException(e);
+	return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

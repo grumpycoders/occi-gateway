@@ -79,6 +79,7 @@ extern "C" {
 	OGWEXPORT float OCCIgateway_Statement_getFloat(void ** exception, void * stmt, unsigned int idx);
 	OGWEXPORT int OCCIgateway_Statement_getInt(void ** exception, void * stmt, unsigned int idx);
 	OGWEXPORT unsigned int OCCIgateway_Statement_getMaxIterations(void ** exception, void * stmt);
+	OGWEXPORT unsigned int OCCIgateway_Statement_getMaxParamSize(void ** exception, void * stmt, unsigned int idx);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
