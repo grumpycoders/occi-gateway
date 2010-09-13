@@ -96,6 +96,7 @@ extern "C" {
 	OGWEXPORT int OCCIgateway_Statement_isTruncated(void ** exception, void * stmt, unsigned int idx);
 	OGWEXPORT int OCCIgateway_Statement_preTruncationLength(void ** exception, void * stmt, unsigned int idx);
 	OGWEXPORT void OCCIgateway_Statement_registerOutParam(void ** exception, void * stmt, unsigned int idx, unsigned int v1, unsigned int v2, const char * v3);
+	OGWEXPORT void OCCIgateway_Statement_setAutoCommit(void ** exception, void * stmt, int autoCommit);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);

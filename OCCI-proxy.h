@@ -213,6 +213,7 @@ namespace occi_proxy {
 		bool isTruncated(unsigned int idx) const;
 		int preTruncationLength(unsigned int idx) const;
 		void registerOutParam(unsigned int idx, Type type, unsigned int maxSize = 0, const std::string &sqltype = "");
+		void setAutoCommit(bool autoCommit);
       protected:
         void * stmt;
         friend class Connection;

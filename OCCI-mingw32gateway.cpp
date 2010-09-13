@@ -552,6 +552,12 @@ void occi_proxy::Statement::registerOutParam(unsigned int idx, occi_proxy::Type 
 	checkException(e);
 }
 
+void occi_proxy::Statement::setAutoCommit(bool autoCommit) {
+	void * e = NULL;
+	OCCIgateway_Statement_setAutoCommit(&e, stmt, !!autoCommit);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
