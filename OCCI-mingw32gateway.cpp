@@ -34,23 +34,19 @@ occi_proxy::Environment::~Environment() {
 }
 
 occi_proxy::Environment * occi_proxy::Environment::createEnvironment(occi_proxy::Environment::Mode mode, void *ctxp, void *(*malocfp)(void *, size_t), void *(*ralocfp)(void *, void *, size_t), void (*mfreefp)(void *, void *)) {
-    occi_proxy::Environment * envr;
     void * e = NULL;
-    envr = new occi_proxy::Environment(OCCIgateway_createEnvironment(&e, static_cast<oracle::occi::Environment::Mode>(mode), ctxp, malocfp, ralocfp, mfreefp));
-    if (e)
-        delete envr;
+    void * envr;
+    envr = OCCIgateway_createEnvironment(&e, static_cast<oracle::occi::Environment::Mode>(mode), ctxp, malocfp, ralocfp, mfreefp);
     checkException(e);
-    return envr;
+    return new occi_proxy::Environment(envr);
 }
 
 occi_proxy::Environment * occi_proxy::Environment::createEnvironment(const std::string &charset, const std::string &ncharset, occi_proxy::Environment::Mode mode, void *ctxp, void *(*malocfp)(void *, size_t), void *(*ralocfp)(void *, void *, size_t), void (*mfreefp)(void *, void *)) {
-    occi_proxy::Environment * envr;
     void * e = NULL;
-    envr = new occi_proxy::Environment(OCCIgateway_createEnvironment_charset(&e, charset.c_str(), ncharset.c_str(), static_cast<oracle::occi::Environment::Mode>(mode), ctxp, malocfp, ralocfp, mfreefp));
-    if (e)
-        delete envr;
+    void * envr;
+    envr = OCCIgateway_createEnvironment_charset(&e, charset.c_str(), ncharset.c_str(), static_cast<oracle::occi::Environment::Mode>(mode), ctxp, malocfp, ralocfp, mfreefp);
     checkException(e);
-    return envr;
+    return new occi_proxy::Environment(envr);
 }
 
 void occi_proxy::Environment::terminateEnvironment(occi_proxy::Environment * envr) {
@@ -193,12 +189,16 @@ void occi_proxy::Statement::closeResultSet(occi_proxy::ResultSet * rset) {
     void * e = NULL;
     OCCIgateway_Statement_closeResultSet(&e, stmt, rset->rset);
     checkException(e);
+    rset->rset = NULL;
+    delete rset;
 }
 
 void occi_proxy::Statement::closeStream(occi_proxy::Stream * strm) {
     void * e = NULL;
     OCCIgateway_Statement_closeStream(&e, stmt, strm->strm);
     checkException(e);
+    strm->strm = NULL;
+    delete strm;
 }
 
 occi_proxy::Statement::Status occi_proxy::Statement::execute(const std::string &sql) {
@@ -215,6 +215,14 @@ occi_proxy::Statement::Status occi_proxy::Statement::executeArrayUpdate(unsigned
     r = static_cast<occi_proxy::Statement::Status>(OCCIgateway_Statement_executeArrayUpdate(&e, stmt, v));
     checkException(e);
     return r;
+}
+
+occi_proxy::ResultSet * occi_proxy::Statement::executeQuery(const std::string &sql) {
+    void * e = NULL;
+    void * r;
+    r = OCCIgateway_Statement_executeQuery(&e, stmt, sql.c_str());
+    checkException(e);
+    return new occi_proxy::ResultSet(r);
 }
 
 /* ResultSet */

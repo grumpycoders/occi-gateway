@@ -245,6 +245,7 @@ void OCCIgateway_Connection_rollback(void ** exception, void * _conn) {
 /* Statement */
 void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
     Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
     try {
         delete stmt;
     } catch (SQLException e) {
@@ -254,6 +255,7 @@ void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
 
 void OCCIgateway_Statement_addIteration(void ** exception, void * _stmt) {
     Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
     try {
         stmt->addIteration();
     } catch (SQLException e) {
@@ -264,6 +266,7 @@ void OCCIgateway_Statement_addIteration(void ** exception, void * _stmt) {
 void OCCIgateway_Statement_closeResultSet(void ** exception, void * _stmt, void * _rset) {
     Statement * stmt = static_cast<Statement *>(_stmt);
     ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
     try {
         stmt->closeResultSet(rset);
     } catch (SQLException e) {
@@ -274,6 +277,7 @@ void OCCIgateway_Statement_closeResultSet(void ** exception, void * _stmt, void 
 void OCCIgateway_Statement_closeStream(void ** exception, void * _stmt, void * _strm) {
     Statement * stmt = static_cast<Statement *>(_stmt);
     Stream * strm = static_cast<Stream *>(_strm);
+    *exception = NULL;
     try {
         stmt->closeStream(strm);
     } catch (SQLException e) {
@@ -284,6 +288,7 @@ void OCCIgateway_Statement_closeStream(void ** exception, void * _stmt, void * _
 int OCCIgateway_Statement_execute(void ** exception, void * _stmt, const char * sql) {
     Statement * stmt = static_cast<Statement *>(_stmt);
     Statement::Status r;
+    *exception = NULL;
     try {
         r = stmt->execute(sql);
     } catch (SQLException e) {
@@ -295,12 +300,25 @@ int OCCIgateway_Statement_execute(void ** exception, void * _stmt, const char * 
 int OCCIgateway_Statement_executeArrayUpdate(void ** exception, void * _stmt, unsigned int v) {
     Statement * stmt = static_cast<Statement *>(_stmt);
     Statement::Status r;
+    *exception = NULL;
     try {
         r = stmt->executeArrayUpdate(v);
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
     return static_cast<int>(r);
+}
+
+void * OCCIgateway_Statement_executeQuery(void ** exception, void * _stmt, const char * sql) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    ResultSet * r = NULL;
+    *exception = NULL;
+    try {
+        r = stmt->executeQuery(sql);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 /* ResultSet */
