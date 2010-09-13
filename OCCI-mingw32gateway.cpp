@@ -462,6 +462,14 @@ occi_proxy::Number occi_proxy::Statement::getNumber(unsigned int idx) {
 	return Number(r);
 }
 
+occi_proxy::ResultSet * occi_proxy::Statement::getResultSet() {
+	void * e = NULL;
+	void * rset = NULL;
+	rset = OCCIgateway_Statement_getResultSet(&e, stmt);
+	checkException(e);
+	return new occi_proxy::ResultSet(rset);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

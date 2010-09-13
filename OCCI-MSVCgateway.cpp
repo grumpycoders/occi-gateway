@@ -639,6 +639,18 @@ void * OCCIgateway_Statement_getNumber(void ** exception, void * _stmt, unsigned
 	return NULL;
 }
 
+void * OCCIgateway_Statement_getResultSet(void ** exception, void * _stmt) {
+	ResultSet * r;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->getResultSet();
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
