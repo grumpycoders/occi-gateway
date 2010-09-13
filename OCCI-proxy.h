@@ -88,6 +88,15 @@ namespace occi_proxy {
         OCCIROWID = oracle::occi::OCCIROWID,
         OCCICURSOR = oracle::occi::OCCICURSOR,
     };
+    class Statement;
+    class ResultSet {
+      public:
+          ResultSet(void *);
+          ~ResultSet();
+      protected:
+        void * rset;
+        friend class Statement;
+    };
     class Connection;
     class Statement {
       public:

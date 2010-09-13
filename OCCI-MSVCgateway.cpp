@@ -260,3 +260,13 @@ void OCCIgateway_Statement_addIteration(void ** exception, void * _stmt) {
         *exception = new SQLException(e);
     }
 }
+
+/* ResultSet */
+void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    try {
+        delete rset;
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}

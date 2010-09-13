@@ -185,3 +185,12 @@ void occi_proxy::Statement::addIteration() {
     OCCIgateway_Statement_addIteration(&e, stmt);
     checkException(e);
 }
+
+/* ResultSet */
+occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
+occi_proxy::ResultSet::~ResultSet() {
+    void * e = NULL;
+    if (rset)
+        OCCIgateway_ResultSet_dtor(&e, rset);
+    checkException(e);
+}
