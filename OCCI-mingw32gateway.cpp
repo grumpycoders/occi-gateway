@@ -389,6 +389,30 @@ bool occi_proxy::Statement::getDatabaseNCHARParam(unsigned int idx) {
 	return !!r;
 }
 
+double occi_proxy::Statement::getDouble(unsigned int idx) {
+	void * e = NULL;
+	double r = 0;
+	r = OCCIgateway_Statement_getDouble(&e, stmt, idx);
+	checkException(e);
+	return r;
+}
+
+float occi_proxy::Statement::getFloat(unsigned int idx) {
+	void * e = NULL;
+	float r = 0;
+	r = OCCIgateway_Statement_getFloat(&e, stmt, idx);
+	checkException(e);
+	return r;
+}
+
+int occi_proxy::Statement::getInt(unsigned int idx) {
+	void * e = NULL;
+	int r = 0;
+	r = OCCIgateway_Statement_getInt(&e, stmt, idx);
+	checkException(e);
+	return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

@@ -545,6 +545,42 @@ int OCCIgateway_Statement_getDatabaseNCHARParam(void ** exception, void * _stmt,
 	return r;
 }
 
+double OCCIgateway_Statement_getDouble(void ** exception, void * _stmt, unsigned int idx) {
+	double r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->getDouble(idx);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
+float OCCIgateway_Statement_getFloat(void ** exception, void * _stmt, unsigned int idx) {
+	float r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->getFloat(idx);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
+int OCCIgateway_Statement_getInt(void ** exception, void * _stmt, unsigned int idx) {
+	int r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->getInt(idx);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

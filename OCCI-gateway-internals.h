@@ -75,6 +75,9 @@ extern "C" {
 	OGWEXPORT unsigned int OCCIgateway_Statement_getCurrentStreamParam(void ** exception, void * stmt);
 	OGWEXPORT void * OCCIgateway_Statement_getCursor(void ** exception, void * stmt, unsigned int idx);
 	OGWEXPORT int OCCIgateway_Statement_getDatabaseNCHARParam(void ** exception, void * stmt, unsigned int idx);
+	OGWEXPORT double OCCIgateway_Statement_getDouble(void ** exception, void * stmt, unsigned int idx);
+	OGWEXPORT float OCCIgateway_Statement_getFloat(void ** exception, void * stmt, unsigned int idx);
+	OGWEXPORT int OCCIgateway_Statement_getInt(void ** exception, void * stmt, unsigned int idx);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
