@@ -365,6 +365,14 @@ unsigned int occi_proxy::Statement::getCurrentStreamIteration() const {
 	return r;
 }
 
+unsigned int occi_proxy::Statement::getCurrentStreamParam() const {
+	void * e = NULL;
+	unsigned int r = 0;
+	r = OCCIgateway_Statement_getCurrentStreamParam(&e, stmt);
+	checkException(e);
+	return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

@@ -180,6 +180,7 @@ namespace occi_proxy {
         Clob getClob(unsigned int idx);
 		unsigned int getCurrentIteration() const;
 		unsigned int getCurrentStreamIteration() const;
+		unsigned int getCurrentStreamParam() const;
       protected:
         void * stmt;
         friend class Connection;
