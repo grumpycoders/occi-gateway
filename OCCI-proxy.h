@@ -123,6 +123,7 @@ namespace occi_proxy {
         void closeResultSet(ResultSet * rset);
         void closeStream(Stream * strm);
         Status execute(const std::string &sql = "");
+        Status executeArrayUpdate(unsigned int arrayLength);
       protected:
         void * stmt;
         friend class Connection;

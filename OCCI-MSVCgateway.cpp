@@ -292,6 +292,17 @@ int OCCIgateway_Statement_execute(void ** exception, void * _stmt, const char * 
     return static_cast<int>(r);
 }
 
+int OCCIgateway_Statement_executeArrayUpdate(void ** exception, void * _stmt, unsigned int v) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Statement::Status r;
+    try {
+        r = stmt->executeArrayUpdate(v);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return static_cast<int>(r);
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

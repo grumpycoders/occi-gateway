@@ -47,6 +47,7 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Statement_closeResultSet(void ** exception, void * stmt, void * rset);
     OGWEXPORT void OCCIgateway_Statement_closeStream(void ** exception, void * stmt, void * strm);
     OGWEXPORT int OCCIgateway_Statement_execute(void ** exception, void * stmt, const char * sql);
+    OGWEXPORT int OCCIgateway_Statement_executeArrayUpdate(void ** exception, void * _stmt, unsigned int v);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
