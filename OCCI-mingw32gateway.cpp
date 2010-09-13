@@ -178,6 +178,13 @@ std::string occi_proxy::Connection::getClientNCHARCharSet() const throw (occi_pr
     return r;
 }
 
+void occi_proxy::Connection::rollback() throw (occi_proxy::SQLException) {
+    void * e = NULL;
+    OCCIgateway_Connection_rollback(&e, conn);
+    if (e)
+        throw occi_proxy::SQLException(e);
+}
+
 /* Statement */
 occi_proxy::Statement::Statement(void * _stmt) : stmt(_stmt) { }
 occi_proxy::Statement::~Statement() throw (occi_proxy::SQLException) {

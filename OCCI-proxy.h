@@ -110,6 +110,7 @@ namespace occi_proxy {
           void flushCache() throw (SQLException);
           std::string getClientCharSet() const throw (SQLException);
           std::string getClientNCHARCharSet() const throw (SQLException);
+          void rollback() throw (SQLException);
       protected:
         void * conn;
         friend class Environment;

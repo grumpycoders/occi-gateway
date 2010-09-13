@@ -39,6 +39,7 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Connection_flushCache(void ** exception, void * _conn);
     OGWEXPORT const char * OCCIgateway_Connection_getClientCharSet(void ** exception, void * _conn);
     OGWEXPORT const char * OCCIgateway_Connection_getClientNCHARCharSet(void ** exception, void * _conn);
+    OGWEXPORT void OCCIgateway_Connection_rollback(void ** exception, void * _conn);
 
     /* Statement */
     OGWEXPORT void OCCIgateway_Statement_dtor(void ** exception, void * stmt);

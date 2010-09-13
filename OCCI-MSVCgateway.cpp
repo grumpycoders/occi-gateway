@@ -221,6 +221,16 @@ const char * OCCIgateway_Connection_getClientNCHARCharSet(void ** exception, voi
     return r;
 }
 
+void OCCIgateway_Connection_rollback(void ** exception, void * _conn) {
+    Connection * conn = static_cast<Connection *>(_conn);
+    *exception = NULL;
+    try {
+        conn->rollback();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* Statement */
 void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
     Statement * stmt = static_cast<Statement *>(_stmt);
