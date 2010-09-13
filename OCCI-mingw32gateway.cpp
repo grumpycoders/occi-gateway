@@ -225,6 +225,14 @@ occi_proxy::ResultSet * occi_proxy::Statement::executeQuery(const std::string &s
     return new occi_proxy::ResultSet(r);
 }
 
+unsigned int occi_proxy::Statement::executeUpdate(const std::string &sql) {
+    void * e = NULL;
+    unsigned int r;
+    r = OCCIgateway_Statement_executeUpdate(&e, stmt, sql.c_str());
+    checkException(e);
+    return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

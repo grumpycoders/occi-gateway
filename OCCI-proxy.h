@@ -125,6 +125,7 @@ namespace occi_proxy {
         Status execute(const std::string &sql = "");
         Status executeArrayUpdate(unsigned int arrayLength);
         ResultSet * executeQuery(const std::string &sql = "");
+        unsigned int executeUpdate(const std::string &sql = "");
       protected:
         void * stmt;
         friend class Connection;
