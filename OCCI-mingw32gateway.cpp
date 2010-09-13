@@ -160,6 +160,24 @@ void occi_proxy::Connection::flushCache() throw (occi_proxy::SQLException) {
         throw occi_proxy::SQLException(e);
 }
 
+std::string occi_proxy::Connection::getClientCharSet() const throw (occi_proxy::SQLException) {
+    void * e = NULL;
+    const char * r = NULL;
+    r = OCCIgateway_Connection_getClientCharSet(&e, conn);
+    if (e)
+        throw occi_proxy::SQLException(e);
+    return r;
+}
+
+std::string occi_proxy::Connection::getClientNCHARCharSet() const throw (occi_proxy::SQLException) {
+    void * e = NULL;
+    const char * r = NULL;
+    r = OCCIgateway_Connection_getClientNCHARCharSet(&e, conn);
+    if (e)
+        throw occi_proxy::SQLException(e);
+    return r;
+}
+
 /* Statement */
 occi_proxy::Statement::Statement(void * _stmt) : stmt(_stmt) { }
 occi_proxy::Statement::~Statement() throw (occi_proxy::SQLException) {

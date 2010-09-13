@@ -197,6 +197,30 @@ void OCCIgateway_Connection_flushCache(void ** exception, void * _conn) {
     }
 }
 
+const char * OCCIgateway_Connection_getClientCharSet(void ** exception, void * _conn) {
+    const char * r = NULL;
+    Connection * conn = static_cast<Connection *>(_conn);
+    *exception = NULL;
+    try {
+        r = conn->getClientCharSet().c_str();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+const char * OCCIgateway_Connection_getClientNCHARCharSet(void ** exception, void * _conn) {
+    const char * r = NULL;
+    Connection * conn = static_cast<Connection *>(_conn);
+    *exception = NULL;
+    try {
+        r = conn->getClientNCHARCharSet().c_str();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Statement */
 void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
     Statement * stmt = static_cast<Statement *>(_stmt);
