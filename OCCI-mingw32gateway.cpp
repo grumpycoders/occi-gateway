@@ -153,6 +153,13 @@ occi_proxy::Statement * occi_proxy::Connection::createStatement(const std::strin
     return stmt;
 }
 
+void occi_proxy::Connection::flushCache() throw (occi_proxy::SQLException) {
+    void * e = NULL;
+    OCCIgateway_Connection_flushCache(&e, conn);
+    if (e)
+        throw occi_proxy::SQLException(e);
+}
+
 /* Statement */
 occi_proxy::Statement::Statement(void * _stmt) : stmt(_stmt) { }
 occi_proxy::Statement::~Statement() throw (occi_proxy::SQLException) {

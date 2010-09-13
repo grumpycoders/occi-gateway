@@ -187,6 +187,16 @@ void * OCCIgateway_Connection_createStatement(void ** exception, void * _conn, c
     return stmt;
 }
 
+void OCCIgateway_Connection_flushCache(void ** exception, void * _conn) {
+    Connection * conn = static_cast<Connection *>(_conn);
+    *exception = NULL;
+    try {
+        conn->flushCache();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* Statement */
 void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
     Statement * stmt = static_cast<Statement *>(_stmt);
