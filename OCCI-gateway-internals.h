@@ -73,6 +73,7 @@ extern "C" {
 	OGWEXPORT unsigned int OCCIgateway_Statement_getCurrentIteration(void ** exception, void * stmt);
 	OGWEXPORT unsigned int OCCIgateway_Statement_getCurrentStreamIteration(void ** exception, void * stmt);
 	OGWEXPORT unsigned int OCCIgateway_Statement_getCurrentStreamParam(void ** exception, void * stmt);
+	OGWEXPORT void * OCCIgateway_Statement_getCursor(void ** exception, void * stmt, unsigned int idx);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);

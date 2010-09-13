@@ -521,6 +521,18 @@ unsigned int OCCIgateway_Statement_getCurrentStreamParam(void ** exception, void
 	return r;
 }
 
+void * OCCIgateway_Statement_getCursor(void ** exception, void * _stmt, unsigned int idx) {
+	ResultSet * rset = NULL;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		rset = stmt->getCursor(idx);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return rset;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
