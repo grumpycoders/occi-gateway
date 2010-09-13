@@ -211,6 +211,7 @@ namespace occi_proxy {
 		unsigned int getUpdateCount() const;
 		bool isNull(unsigned int idx) const;
 		bool isTruncated(unsigned int idx) const;
+		int preTruncationLength(unsigned int idx) const;
       protected:
         void * stmt;
         friend class Connection;

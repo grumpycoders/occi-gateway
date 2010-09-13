@@ -748,6 +748,18 @@ int OCCIgateway_Statement_isTruncated(void ** exception, void * _stmt, unsigned 
 	return r;
 }
 
+int OCCIgateway_Statement_preTruncationLength(void ** exception, void * _stmt, unsigned int idx) {
+	int r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->preTruncationLength(idx);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

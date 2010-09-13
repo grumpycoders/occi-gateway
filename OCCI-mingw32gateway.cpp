@@ -538,6 +538,14 @@ bool occi_proxy::Statement::isTruncated(unsigned int idx) const {
 	return !!r;
 }
 
+int occi_proxy::Statement::preTruncationLength(unsigned int idx) const {
+	void * e = NULL;
+	int r = 0;
+	r = OCCIgateway_Statement_preTruncationLength(&e, stmt, idx);
+	checkException(e);
+	return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
