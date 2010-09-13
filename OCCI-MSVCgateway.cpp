@@ -626,6 +626,19 @@ unsigned int OCCIgateway_Statement_getMaxParamSize(void ** exception, void * _st
 	return r;
 }
 
+void * OCCIgateway_Statement_getNumber(void ** exception, void * _stmt, unsigned int idx) {
+	Number n;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		n = stmt->getNumber(idx);
+		return new Number(n);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return NULL;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

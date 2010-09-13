@@ -454,6 +454,14 @@ unsigned int occi_proxy::Statement::getMaxParamSize(unsigned int idx) const {
 	return r;
 }
 
+occi_proxy::Number occi_proxy::Statement::getNumber(unsigned int idx) {
+	void * e = NULL;
+	void * r = NULL;
+	r = OCCIgateway_Statement_getNumber(&e, stmt, idx);
+	checkException(e);
+	return Number(r);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

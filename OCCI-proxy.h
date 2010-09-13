@@ -201,6 +201,7 @@ namespace occi_proxy {
 		int getInt(unsigned int idx);
 		unsigned int getMaxIterations() const;
 		unsigned int getMaxParamSize(unsigned int idx) const;
+		Number getNumber(unsigned int idx);
       protected:
         void * stmt;
         friend class Connection;
