@@ -33,7 +33,11 @@ extern "C" {
     OGWEXPORT void * OCCIgateway_Clob_getStream(void ** exception, void * clob, unsigned int v1, unsigned int v2);
     OGWEXPORT void OCCIgateway_Clob_closeStream(void ** exception, void * clob, void * strm);
 
-    /* Environment */
+	/* Number */
+	OGWEXPORT void OCCIgateway_Number_dtor(void * number);
+	OGWEXPORT const char * OCCIgateway_Number_toText(void ** exception, void * number, void * envr, const char * v1, const char * v2);
+
+	/* Environment */
     OGWEXPORT void OCCIgateway_Environment_dtor(void ** exception, void * envr);
     OGWEXPORT void * OCCIgateway_createEnvironment(void ** exception, Environment::Mode mode, void *ctxp, void *(*malocfp)(void *ctxp, size_t size), void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize), void (*mfreefp)(void *ctxp, void *memptr));
     OGWEXPORT void * OCCIgateway_createEnvironment_charset(void ** exception, const char * charset, const char * ncharset, Environment::Mode mode, void *ctxp, void *(*malocfp)(void *ctxp, size_t size), void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize), void (*mfreefp)(void *ctxp, void *memptr));

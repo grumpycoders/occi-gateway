@@ -59,6 +59,19 @@ namespace occi_proxy {
       private:
         refCounter<Clob> * ref;
     };
+	class Environment;
+	class Number {
+	  public:
+		  Number(void *);
+		  Number(const Number &);
+		  ~Number();
+		std::string toText(const Environment * env, std::string fmt, std::string nslparam = "") const;
+	  protected:
+		static void dtor(void * obj);
+		friend class refCounter<Number>;
+	  private:
+		refCounter<Number> * ref;
+	};
     enum Type {
         OCCI_SQLT_CHR = oracle::occi::OCCI_SQLT_CHR,
         OCCI_SQLT_NUM = oracle::occi::OCCI_SQLT_NUM,
@@ -234,6 +247,7 @@ namespace occi_proxy {
         void terminateConnection(Connection * conn);
       private:
         void * envr;
+		friend class Number;
     };
 };
 

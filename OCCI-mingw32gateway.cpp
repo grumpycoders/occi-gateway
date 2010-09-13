@@ -29,7 +29,10 @@ const char * occi_proxy::SQLException::what() const {
 }
 
 std::string occi_proxy::SQLException::getMessage() const {
-    return OCCIgateway_SQLException_getMessage(ref->obj);
+	const char * p = OCCIgateway_SQLException_getMessage(ref->obj);
+	std::string r = p;
+	free((void *)p);
+	return r;
 }
 
 int occi_proxy::SQLException::getErrorCode() const {
@@ -98,6 +101,22 @@ void occi_proxy::Clob::closeStream(occi_proxy::Stream * strm) {
     checkException(e);
     strm->strm = NULL;
     delete strm;
+}
+
+/* Number */
+occi_proxy::Number::Number(void * number) : ref(new occi_proxy::refCounter<Number>(number)) { }
+occi_proxy::Number::Number(const Number &number) : ref(number.ref->addRef()) { }
+occi_proxy::Number::~Number() { ref->release(); }
+void occi_proxy::Number::dtor(void * obj) { OCCIgateway_Number_dtor(obj); }
+
+std::string occi_proxy::Number::toText(const occi_proxy::Environment * env, std::string v1, std::string v2) const {
+	const char * p = NULL;
+	void * e = NULL;
+	p = OCCIgateway_Number_toText(&e, ref->obj, env->envr, v1.c_str(), v2.c_str());
+	checkException(e);
+	std::string r = p;
+	free((void *)p);
+	return r;
 }
 
 /* Environment */
@@ -226,17 +245,21 @@ void occi_proxy::Connection::flushCache() {
 
 std::string occi_proxy::Connection::getClientCharSet() const {
     void * e = NULL;
-    const char * r = NULL;
-    r = OCCIgateway_Connection_getClientCharSet(&e, conn);
+    const char * p = NULL;
+    p = OCCIgateway_Connection_getClientCharSet(&e, conn);
     checkException(e);
+	std::string r = p;
+	free((void *)p);
     return r;
 }
 
 std::string occi_proxy::Connection::getClientNCHARCharSet() const {
     void * e = NULL;
-    const char * r = NULL;
-    r = OCCIgateway_Connection_getClientNCHARCharSet(&e, conn);
+    const char * p = NULL;
+    p = OCCIgateway_Connection_getClientNCHARCharSet(&e, conn);
     checkException(e);
+	std::string r = p;
+	free((void *)p);
     return r;
 }
 
@@ -335,9 +358,11 @@ occi_proxy::Bytes occi_proxy::Statement::getBytes(unsigned int idx) {
 
 std::string occi_proxy::Statement::getCharSet(unsigned int idx) {
     void * e = NULL;
-    const char * r = NULL;
-    r = OCCIgateway_Statement_getCharSet(&e, stmt, idx);
+    const char * p = NULL;
+    p = OCCIgateway_Statement_getCharSet(&e, stmt, idx);
     checkException(e);
+	std::string r = p;
+	free((void *)p);
     return r;
 }
 

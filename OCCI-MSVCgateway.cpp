@@ -1,3 +1,4 @@
+#include <string.h>
 #include "OCCI-gateway-internals.h"
 
 /* SQLException */
@@ -16,7 +17,7 @@ const char * OCCIgateway_SQLException_what(void * _e) {
 const char * OCCIgateway_SQLException_getMessage(void * _e) {
     SQLException * e = static_cast<SQLException *>(_e);
 
-    return e->getMessage().c_str();
+    return strdup(e->getMessage().c_str());
 }
 
 int OCCIgateway_SQLException_getErrorCode(void * _e) {
@@ -112,6 +113,26 @@ void OCCIgateway_Clob_closeStream(void ** exception, void * _clob, void * _strm)
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
+}
+
+/* Number */
+void OCCIgateway_Number_dtor(void * _number) {
+	Number * number = static_cast<Number *>(_number);
+
+	delete number;
+}
+
+const char * OCCIgateway_Number_toText(void ** exception, void * _number, void * _envr, const char * v1, const char * v2) {
+	const char * r = NULL;
+	Number * number = static_cast<Number *>(_number);
+	Environment * envr = static_cast<Environment *>(_envr);
+	*exception = NULL;
+	try {
+		r = strdup(number->toText(envr, v1, v2).c_str());
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
 }
 
 /* Environment */
@@ -302,7 +323,7 @@ const char * OCCIgateway_Connection_getClientCharSet(void ** exception, void * _
     Connection * conn = static_cast<Connection *>(_conn);
     *exception = NULL;
     try {
-        r = conn->getClientCharSet().c_str();
+        r = strdup(conn->getClientCharSet().c_str());
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
@@ -314,7 +335,7 @@ const char * OCCIgateway_Connection_getClientNCHARCharSet(void ** exception, voi
     Connection * conn = static_cast<Connection *>(_conn);
     *exception = NULL;
     try {
-        r = conn->getClientNCHARCharSet().c_str();
+        r = strdup(conn->getClientNCHARCharSet().c_str());
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
@@ -465,7 +486,7 @@ const char * OCCIgateway_Statement_getCharSet(void ** exception, void * _stmt, u
     const char * r = NULL;
     *exception = NULL;
     try {
-        r = stmt->getCharSet(idx).c_str();
+        r = strdup(stmt->getCharSet(idx).c_str());
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
