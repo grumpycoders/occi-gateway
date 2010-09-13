@@ -127,3 +127,10 @@ occi_proxy::Connection::~Connection() throw (occi_proxy::SQLException) {
     if (e)
         throw occi_proxy::SQLException(e);
 }
+
+void occi_proxy::Connection::changePassword(const std::string &username, const std::string &oldPassword, const std::string &newPassword) throw (occi_proxy::SQLException) {
+    void * e = NULL;
+    OCCIgateway_Connection_changePassword(&e, conn, username.c_str(), oldPassword.c_str(), newPassword.c_str());
+    if (e)
+        throw occi_proxy::SQLException(e);
+}

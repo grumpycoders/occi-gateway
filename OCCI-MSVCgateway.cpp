@@ -150,9 +150,17 @@ void OCCIgateway_Environment_terminateConnection(void ** exception, void * _envr
 /* Connection */
 void OCCIgateway_Connection_dtor(void ** exception, void * _conn) {
     Connection * conn = static_cast<Connection *>(_conn);
-
     try {
         delete conn;
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_Connection_changePassword(void ** exception, void * _conn, const char * username, const char * oldpassword, const char * newpassword) {
+    Connection * conn = static_cast<Connection *>(_conn);
+    try {
+        conn->changePassword(username, oldpassword, newpassword);
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
