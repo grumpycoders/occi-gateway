@@ -205,6 +205,7 @@ namespace occi_proxy {
 		ResultSet * getResultSet();
 		Bytes getRowid(unsigned int idx);
 		std::string getSQL() const;
+		Stream * getStream(unsigned int idx);
       protected:
         void * stmt;
         friend class Connection;

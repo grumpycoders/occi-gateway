@@ -488,6 +488,14 @@ std::string occi_proxy::Statement::getSQL() const {
 	return r;
 }
 
+occi_proxy::Stream * occi_proxy::Statement::getStream(unsigned int idx) {
+	void * e = NULL;
+	void * strm = NULL;
+	strm = OCCIgateway_Statement_getStream(&e, stmt, idx);
+	checkException(e);
+	return new Stream(strm);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
