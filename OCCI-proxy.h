@@ -182,6 +182,7 @@ namespace occi_proxy {
 		unsigned int getCurrentStreamIteration() const;
 		unsigned int getCurrentStreamParam() const;
 		ResultSet * getCursor(unsigned int idx);
+		bool getDatabaseNCHARParam(unsigned int idx);
       protected:
         void * stmt;
         friend class Connection;

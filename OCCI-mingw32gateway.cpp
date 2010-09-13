@@ -381,6 +381,14 @@ occi_proxy::ResultSet * occi_proxy::Statement::getCursor(unsigned int idx) {
 	return new occi_proxy::ResultSet(rset);
 }
 
+bool occi_proxy::Statement::getDatabaseNCHARParam(unsigned int idx) {
+	void * e = NULL;
+	int r = 0;
+	r = OCCIgateway_Statement_getDatabaseNCHARParam(&e, stmt, idx);
+	checkException(e);
+	return !!r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
