@@ -109,11 +109,20 @@ namespace occi_proxy {
     class Connection;
     class Statement {
       public:
+        enum Status {
+            UNPREPARED = oracle::occi::Statement::UNPREPARED,
+            PREPARED = oracle::occi::Statement::PREPARED,
+            RESULT_SET_AVAILABLE = oracle::occi::Statement::RESULT_SET_AVAILABLE,
+            UPDATE_COUNT_AVAILABLE = oracle::occi::Statement::UPDATE_COUNT_AVAILABLE,
+            NEEDS_STREAM_DATA = oracle::occi::Statement::NEEDS_STREAM_DATA,
+            STREAM_DATA_AVAILABLE = oracle::occi::Statement::STREAM_DATA_AVAILABLE,
+        };
           Statement(void *);
           ~Statement();
         void addIteration();
         void closeResultSet(ResultSet * rset);
         void closeStream(Stream * strm);
+        Status execute(const std::string &sql = "");
       protected:
         void * stmt;
         friend class Connection;

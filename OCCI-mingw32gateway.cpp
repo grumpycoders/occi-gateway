@@ -201,6 +201,14 @@ void occi_proxy::Statement::closeStream(occi_proxy::Stream * strm) {
     checkException(e);
 }
 
+occi_proxy::Statement::Status occi_proxy::Statement::execute(const std::string &sql) {
+    void * e = NULL;
+    occi_proxy::Statement::Status r;
+    r = static_cast<occi_proxy::Statement::Status>(OCCIgateway_Statement_execute(&e, stmt, sql.c_str()));
+    checkException(e);
+    return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

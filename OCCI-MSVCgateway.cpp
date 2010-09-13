@@ -281,6 +281,17 @@ void OCCIgateway_Statement_closeStream(void ** exception, void * _stmt, void * _
     }
 }
 
+int OCCIgateway_Statement_execute(void ** exception, void * _stmt, const char * sql) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Statement::Status r;
+    try {
+        r = stmt->execute(sql);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return static_cast<int>(r);
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
