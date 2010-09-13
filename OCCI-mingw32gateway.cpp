@@ -496,6 +496,16 @@ occi_proxy::Stream * occi_proxy::Statement::getStream(unsigned int idx) {
 	return new Stream(strm);
 }
 
+std::string occi_proxy::Statement::getString(unsigned int idx) {
+	void * e = NULL;
+	const char * p = NULL;
+	p = OCCIgateway_Statement_getString(&e, stmt, idx);
+	checkException(e);
+	std::string r = p;
+	free((void *)p);
+	return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

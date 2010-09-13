@@ -688,6 +688,18 @@ void * OCCIgateway_Statement_getStream(void ** exception, void * _stmt, unsigned
 	return strm;
 }
 
+const char * OCCIgateway_Statement_getString(void ** exception, void * _stmt, unsigned int idx) {
+	const char * r = NULL;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = strdup(stmt->getString(idx).c_str());
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
