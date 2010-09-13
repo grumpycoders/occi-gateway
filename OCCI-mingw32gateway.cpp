@@ -233,6 +233,14 @@ unsigned int occi_proxy::Statement::executeUpdate(const std::string &sql) {
     return r;
 }
 
+bool occi_proxy::Statement::getAutoCommit() const {
+    void * e = NULL;
+    int r;
+    r = OCCIgateway_Statement_getAutoCommit(&e, stmt);
+    checkException(e);
+    return !!r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

@@ -330,6 +330,18 @@ unsigned int OCCIgateway_Statement_executeUpdate(void ** exception, void * _stmt
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
+    return r;
+}
+
+int OCCIgateway_Statement_getAutoCommit(void ** exception, void * _stmt) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    bool r;
+    *exception = NULL;
+    try {
+        r = stmt->getAutoCommit();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
     return static_cast<int>(r);
 }
 
