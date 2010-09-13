@@ -34,6 +34,10 @@ extern "C" {
     /* Connection */
     OGWEXPORT void OCCIgateway_Connection_dtor(void ** exception, void * conn);
     OGWEXPORT void OCCIgateway_Connection_changePassword(void ** exception, void * _conn, const char * username, const char * oldpassword, const char * newpassword);
+    OGWEXPORT void OCCIgateway_Connection_commit(void ** exception, void * _conn);
+
+    /* Statement */
+    OGWEXPORT void OCCIgateway_Statement_dtor(void ** exception, void * stmt);
 }
 
 #endif

@@ -90,11 +90,20 @@ namespace occi_proxy {
         OCCIROWID = oracle::occi::OCCIROWID,
         OCCICURSOR = oracle::occi::OCCICURSOR,
     };
+    class Connection;
+    class Statement {
+      public:
+          Statement(void *);
+          ~Statement() throw (SQLException);
+      protected:
+        void * stmt;
+        friend class Connection;
+    };
     class Environment;
     class Connection {
       public:
-          Connection(void *);
-          ~Connection() throw (SQLException);
+            Connection(void *);
+            ~Connection() throw (SQLException);
           void changePassword(const std::string &username, const std::string &oldPassword, const std::string &newPassword) throw (SQLException);
           void commit() throw (SQLException);
       protected:
@@ -113,8 +122,8 @@ namespace occi_proxy {
             EVENTS = oracle::occi::Environment::EVENTS,
             USE_LDAP = oracle::occi::Environment::USE_LDAP,
         };
-        Environment(void *);
-        ~Environment() throw (SQLException);
+          Environment(void *);
+          ~Environment() throw (SQLException);
         static Environment * createEnvironment(Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0) throw (SQLException);
         static Environment * createEnvironment(const std::string &charset, const std::string &ncharset, Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0) throw (SQLException);
         static void terminateEnvironment(Environment * envr) throw (SQLException);

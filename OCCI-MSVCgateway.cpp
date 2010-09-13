@@ -174,3 +174,13 @@ void OCCIgateway_Connection_commit(void ** exception, void * _conn) {
         *exception = new SQLException(e);
     }
 }
+
+/* Statement */
+void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    try {
+        delete stmt;
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
