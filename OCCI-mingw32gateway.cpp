@@ -349,6 +349,14 @@ occi_proxy::Clob occi_proxy::Statement::getClob(unsigned int idx) {
     return Clob(clob);
 }
 
+unsigned int occi_proxy::Statement::getCurrentIteration() const {
+	void * e = NULL;
+	unsigned int r = 0;
+	r = OCCIgateway_Statement_getCurrentIteration(&e, stmt);
+	checkException(e);
+	return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

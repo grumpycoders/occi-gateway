@@ -485,6 +485,18 @@ void * OCCIgateway_Statement_getClob(void ** exception, void * _stmt, unsigned i
     return NULL;
 }
 
+unsigned int OCCIgateway_Statement_getCurrentIteration(void ** exception, void * _stmt) {
+	unsigned int r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->getCurrentIteration();
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

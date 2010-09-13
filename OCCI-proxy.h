@@ -178,6 +178,7 @@ namespace occi_proxy {
         Bytes getBytes(unsigned int idx);
         std::string getCharSet(unsigned int idx);
         Clob getClob(unsigned int idx);
+		unsigned int getCurrentIteration() const;
       protected:
         void * stmt;
         friend class Connection;
