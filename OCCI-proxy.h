@@ -33,6 +33,19 @@ namespace occi_proxy {
       private:
         refCounter<Blob> * ref;
     };
+    class Bytes {
+      public:
+          Bytes(void *);
+          Bytes(const Bytes &);
+          ~Bytes();
+        unsigned int length() const;
+        void getBytes(unsigned char * dst, unsigned int count, unsigned int srcBegin = 0, unsigned int dstBegin = 0) const;
+      protected:
+        static void dtor(void * obj);
+        friend class refCounter<Bytes>;
+      private:
+        refCounter<Bytes> * ref;
+    };
     enum Type {
         OCCI_SQLT_CHR = oracle::occi::OCCI_SQLT_CHR,
         OCCI_SQLT_NUM = oracle::occi::OCCI_SQLT_NUM,

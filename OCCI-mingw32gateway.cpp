@@ -58,6 +58,26 @@ void occi_proxy::Blob::closeStream(occi_proxy::Stream * strm) {
     delete strm;
 }
 
+/* Bytes */
+occi_proxy::Bytes::Bytes(void * bytes) : ref(new occi_proxy::refCounter<Bytes>(bytes)) { }
+occi_proxy::Bytes::Bytes(const Bytes &bytes) : ref(bytes.ref->addRef()) { }
+occi_proxy::Bytes::~Bytes() { ref->release(); }
+void occi_proxy::Bytes::dtor(void * obj) { OCCIgateway_Bytes_dtor(obj); }
+
+unsigned int occi_proxy::Bytes::length() const {
+    void * e = NULL;
+    unsigned int r;
+    r = OCCIgateway_Bytes_length(&e, ref->obj);
+    checkException(e);
+    return r;
+}
+
+void occi_proxy::Bytes::getBytes(unsigned char * v1, unsigned int v2, unsigned int v3, unsigned int v4) const {
+    void * e = NULL;
+    OCCIgateway_Bytes_getBytes(&e, ref->obj, v1, v2, v3, v4);
+    checkException(e);
+}
+
 /* Environment */
 occi_proxy::Environment::Environment(void * _envr) : envr(_envr) { }
 occi_proxy::Environment::~Environment() {

@@ -55,6 +55,35 @@ void OCCIgateway_Blob_closeStream(void ** exception, void * _blob, void * _strm)
     }
 }
 
+/* Bytes */
+void OCCIgateway_Bytes_dtor(void * _bytes) {
+    Bytes * bytes = static_cast<Bytes *>(_bytes);
+
+    delete bytes;
+}
+
+unsigned int OCCIgateway_Bytes_length(void ** exception, void * _bytes) {
+    Bytes * bytes = static_cast<Bytes *>(_bytes);
+    unsigned int r;
+    *exception = NULL;
+    try {
+        r = bytes->length();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+void OCCIgateway_Bytes_getBytes(void ** exception, void * _bytes, unsigned char * v1, unsigned int v2, unsigned int v3, unsigned int v4) {
+    Bytes * bytes = static_cast<Bytes *>(_bytes);
+    *exception = NULL;
+    try {
+        bytes->getBytes(v1, v2, v3, v4);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* Environment */
 void OCCIgateway_Environment_dtor(void ** exception, void * _envr) {
     Environment * envr = static_cast<Environment *>(_envr);
