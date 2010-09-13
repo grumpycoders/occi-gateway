@@ -3,8 +3,6 @@
 
 #include <occi.h>
 
-#pragma warning(disable: 4290)
-
 namespace occi_proxy {
     class SQLException {
       public:
@@ -94,8 +92,8 @@ namespace occi_proxy {
     class Statement {
       public:
           Statement(void *);
-          ~Statement() throw (SQLException);
-        void addIteration() throw (SQLException);
+          ~Statement();
+        void addIteration();
       protected:
         void * stmt;
         friend class Connection;
@@ -104,14 +102,14 @@ namespace occi_proxy {
     class Connection {
       public:
             Connection(void *);
-            ~Connection() throw (SQLException);
-          void changePassword(const std::string &username, const std::string &oldPassword, const std::string &newPassword) throw (SQLException);
-          void commit() throw (SQLException);
-          Statement * createStatement(const std::string &sql = "") throw (SQLException);
-          void flushCache() throw (SQLException);
-          std::string getClientCharSet() const throw (SQLException);
-          std::string getClientNCHARCharSet() const throw (SQLException);
-          void rollback() throw (SQLException);
+            ~Connection();
+          void changePassword(const std::string &username, const std::string &oldPassword, const std::string &newPassword);
+          void commit();
+          Statement * createStatement(const std::string &sql = "");
+          void flushCache();
+          std::string getClientCharSet() const ;
+          std::string getClientNCHARCharSet() const ;
+          void rollback();
       protected:
         void * conn;
         friend class Environment;
@@ -129,17 +127,17 @@ namespace occi_proxy {
             USE_LDAP = oracle::occi::Environment::USE_LDAP,
         };
           Environment(void *);
-          ~Environment() throw (SQLException);
-        static Environment * createEnvironment(Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0) throw (SQLException);
-        static Environment * createEnvironment(const std::string &charset, const std::string &ncharset, Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0) throw (SQLException);
-        static void terminateEnvironment(Environment * envr) throw (SQLException);
+          ~Environment();
+        static Environment * createEnvironment(Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0);
+        static Environment * createEnvironment(const std::string &charset, const std::string &ncharset, Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0);
+        static void terminateEnvironment(Environment * envr);
         Connection * createConnection(const std::string &username, const std::string &password, const std::string &url = "");
-        int getCacheMaxSize() const throw (SQLException);
-        int getCacheOptSize() const throw (SQLException);
-        void setCacheMaxSize(int maxSize) throw (SQLException);
-        void setCacheOptSize(int optSize) throw (SQLException);
-        unsigned int getCurrentHeapSize() const throw (SQLException);
-        void terminateConnection(Connection * conn) throw (SQLException);
+        int getCacheMaxSize() const ;
+        int getCacheOptSize() const ;
+        void setCacheMaxSize(int maxSize);
+        void setCacheOptSize(int optSize);
+        unsigned int getCurrentHeapSize() const ;
+        void terminateConnection(Connection * conn);
       private:
         void * envr;
     };
