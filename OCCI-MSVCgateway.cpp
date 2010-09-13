@@ -373,8 +373,18 @@ int OCCIgateway_Statement_getAutoCommit(void ** exception, void * _stmt) {
         *exception = new SQLException(e);
     }
     return static_cast<int>(r);
+}
+
+void * OCCIgateway_Statement_getBlob(void ** exception, void * _stmt, unsigned int idx) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
     Blob blob;
-    blob.getStream(1, 0);
+    *exception = NULL;
+    try {
+        blob = stmt->getBlob(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return new Blob(blob);
 }
 
 /* ResultSet */

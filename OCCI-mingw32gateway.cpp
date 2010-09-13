@@ -6,41 +6,53 @@ static void checkException(void * e) throw (occi_proxy::SQLException) {
         throw occi_proxy::SQLException(e);
 }
 
+template<class T>
+class occi_proxy::refCounter {
+  public:
+      refCounter(void * _obj) : obj(_obj), count(1) { }
+      ~refCounter() { T::dtor(obj); }
+    refCounter * addRef() { count++; return this; }
+    void release() { if (--count == 0) delete this; }
+    void * obj;
+  private:
+    unsigned int count;
+};
+
 /* SQLException */
-occi_proxy::SQLException::SQLException(void * _e) : e(_e) { }
-occi_proxy::SQLException::~SQLException() {
-    OCCIgateway_SQLException_dtor(e);
-}
+occi_proxy::SQLException::SQLException(void * e) : ref(new occi_proxy::refCounter<SQLException>(e)) { }
+occi_proxy::SQLException::SQLException(const SQLException &e) : ref(e.ref->addRef()) { }
+occi_proxy::SQLException::~SQLException() { ref->release(); }
+void occi_proxy::SQLException::dtor(void * obj) { OCCIgateway_SQLException_dtor(obj); }
 
 const char * occi_proxy::SQLException::what() const {
-    return OCCIgateway_SQLException_what(e);
+    return OCCIgateway_SQLException_what(ref->obj);
 }
 
 std::string occi_proxy::SQLException::getMessage() const {
-    return OCCIgateway_SQLException_getMessage(e);
+    return OCCIgateway_SQLException_getMessage(ref->obj);
 }
 
 int occi_proxy::SQLException::getErrorCode() const {
-    return OCCIgateway_SQLException_getErrorCode(e);
+    return OCCIgateway_SQLException_getErrorCode(ref->obj);
 }
 
 /* Blob */
-occi_proxy::Blob::Blob(void * _blob) : blob(_blob) { }
-occi_proxy::Blob::~Blob() {
-    OCCIgateway_Blob_dtor(blob);
-}
+occi_proxy::Blob::Blob(void * blob) : ref(new occi_proxy::refCounter<Blob>(blob)) { }
+occi_proxy::Blob::Blob(const Blob &blob) : ref(blob.ref->addRef()) { }
+occi_proxy::Blob::~Blob() { ref->release(); }
+void occi_proxy::Blob::dtor(void * obj) { OCCIgateway_Blob_dtor(obj); }
 
 occi_proxy::Stream * occi_proxy::Blob::getStream(unsigned int v1, unsigned int v2) {
     void * strm;
     void * e = NULL;
-    strm = OCCIgateway_Blob_getStream(&e, blob, v1, v2);
+    strm = OCCIgateway_Blob_getStream(&e, ref->obj, v1, v2);
     checkException(e);
     return new occi_proxy::Stream(strm);
 }
 
 void occi_proxy::Blob::closeStream(occi_proxy::Stream * strm) {
     void * e = NULL;
-    OCCIgateway_Blob_closeStream(&e, blob, strm->strm);
+    OCCIgateway_Blob_closeStream(&e, ref->obj, strm->strm);
     checkException(e);
     strm->strm = NULL;
     delete strm;
@@ -261,6 +273,14 @@ bool occi_proxy::Statement::getAutoCommit() const {
     r = OCCIgateway_Statement_getAutoCommit(&e, stmt);
     checkException(e);
     return !!r;
+}
+
+occi_proxy::Blob occi_proxy::Statement::getBlob(unsigned int idx) {
+    void * e = NULL;
+    void * blob = NULL;
+    blob = OCCIgateway_Statement_getBlob(&e, stmt, idx);
+    checkException(e);
+    return Blob(blob);
 }
 
 /* ResultSet */

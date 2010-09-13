@@ -4,25 +4,34 @@
 #include <occi.h>
 
 namespace occi_proxy {
+    template<class T> class refCounter;
     class SQLException {
       public:
           SQLException(void *);
+          SQLException(const SQLException &);
           ~SQLException();
         const char * what() const;
         std::string getMessage() const;
         int getErrorCode() const;
+      protected:
+        static void dtor(void * obj);
+        friend class refCounter<SQLException>;
       private:
-        void * e; 
+        refCounter<SQLException> * ref; 
     };
     class Stream;
     class Blob {
       public:
           Blob(void *);
+          Blob(const Blob &);
           ~Blob();
         Stream * getStream(unsigned int offset = 1, unsigned int amount = 0);
         void closeStream(Stream * strm);
+      protected:
+        static void dtor(void * obj);
+        friend class refCounter<Blob>;
       private:
-        void * blob;
+        refCounter<Blob> * ref;
     };
     enum Type {
         OCCI_SQLT_CHR = oracle::occi::OCCI_SQLT_CHR,
@@ -138,6 +147,7 @@ namespace occi_proxy {
         ResultSet * executeQuery(const std::string &sql = "");
         unsigned int executeUpdate(const std::string &sql = "");
         bool getAutoCommit() const;
+        Blob getBlob(unsigned int idx);
       protected:
         void * stmt;
         friend class Connection;
