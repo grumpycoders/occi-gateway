@@ -478,6 +478,16 @@ occi_proxy::Bytes occi_proxy::Statement::getRowid(unsigned int idx) {
 	return Bytes(bytes);
 }
 
+std::string occi_proxy::Statement::getSQL() const {
+	void * e = NULL;
+	const char * p = NULL;
+	p = OCCIgateway_Statement_getSQL(&e, stmt);
+	checkException(e);
+	std::string r = p;
+	free((void *)p);
+	return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

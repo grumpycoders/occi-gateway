@@ -664,6 +664,18 @@ void * OCCIgateway_Statement_getRowid(void ** exception, void * _stmt, unsigned 
 	return NULL;
 }
 
+const char * OCCIgateway_Statement_getSQL(void ** exception, void * _stmt) {
+	const char * r = NULL;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = strdup(stmt->getSQL().c_str());
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
