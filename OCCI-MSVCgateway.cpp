@@ -25,6 +25,36 @@ int OCCIgateway_SQLException_getErrorCode(void * _e) {
     return e->getErrorCode();
 }
 
+/* Blob */
+void OCCIgateway_Blob_dtor(void * _blob) {
+    Blob * blob = static_cast<Blob *>(_blob);
+
+    delete blob;
+}
+
+void * OCCIgateway_Blob_getStream(void ** exception, void * _blob, unsigned int v1, unsigned int v2) {
+    Stream * strm = NULL;
+    Blob * blob = static_cast<Blob *>(_blob);
+    *exception = NULL;
+    try {
+        strm = blob->getStream(v1, v2);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return strm;
+}
+
+void OCCIgateway_Blob_closeStream(void ** exception, void * _blob, void * _strm) {
+    Blob * blob = static_cast<Blob *>(_blob);
+    Stream * strm = static_cast<Stream *>(_strm);
+    *exception = NULL;
+    try {
+        blob->closeStream(strm);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* Environment */
 void OCCIgateway_Environment_dtor(void ** exception, void * _envr) {
     Environment * envr = static_cast<Environment *>(_envr);
@@ -343,6 +373,8 @@ int OCCIgateway_Statement_getAutoCommit(void ** exception, void * _stmt) {
         *exception = new SQLException(e);
     }
     return static_cast<int>(r);
+    Blob blob;
+    blob.getStream(1, 0);
 }
 
 /* ResultSet */

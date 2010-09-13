@@ -14,6 +14,16 @@ namespace occi_proxy {
       private:
         void * e; 
     };
+    class Stream;
+    class Blob {
+      public:
+          Blob(void *);
+          ~Blob();
+        Stream * getStream(unsigned int offset = 1, unsigned int amount = 0);
+        void closeStream(Stream * strm);
+      private:
+        void * blob;
+    };
     enum Type {
         OCCI_SQLT_CHR = oracle::occi::OCCI_SQLT_CHR,
         OCCI_SQLT_NUM = oracle::occi::OCCI_SQLT_NUM,
@@ -105,6 +115,7 @@ namespace occi_proxy {
         void * strm;
         friend class Statement;
         friend class ResultSet;
+        friend class Blob;
     };
     class Connection;
     class Statement {

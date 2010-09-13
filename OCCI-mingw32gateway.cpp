@@ -24,6 +24,28 @@ int occi_proxy::SQLException::getErrorCode() const {
     return OCCIgateway_SQLException_getErrorCode(e);
 }
 
+/* Blob */
+occi_proxy::Blob::Blob(void * _blob) : blob(_blob) { }
+occi_proxy::Blob::~Blob() {
+    OCCIgateway_Blob_dtor(blob);
+}
+
+occi_proxy::Stream * occi_proxy::Blob::getStream(unsigned int v1, unsigned int v2) {
+    void * strm;
+    void * e = NULL;
+    strm = OCCIgateway_Blob_getStream(&e, blob, v1, v2);
+    checkException(e);
+    return new occi_proxy::Stream(strm);
+}
+
+void occi_proxy::Blob::closeStream(occi_proxy::Stream * strm) {
+    void * e = NULL;
+    OCCIgateway_Blob_closeStream(&e, blob, strm->strm);
+    checkException(e);
+    strm->strm = NULL;
+    delete strm;
+}
+
 /* Environment */
 occi_proxy::Environment::Environment(void * _envr) : envr(_envr) { }
 occi_proxy::Environment::~Environment() {

@@ -18,28 +18,33 @@ extern "C" {
     OGWEXPORT const char * OCCIgateway_SQLException_getMessage(void * e);
     OGWEXPORT int OCCIgateway_SQLException_getErrorCode(void * e);
 
+    /* Blob */
+    OGWEXPORT void OCCIgateway_Blob_dtor(void * blob);
+    OGWEXPORT void * OCCIgateway_Blob_getStream(void ** exception, void * blob, unsigned int v1, unsigned int v2);
+    OGWEXPORT void OCCIgateway_Blob_closeStream(void ** exception, void * blob, void * strm);
+
     /* Environment */
     OGWEXPORT void OCCIgateway_Environment_dtor(void ** exception, void * envr);
     OGWEXPORT void * OCCIgateway_createEnvironment(void ** exception, Environment::Mode mode, void *ctxp, void *(*malocfp)(void *ctxp, size_t size), void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize), void (*mfreefp)(void *ctxp, void *memptr));
     OGWEXPORT void * OCCIgateway_createEnvironment_charset(void ** exception, const char * charset, const char * ncharset, Environment::Mode mode, void *ctxp, void *(*malocfp)(void *ctxp, size_t size), void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize), void (*mfreefp)(void *ctxp, void *memptr));
     OGWEXPORT void OCCIgateway_terminateEnvironment(void ** exception, void * _envr);
-    OGWEXPORT void * OCCIgateway_Environment_createConnection(void ** exception, void * _envr, const char * username, const char * password, const char * url);    
-    OGWEXPORT int OCCIgateway_Environment_getCacheMaxSize(void ** exception, void * _envr);
-    OGWEXPORT int OCCIgateway_Environment_getCacheOptSize(void ** exception, void * _envr);
-    OGWEXPORT void OCCIgateway_Environment_setCacheMaxSize(void ** exception, void * _envr, int v);
-    OGWEXPORT void OCCIgateway_Environment_setCacheOptSize(void ** exception, void * _envr, int v);
-    OGWEXPORT unsigned int OCCIgateway_Environment_getCurrentHeapSize(void ** exception, void * _envr);
-    OGWEXPORT void OCCIgateway_Environment_terminateConnection(void ** exception, void * _envr, void * _conn);
+    OGWEXPORT void * OCCIgateway_Environment_createConnection(void ** exception, void * envr, const char * username, const char * password, const char * url);    
+    OGWEXPORT int OCCIgateway_Environment_getCacheMaxSize(void ** exception, void * envr);
+    OGWEXPORT int OCCIgateway_Environment_getCacheOptSize(void ** exception, void * envr);
+    OGWEXPORT void OCCIgateway_Environment_setCacheMaxSize(void ** exception, void * envr, int v);
+    OGWEXPORT void OCCIgateway_Environment_setCacheOptSize(void ** exception, void * envr, int v);
+    OGWEXPORT unsigned int OCCIgateway_Environment_getCurrentHeapSize(void ** exception, void * envr);
+    OGWEXPORT void OCCIgateway_Environment_terminateConnection(void ** exception, void * envr, void * conn);
 
     /* Connection */
     OGWEXPORT void OCCIgateway_Connection_dtor(void ** exception, void * conn);
-    OGWEXPORT void OCCIgateway_Connection_changePassword(void ** exception, void * _conn, const char * username, const char * oldpassword, const char * newpassword);
-    OGWEXPORT void OCCIgateway_Connection_commit(void ** exception, void * _conn);
-    OGWEXPORT void * OCCIgateway_Connection_createStatement(void ** exception, void * _conn, const char * sql);
-    OGWEXPORT void OCCIgateway_Connection_flushCache(void ** exception, void * _conn);
-    OGWEXPORT const char * OCCIgateway_Connection_getClientCharSet(void ** exception, void * _conn);
-    OGWEXPORT const char * OCCIgateway_Connection_getClientNCHARCharSet(void ** exception, void * _conn);
-    OGWEXPORT void OCCIgateway_Connection_rollback(void ** exception, void * _conn);
+    OGWEXPORT void OCCIgateway_Connection_changePassword(void ** exception, void * conn, const char * username, const char * oldpassword, const char * newpassword);
+    OGWEXPORT void OCCIgateway_Connection_commit(void ** exception, void * conn);
+    OGWEXPORT void * OCCIgateway_Connection_createStatement(void ** exception, void * conn, const char * sql);
+    OGWEXPORT void OCCIgateway_Connection_flushCache(void ** exception, void * conn);
+    OGWEXPORT const char * OCCIgateway_Connection_getClientCharSet(void ** exception, void * conn);
+    OGWEXPORT const char * OCCIgateway_Connection_getClientNCHARCharSet(void ** exception, void * conn);
+    OGWEXPORT void OCCIgateway_Connection_rollback(void ** exception, void * conn);
 
     /* Statement */
     OGWEXPORT void OCCIgateway_Statement_dtor(void ** exception, void * stmt);
@@ -50,13 +55,13 @@ extern "C" {
     OGWEXPORT int OCCIgateway_Statement_executeArrayUpdate(void ** exception, void * stmt, unsigned int v);
     OGWEXPORT void * OCCIgateway_Statement_executeQuery(void ** exception, void * stmt, const char * sql);
     OGWEXPORT unsigned int OCCIgateway_Statement_executeUpdate(void ** exception, void * stmt, const char * sql);
-    OGWEXPORT int OCCIgateway_Statement_getAutoCommit(void ** exception, void * _stmt);
+    OGWEXPORT int OCCIgateway_Statement_getAutoCommit(void ** exception, void * stmt);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
     
     /* Stream */
-    OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * _strm);
+    OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);
 }
 
 #endif
