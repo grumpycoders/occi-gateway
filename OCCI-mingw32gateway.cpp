@@ -194,3 +194,10 @@ occi_proxy::Statement::~Statement() throw (occi_proxy::SQLException) {
     if (e)
         throw occi_proxy::SQLException(e);
 }
+
+void occi_proxy::Statement::addIteration() throw (occi_proxy::SQLException) {
+    void * e = NULL;
+    OCCIgateway_Statement_addIteration(&e, stmt);
+    if (e)
+        throw occi_proxy::SQLException(e);
+}

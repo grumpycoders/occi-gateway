@@ -251,3 +251,12 @@ void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
         *exception = new SQLException(e);
     }
 }
+
+void OCCIgateway_Statement_addIteration(void ** exception, void * _stmt) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    try {
+        stmt->addIteration();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}

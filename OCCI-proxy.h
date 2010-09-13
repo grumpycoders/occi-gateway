@@ -95,6 +95,7 @@ namespace occi_proxy {
       public:
           Statement(void *);
           ~Statement() throw (SQLException);
+        void addIteration() throw (SQLException);
       protected:
         void * stmt;
         friend class Connection;
