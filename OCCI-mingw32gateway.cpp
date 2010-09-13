@@ -522,6 +522,22 @@ unsigned int occi_proxy::Statement::getUpdateCount() const {
 	return r;
 }
 
+bool occi_proxy::Statement::isNull(unsigned int idx) const {
+	void * e = NULL;
+	int r = 0;
+	r = OCCIgateway_Statement_isNull(&e, stmt, idx);
+	checkException(e);
+	return !!r;
+}
+
+bool occi_proxy::Statement::isTruncated(unsigned int idx) const {
+	void * e = NULL;
+	int r = 0;
+	r = OCCIgateway_Statement_isTruncated(&e, stmt, idx);
+	checkException(e);
+	return !!r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

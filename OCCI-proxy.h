@@ -209,6 +209,8 @@ namespace occi_proxy {
 		std::string getString(unsigned int idx);
 		unsigned int getUInt(unsigned int idx);
 		unsigned int getUpdateCount() const;
+		bool isNull(unsigned int idx) const;
+		bool isTruncated(unsigned int idx) const;
       protected:
         void * stmt;
         friend class Connection;

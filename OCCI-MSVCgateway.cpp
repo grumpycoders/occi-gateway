@@ -724,6 +724,30 @@ unsigned int OCCIgateway_Statement_getUpdateCount(void ** exception, void * _stm
 	return r;
 }
 
+int OCCIgateway_Statement_isNull(void ** exception, void * _stmt, unsigned int idx) {
+	bool r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->isNull(idx);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
+int OCCIgateway_Statement_isTruncated(void ** exception, void * _stmt, unsigned int idx) {
+	bool r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->isTruncated(idx);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
