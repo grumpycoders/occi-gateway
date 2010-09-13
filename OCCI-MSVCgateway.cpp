@@ -410,10 +410,11 @@ void * OCCIgateway_Statement_getBlob(void ** exception, void * _stmt, unsigned i
     *exception = NULL;
     try {
         blob = stmt->getBlob(idx);
+        return new Blob(blob);
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
-    return new Blob(blob);
+    return NULL;
 }
 
 void * OCCIgateway_Statement_getBytes(void ** exception, void * _stmt, unsigned int idx) {
@@ -422,10 +423,23 @@ void * OCCIgateway_Statement_getBytes(void ** exception, void * _stmt, unsigned 
     *exception = NULL;
     try {
         bytes = stmt->getBytes(idx);
+        return new Bytes(bytes);
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
-    return new Bytes(bytes);
+    return NULL;
+}
+
+const char * OCCIgateway_Statement_getCharSet(void ** exception, void * _stmt, unsigned int idx) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    const char * r = NULL;
+    *exception = NULL;
+    try {
+        r = stmt->getCharSet(idx).c_str();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
 }
 
 /* ResultSet */

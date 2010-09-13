@@ -162,6 +162,7 @@ namespace occi_proxy {
         bool getAutoCommit() const;
         Blob getBlob(unsigned int idx);
         Bytes getBytes(unsigned int idx);
+        std::string getCharSet(unsigned int idx);
       protected:
         void * stmt;
         friend class Connection;

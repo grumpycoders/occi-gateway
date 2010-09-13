@@ -311,6 +311,14 @@ occi_proxy::Bytes occi_proxy::Statement::getBytes(unsigned int idx) {
     return Bytes(bytes);
 }
 
+std::string occi_proxy::Statement::getCharSet(unsigned int idx) {
+    void * e = NULL;
+    const char * r = NULL;
+    r = OCCIgateway_Statement_getCharSet(&e, stmt, idx);
+    checkException(e);
+    return r;
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
