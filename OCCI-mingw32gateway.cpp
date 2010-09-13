@@ -51,6 +51,14 @@ occi_proxy::Environment * occi_proxy::Environment::createEnvironment(const std::
     return envr;
 }
 
+void occi_proxy::Environment::terminateEnvironment(occi_proxy::Environment * envr) throw (SQLException) {
+    void * e = NULL;
+    OCCIgateway_terminateEnvironment(&e, envr->envr);
+    if (e)
+        throw occi_proxy::SQLException(e);
+    delete envr;
+}
+
 occi_proxy::Connection * occi_proxy::Environment::createConnection(const std::string &username, const std::string &password, const std::string &url) {
     occi_proxy::Connection * conn;
     void * e = NULL;
