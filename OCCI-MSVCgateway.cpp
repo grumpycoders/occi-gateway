@@ -80,6 +80,62 @@ void * OCCIgateway_Environment_createConnection(void ** exception, void * _envr,
     return conn;
 }
 
+int OCCIgateway_Environment_getCacheMaxSize(void ** exception, void * _envr) {
+    int r = 0;
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        r = envr->getCacheMaxSize();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+int OCCIgateway_Environment_getCacheOptSize(void ** exception, void * _envr) {
+    int r = 0;
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        r = envr->getCacheOptSize();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+void OCCIgateway_Environment_setCacheMaxSize(void ** exception, void * _envr, int v) {
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        envr->setCacheMaxSize(v);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_Environment_setCacheOptSize(void ** exception, void * _envr, int v) {
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        envr->setCacheOptSize(v);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+unsigned int OCCIgateway_Environment_getCurrentHeapSize(void ** exception, void * _envr) {
+    unsigned int r = 0;
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        r = envr->getCurrentHeapSize();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Connection */
 void OCCIgateway_Connection_dtor(void ** exception, void * _conn) {
     Connection * conn = static_cast<Connection *>(_conn);

@@ -70,6 +70,47 @@ occi_proxy::Connection * occi_proxy::Environment::createConnection(const std::st
     return conn;
 }
 
+int occi_proxy::Environment::getCacheMaxSize() const throw (SQLException) {
+    int r;
+    void * e = NULL;
+    r = OCCIgateway_Environment_getCacheMaxSize(&e, envr);
+    if (e)
+        throw occi_proxy::SQLException(e);
+    return r;
+}
+
+int occi_proxy::Environment::getCacheOptSize() const throw (SQLException) {
+    int r;
+    void * e = NULL;
+    r = OCCIgateway_Environment_getCacheOptSize(&e, envr);
+    if (e)
+        throw occi_proxy::SQLException(e);
+    return r;
+}
+
+void occi_proxy::Environment::setCacheMaxSize(int v) throw (SQLException) {
+    void * e = NULL;
+    OCCIgateway_Environment_setCacheMaxSize(&e, envr, v);
+    if (e)
+        throw occi_proxy::SQLException(e);
+}
+
+void occi_proxy::Environment::setCacheOptSize(int v) throw (SQLException) {
+    void * e = NULL;
+    OCCIgateway_Environment_setCacheOptSize(&e, envr, v);
+    if (e)
+        throw occi_proxy::SQLException(e);
+}
+
+unsigned int occi_proxy::Environment::getCurrentHeapSize() const throw (SQLException) {
+    unsigned int r;
+    void * e = NULL;
+    r = OCCIgateway_Environment_getCurrentHeapSize(&e, envr);
+    if (e)
+        throw occi_proxy::SQLException(e);
+    return r;
+}
+
 /* Connection */
 occi_proxy::Connection::Connection(void * _conn) : conn(_conn) { }
 occi_proxy::Connection::~Connection() throw (occi_proxy::SQLException) {

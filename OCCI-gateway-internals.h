@@ -24,6 +24,11 @@ extern "C" {
     OGWEXPORT void * OCCIgateway_createEnvironment_charset(void ** exception, const char * charset, const char * ncharset, Environment::Mode mode, void *ctxp, void *(*malocfp)(void *ctxp, size_t size), void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize), void (*mfreefp)(void *ctxp, void *memptr));
     OGWEXPORT void OCCIgateway_terminateEnvironment(void ** exception, void * _envr);
     OGWEXPORT void * OCCIgateway_Environment_createConnection(void ** exception, void * _envr, const char * username, const char * password, const char * url);    
+    OGWEXPORT int OCCIgateway_Environment_getCacheMaxSize(void ** exception, void * _envr);
+    OGWEXPORT int OCCIgateway_Environment_getCacheOptSize(void ** exception, void * _envr);
+    OGWEXPORT void OCCIgateway_Environment_setCacheMaxSize(void ** exception, void * _envr, int v);
+    OGWEXPORT void OCCIgateway_Environment_setCacheOptSize(void ** exception, void * _envr, int v);
+    OGWEXPORT unsigned int OCCIgateway_Environment_getCurrentHeapSize(void ** exception, void * _envr);
 
     /* Connection */
     OGWEXPORT void OCCIgateway_Connection_dtor(void ** exception, void * conn);

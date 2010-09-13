@@ -113,6 +113,11 @@ namespace occi_proxy {
         static Environment * createEnvironment(const std::string &charset, const std::string &ncharset, Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0) throw (SQLException);
         static void terminateEnvironment(Environment * envr) throw (SQLException);
         Connection * createConnection(const std::string &username, const std::string &password, const std::string &url = "");
+        int getCacheMaxSize() const throw (SQLException);
+        int getCacheOptSize() const throw (SQLException);
+        void setCacheMaxSize(int maxSize) throw (SQLException);
+        void setCacheOptSize(int optSize) throw (SQLException);
+        unsigned int getCurrentHeapSize() const throw (SQLException);
       private:
         void * envr;
     };
