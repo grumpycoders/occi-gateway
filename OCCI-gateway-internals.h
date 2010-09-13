@@ -29,6 +29,7 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Environment_setCacheMaxSize(void ** exception, void * _envr, int v);
     OGWEXPORT void OCCIgateway_Environment_setCacheOptSize(void ** exception, void * _envr, int v);
     OGWEXPORT unsigned int OCCIgateway_Environment_getCurrentHeapSize(void ** exception, void * _envr);
+    OGWEXPORT void OCCIgateway_Environment_terminateConnection(void ** exception, void * _envr, void * _conn);
 
     /* Connection */
     OGWEXPORT void OCCIgateway_Connection_dtor(void ** exception, void * conn);

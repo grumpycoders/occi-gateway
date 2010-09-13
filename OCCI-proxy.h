@@ -88,12 +88,14 @@ namespace occi_proxy {
         OCCIROWID = oracle::occi::OCCIROWID,
         OCCICURSOR = oracle::occi::OCCICURSOR,
     };
+    class Environment;
     class Connection {
       public:
           Connection(void *);
           ~Connection() throw (SQLException);
-      private:
+      protected:
         void * conn;
+        friend class Environment;
     };
     class Environment {
       public:
@@ -118,6 +120,7 @@ namespace occi_proxy {
         void setCacheMaxSize(int maxSize) throw (SQLException);
         void setCacheOptSize(int optSize) throw (SQLException);
         unsigned int getCurrentHeapSize() const throw (SQLException);
+        void terminateConnection(Connection * conn) throw (SQLException);
       private:
         void * envr;
     };

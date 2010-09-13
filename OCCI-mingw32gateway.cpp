@@ -111,6 +111,13 @@ unsigned int occi_proxy::Environment::getCurrentHeapSize() const throw (SQLExcep
     return r;
 }
 
+void occi_proxy::Environment::terminateConnection(occi_proxy::Connection * conn) throw (SQLException) {
+    void * e = NULL;
+    OCCIgateway_Environment_terminateConnection(&e, envr, conn->conn);
+    if (e)
+        throw occi_proxy::SQLException(e);
+}
+
 /* Connection */
 occi_proxy::Connection::Connection(void * _conn) : conn(_conn) { }
 occi_proxy::Connection::~Connection() throw (occi_proxy::SQLException) {

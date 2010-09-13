@@ -136,6 +136,17 @@ unsigned int OCCIgateway_Environment_getCurrentHeapSize(void ** exception, void 
     return r;
 }
 
+void OCCIgateway_Environment_terminateConnection(void ** exception, void * _envr, void * _conn) {
+    Environment * envr = static_cast<Environment *>(_envr);
+    Connection * conn = static_cast<Connection *>(_conn);
+    *exception = NULL;
+    try {
+        envr->terminateConnection(conn);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* Connection */
 void OCCIgateway_Connection_dtor(void ** exception, void * _conn) {
     Connection * conn = static_cast<Connection *>(_conn);
