@@ -78,6 +78,28 @@ void occi_proxy::Bytes::getBytes(unsigned char * v1, unsigned int v2, unsigned i
     checkException(e);
 }
 
+/* Clob */
+occi_proxy::Clob::Clob(void * clob) : ref(new occi_proxy::refCounter<Clob>(clob)) { }
+occi_proxy::Clob::Clob(const Clob &clob) : ref(clob.ref->addRef()) { }
+occi_proxy::Clob::~Clob() { ref->release(); }
+void occi_proxy::Clob::dtor(void * obj) { OCCIgateway_Clob_dtor(obj); }
+
+occi_proxy::Stream * occi_proxy::Clob::getStream(unsigned int v1, unsigned int v2) {
+    void * strm;
+    void * e = NULL;
+    strm = OCCIgateway_Clob_getStream(&e, ref->obj, v1, v2);
+    checkException(e);
+    return new occi_proxy::Stream(strm);
+}
+
+void occi_proxy::Clob::closeStream(occi_proxy::Stream * strm) {
+    void * e = NULL;
+    OCCIgateway_Clob_closeStream(&e, ref->obj, strm->strm);
+    checkException(e);
+    strm->strm = NULL;
+    delete strm;
+}
+
 /* Environment */
 occi_proxy::Environment::Environment(void * _envr) : envr(_envr) { }
 occi_proxy::Environment::~Environment() {

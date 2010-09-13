@@ -46,6 +46,19 @@ namespace occi_proxy {
       private:
         refCounter<Bytes> * ref;
     };
+    class Clob {
+      public:
+          Clob(void *);
+          Clob(const Clob &);
+          ~Clob();
+        Stream * getStream(unsigned int offset = 1, unsigned int amount = 0);
+        void closeStream(Stream * strm);
+      protected:
+        static void dtor(void * obj);
+        friend class refCounter<Clob>;
+      private:
+        refCounter<Clob> * ref;
+    };
     enum Type {
         OCCI_SQLT_CHR = oracle::occi::OCCI_SQLT_CHR,
         OCCI_SQLT_NUM = oracle::occi::OCCI_SQLT_NUM,
@@ -138,6 +151,7 @@ namespace occi_proxy {
         friend class Statement;
         friend class ResultSet;
         friend class Blob;
+        friend class Clob;
     };
     class Connection;
     class Statement {

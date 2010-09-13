@@ -28,6 +28,11 @@ extern "C" {
     OGWEXPORT unsigned int OCCIgateway_Bytes_length(void ** exception, void * bytes);
     OGWEXPORT void OCCIgateway_Bytes_getBytes(void ** exception, void * bytes, unsigned char * v1, unsigned int v2, unsigned int v3, unsigned int v4);
 
+    /* Clob */
+    OGWEXPORT void OCCIgateway_Clob_dtor(void * clob);
+    OGWEXPORT void * OCCIgateway_Clob_getStream(void ** exception, void * clob, unsigned int v1, unsigned int v2);
+    OGWEXPORT void OCCIgateway_Clob_closeStream(void ** exception, void * clob, void * strm);
+
     /* Environment */
     OGWEXPORT void OCCIgateway_Environment_dtor(void ** exception, void * envr);
     OGWEXPORT void * OCCIgateway_createEnvironment(void ** exception, Environment::Mode mode, void *ctxp, void *(*malocfp)(void *ctxp, size_t size), void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize), void (*mfreefp)(void *ctxp, void *memptr));

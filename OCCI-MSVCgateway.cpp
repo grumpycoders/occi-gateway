@@ -84,6 +84,36 @@ void OCCIgateway_Bytes_getBytes(void ** exception, void * _bytes, unsigned char 
     }
 }
 
+/* Clob */
+void OCCIgateway_Clob_dtor(void * _clob) {
+    Clob * clob = static_cast<Clob *>(_clob);
+
+    delete clob;
+}
+
+void * OCCIgateway_Clob_getStream(void ** exception, void * _clob, unsigned int v1, unsigned int v2) {
+    Stream * strm = NULL;
+    Clob * clob = static_cast<Clob *>(_clob);
+    *exception = NULL;
+    try {
+        strm = clob->getStream(v1, v2);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return strm;
+}
+
+void OCCIgateway_Clob_closeStream(void ** exception, void * _clob, void * _strm) {
+    Clob * clob = static_cast<Clob *>(_clob);
+    Stream * strm = static_cast<Stream *>(_strm);
+    *exception = NULL;
+    try {
+        clob->closeStream(strm);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* Environment */
 void OCCIgateway_Environment_dtor(void ** exception, void * _envr) {
     Environment * envr = static_cast<Environment *>(_envr);
