@@ -651,6 +651,19 @@ void * OCCIgateway_Statement_getResultSet(void ** exception, void * _stmt) {
 	return r;
 }
 
+void * OCCIgateway_Statement_getRowid(void ** exception, void * _stmt, unsigned int idx) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	Bytes bytes;
+	*exception = NULL;
+	try {
+		bytes = stmt->getRowid(idx);
+		return new Bytes(bytes);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return NULL;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

@@ -470,6 +470,14 @@ occi_proxy::ResultSet * occi_proxy::Statement::getResultSet() {
 	return new occi_proxy::ResultSet(rset);
 }
 
+occi_proxy::Bytes occi_proxy::Statement::getRowid(unsigned int idx) {
+	void * e = NULL;
+	void * bytes = NULL;
+	bytes = OCCIgateway_Statement_getRowid(&e, stmt, idx);
+	checkException(e);
+	return Bytes(bytes);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

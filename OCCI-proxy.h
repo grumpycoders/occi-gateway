@@ -203,6 +203,7 @@ namespace occi_proxy {
 		unsigned int getMaxParamSize(unsigned int idx) const;
 		Number getNumber(unsigned int idx);
 		ResultSet * getResultSet();
+		Bytes getRowid(unsigned int idx);
       protected:
         void * stmt;
         friend class Connection;
