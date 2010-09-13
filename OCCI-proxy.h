@@ -106,6 +106,7 @@ namespace occi_proxy {
             ~Connection() throw (SQLException);
           void changePassword(const std::string &username, const std::string &oldPassword, const std::string &newPassword) throw (SQLException);
           void commit() throw (SQLException);
+          Statement * createStatement(const std::string &sql = "") throw (SQLException);
       protected:
         void * conn;
         friend class Environment;

@@ -142,6 +142,17 @@ void occi_proxy::Connection::commit() throw (occi_proxy::SQLException) {
         throw occi_proxy::SQLException(e);
 }
 
+occi_proxy::Statement * occi_proxy::Connection::createStatement(const std::string &sql) throw (occi_proxy::SQLException) {
+    occi_proxy::Statement * stmt = NULL;
+    void * e = NULL;
+    stmt = new occi_proxy::Statement(OCCIgateway_Connection_createStatement(&e, conn, sql.c_str()));
+    if (e) {
+        delete stmt;
+        throw occi_proxy::SQLException(e);
+    }
+    return stmt;
+}
+
 /* Statement */
 occi_proxy::Statement::Statement(void * _stmt) : stmt(_stmt) { }
 occi_proxy::Statement::~Statement() throw (occi_proxy::SQLException) {

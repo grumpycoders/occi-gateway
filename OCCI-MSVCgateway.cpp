@@ -175,6 +175,18 @@ void OCCIgateway_Connection_commit(void ** exception, void * _conn) {
     }
 }
 
+void * OCCIgateway_Connection_createStatement(void ** exception, void * _conn, const char * sql) {
+    Statement * stmt = NULL;
+    Connection * conn = static_cast<Connection *>(_conn);
+    *exception = NULL;
+    try {
+        stmt = conn->createStatement(sql);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return stmt;
+}
+
 /* Statement */
 void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
     Statement * stmt = static_cast<Statement *>(_stmt);
