@@ -558,6 +558,12 @@ void occi_proxy::Statement::setAutoCommit(bool autoCommit) {
 	checkException(e);
 }
 
+void occi_proxy::Statement::setBinaryStreamMode(unsigned int idx, unsigned int size) {
+	void * e = NULL;
+	OCCIgateway_Statement_setBinaryStreamMode(&e, stmt, idx, size);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

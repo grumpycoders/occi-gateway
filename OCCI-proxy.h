@@ -214,6 +214,7 @@ namespace occi_proxy {
 		int preTruncationLength(unsigned int idx) const;
 		void registerOutParam(unsigned int idx, Type type, unsigned int maxSize = 0, const std::string &sqltype = "");
 		void setAutoCommit(bool autoCommit);
+		void setBinaryStreamMode(unsigned int idx, unsigned int size);
       protected:
         void * stmt;
         friend class Connection;
