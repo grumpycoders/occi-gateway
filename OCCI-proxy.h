@@ -207,6 +207,7 @@ namespace occi_proxy {
 		std::string getSQL() const;
 		Stream * getStream(unsigned int idx);
 		std::string getString(unsigned int idx);
+		unsigned int getUInt(unsigned int idx);
       protected:
         void * stmt;
         friend class Connection;

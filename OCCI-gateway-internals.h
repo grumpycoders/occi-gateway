@@ -90,6 +90,7 @@ extern "C" {
 	OGWEXPORT const char * OCCIgateway_Statement_getSQL(void ** exception, void * stmt);
 	OGWEXPORT void * OCCIgateway_Statement_getStream(void ** exception, void * stmt, unsigned int idx);
 	OGWEXPORT const char * OCCIgateway_Statement_getString(void ** exception, void * stmt, unsigned int idx);
+	OGWEXPORT unsigned int OCCIgateway_Statement_getUInt(void ** exception, void * stmt, unsigned int idx);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
