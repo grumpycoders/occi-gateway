@@ -134,3 +134,10 @@ void occi_proxy::Connection::changePassword(const std::string &username, const s
     if (e)
         throw occi_proxy::SQLException(e);
 }
+
+void occi_proxy::Connection::commit() throw (occi_proxy::SQLException) {
+    void * e = NULL;
+    OCCIgateway_Connection_commit();
+    if (e)
+        throw occi_proxy::SQLException(e);
+}

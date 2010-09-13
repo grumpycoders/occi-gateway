@@ -165,3 +165,12 @@ void OCCIgateway_Connection_changePassword(void ** exception, void * _conn, cons
         *exception = new SQLException(e);
     }
 }
+
+void OCCIgateway_Connection_commit(void ** exception, void * _conn) {
+    Connection * conn = static_cast<Connection *>(_conn);
+    try {
+        conn->commit();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
