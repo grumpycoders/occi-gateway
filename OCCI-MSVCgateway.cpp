@@ -581,6 +581,18 @@ int OCCIgateway_Statement_getInt(void ** exception, void * _stmt, unsigned int i
 	return r;
 }
 
+unsigned int OCCIgateway_Statement_getMaxIterations(void ** exception, void * _stmt) {
+	unsigned int r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->getMaxIterations();
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
