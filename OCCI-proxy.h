@@ -97,12 +97,23 @@ namespace occi_proxy {
         void * rset;
         friend class Statement;
     };
+    class Stream {
+      public:
+          Stream(void *);
+          ~Stream();
+      protected:
+        void * strm;
+        friend class Statement;
+        friend class ResultSet;
+    };
     class Connection;
     class Statement {
       public:
           Statement(void *);
           ~Statement();
         void addIteration();
+        void closeResultSet(ResultSet * rset);
+        void closeStream(Stream * strm);
       protected:
         void * stmt;
         friend class Connection;

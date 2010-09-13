@@ -261,11 +261,41 @@ void OCCIgateway_Statement_addIteration(void ** exception, void * _stmt) {
     }
 }
 
+void OCCIgateway_Statement_closeResultSet(void ** exception, void * _stmt, void * _rset) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    try {
+        stmt->closeResultSet(rset);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_Statement_closeStream(void ** exception, void * _stmt, void * _strm) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Stream * strm = static_cast<Stream *>(_strm);
+    try {
+        stmt->closeStream(strm);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
     try {
         delete rset;
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+/* Stream */
+void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
+    Stream * strm = static_cast<Stream *>(_strm);
+    try {
+        delete strm;
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }

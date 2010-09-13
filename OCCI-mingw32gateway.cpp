@@ -57,6 +57,7 @@ void occi_proxy::Environment::terminateEnvironment(occi_proxy::Environment * env
     void * e = NULL;
     OCCIgateway_terminateEnvironment(&e, envr->envr);
     checkException(e);
+    envr->envr = NULL;
     delete envr;
 }
 
@@ -110,6 +111,8 @@ void occi_proxy::Environment::terminateConnection(occi_proxy::Connection * conn)
     void * e = NULL;
     OCCIgateway_Environment_terminateConnection(&e, envr, conn->conn);
     checkException(e);
+    conn->conn = NULL;
+    delete conn;
 }
 
 /* Connection */
@@ -186,11 +189,32 @@ void occi_proxy::Statement::addIteration() {
     checkException(e);
 }
 
+void occi_proxy::Statement::closeResultSet(occi_proxy::ResultSet * rset) {
+    void * e = NULL;
+    OCCIgateway_Statement_closeResultSet(&e, stmt, rset->rset);
+    checkException(e);
+}
+
+void occi_proxy::Statement::closeStream(occi_proxy::Stream * strm) {
+    void * e = NULL;
+    OCCIgateway_Statement_closeStream(&e, stmt, strm->strm);
+    checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
     void * e = NULL;
     if (rset)
         OCCIgateway_ResultSet_dtor(&e, rset);
+    checkException(e);
+}
+
+/* Stream */
+occi_proxy::Stream::Stream(void * _strm) : strm(_strm) { }
+occi_proxy::Stream::~Stream() {
+    void * e = NULL;
+    if (strm)
+        OCCIgateway_ResultSet_dtor(&e, strm);
     checkException(e);
 }
