@@ -208,6 +208,7 @@ namespace occi_proxy {
 		Stream * getStream(unsigned int idx);
 		std::string getString(unsigned int idx);
 		unsigned int getUInt(unsigned int idx);
+		unsigned int getUpdateCount() const;
       protected:
         void * stmt;
         friend class Connection;

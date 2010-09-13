@@ -705,7 +705,19 @@ unsigned int OCCIgateway_Statement_getUInt(void ** exception, void * _stmt, unsi
 	Statement * stmt = static_cast<Statement *>(_stmt);
 	*exception = NULL;
 	try {
-		r = stmt->getInt(idx);
+		r = stmt->getUInt(idx);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
+unsigned int OCCIgateway_Statement_getUpdateCount(void ** exception, void * _stmt) {
+	unsigned int r = 0;
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		r = stmt->getUpdateCount();
 	} catch (SQLException e) {
 		*exception = new SQLException(e);
 	}
