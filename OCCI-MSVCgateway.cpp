@@ -760,6 +760,16 @@ int OCCIgateway_Statement_preTruncationLength(void ** exception, void * _stmt, u
 	return r;
 }
 
+void OCCIgateway_Statement_registerOutParam(void ** exception, void * _stmt, unsigned int idx, unsigned int v1, unsigned int v2, const char * v3) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->registerOutParam(idx, static_cast<Type>(v1), v2, v3);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

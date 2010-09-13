@@ -546,6 +546,12 @@ int occi_proxy::Statement::preTruncationLength(unsigned int idx) const {
 	return r;
 }
 
+void occi_proxy::Statement::registerOutParam(unsigned int idx, occi_proxy::Type type, unsigned int maxSize, const std::string &sqltype) {
+	void * e = NULL;
+	OCCIgateway_Statement_registerOutParam(&e, stmt, idx, static_cast<unsigned int>(type), maxSize, sqltype.c_str());
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
