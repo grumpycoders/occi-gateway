@@ -472,6 +472,19 @@ const char * OCCIgateway_Statement_getCharSet(void ** exception, void * _stmt, u
     return NULL;
 }
 
+void * OCCIgateway_Statement_getClob(void ** exception, void * _stmt, unsigned int idx) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Clob clob;
+    *exception = NULL;
+    try {
+        clob = stmt->getClob(idx);
+        return new Clob(clob);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

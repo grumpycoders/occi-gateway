@@ -69,6 +69,7 @@ extern "C" {
     OGWEXPORT void * OCCIgateway_Statement_getBlob(void ** exception, void * stmt, unsigned int idx);
     OGWEXPORT void * OCCIgateway_Statement_getBytes(void ** exception, void * stmt, unsigned int idx);
     OGWEXPORT const char * OCCIgateway_Statement_getCharSet(void ** exception, void * stmt, unsigned int idx);
+    OGWEXPORT void * OCCIgateway_Statement_getClob(void ** exception, void * stmt, unsigned int idx);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);

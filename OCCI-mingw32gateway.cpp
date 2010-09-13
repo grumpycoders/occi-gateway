@@ -341,6 +341,14 @@ std::string occi_proxy::Statement::getCharSet(unsigned int idx) {
     return r;
 }
 
+occi_proxy::Clob occi_proxy::Statement::getClob(unsigned int idx) {
+    void * e = NULL;
+    void * clob = NULL;
+    clob = OCCIgateway_Statement_getClob(&e, stmt, idx);
+    checkException(e);
+    return Clob(clob);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
