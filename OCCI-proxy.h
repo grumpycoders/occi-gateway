@@ -146,6 +146,14 @@ namespace occi_proxy {
         OCCIROWID = oracle::occi::OCCIROWID,
         OCCICURSOR = oracle::occi::OCCICURSOR,
     };
+	enum LobOpenMode {
+		OCCI_LOB_READONLY = oracle::occi::OCCI_LOB_READONLY,
+		OCCI_LOB_READWRITE = oracle::occi::OCCI_LOB_READWRITE,
+		OCCI_LOB_WRITEONLY = oracle::occi::OCCI_LOB_WRITEONLY,
+		OCCI_LOB_APPENDONLY = oracle::occi::OCCI_LOB_APPENDONLY,
+		OCCI_LOB_FULLOVERWRITE = oracle::occi::OCCI_LOB_FULLOVERWRITE,
+		OCCI_LOB_FULLREAD = oracle::occi::OCCI_LOB_FULLREAD,
+	};
     class Statement;
     class ResultSet {
       public:
