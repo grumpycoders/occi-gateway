@@ -161,6 +161,7 @@ namespace occi_proxy {
         unsigned int executeUpdate(const std::string &sql = "");
         bool getAutoCommit() const;
         Blob getBlob(unsigned int idx);
+        Bytes getBytes(unsigned int idx);
       protected:
         void * stmt;
         friend class Connection;

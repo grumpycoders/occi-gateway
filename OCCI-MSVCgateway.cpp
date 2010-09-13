@@ -416,6 +416,18 @@ void * OCCIgateway_Statement_getBlob(void ** exception, void * _stmt, unsigned i
     return new Blob(blob);
 }
 
+void * OCCIgateway_Statement_getBytes(void ** exception, void * _stmt, unsigned int idx) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Bytes bytes;
+    *exception = NULL;
+    try {
+        bytes = stmt->getBytes(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return new Bytes(bytes);
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

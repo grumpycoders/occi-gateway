@@ -303,6 +303,14 @@ occi_proxy::Blob occi_proxy::Statement::getBlob(unsigned int idx) {
     return Blob(blob);
 }
 
+occi_proxy::Bytes occi_proxy::Statement::getBytes(unsigned int idx) {
+    void * e = NULL;
+    void * bytes = NULL;
+    bytes = OCCIgateway_Statement_getBytes(&e, stmt, idx);
+    checkException(e);
+    return Bytes(bytes);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
