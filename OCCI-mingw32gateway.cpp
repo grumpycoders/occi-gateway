@@ -686,6 +686,12 @@ void occi_proxy::Statement::setNumber(unsigned int idx, const Number &n) {
 	checkException(e);
 }
 
+void occi_proxy::Statement::setPrefetchMemorySize(unsigned int bytes) {
+	void * e = NULL;
+	OCCIgateway_Statement_setPrefetchMemorySize(&e, stmt, bytes);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

@@ -989,6 +989,16 @@ void OCCIgateway_Statement_setNumber(void ** exception, void * _stmt, unsigned i
 	}
 }
 
+void OCCIgateway_Statement_setPrefetchMemorySize(void ** exception, void * _stmt, unsigned int bytes) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setPrefetchMemorySize(bytes);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

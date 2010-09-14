@@ -254,6 +254,7 @@ namespace occi_proxy {
 		void setMaxParamSize(unsigned int idx, unsigned int maxSize);
 		void setNull(unsigned int idx, Type type);
 		void setNumber(unsigned int idx, const Number &n);
+		void setPrefetchMemorySize(unsigned int bytes);
       protected:
 		  Statement(void *, float);
         void * stmt;

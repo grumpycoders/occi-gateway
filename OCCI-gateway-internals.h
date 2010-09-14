@@ -117,6 +117,7 @@ extern "C" {
 	OGWEXPORT void OCCIgateway_Statement_setMaxParamSize(void ** exception, void * stmt, unsigned int idx, unsigned int maxSize);
 	OGWEXPORT void OCCIgateway_Statement_setNull(void ** exception, void * stmt, unsigned int idx, unsigned int type);
 	OGWEXPORT void OCCIgateway_Statement_setNumber(void ** exception, void * stmt, unsigned int idx, void * number);
+	OGWEXPORT void OCCIgateway_Statement_setPrefetchMemorySize(void ** exception, void * stmt, unsigned int bytes);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
