@@ -250,6 +250,8 @@ namespace occi_proxy {
 		void setFloat(unsigned int idx, float value);
 		void setInt(unsigned int idx, int value);
 		void setMaxIterations(unsigned int maxIterations);
+		void setMaxParamSize(unsigned int idx, unsigned int maxSize);
+		void setNull(unsigned int idx, Type type);
       protected:
 		  Statement(void *, float);
         void * stmt;

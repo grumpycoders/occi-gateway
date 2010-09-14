@@ -662,6 +662,18 @@ void occi_proxy::Statement::setMaxIterations(unsigned int maxIterations) {
 	checkException(e);
 }
 
+void occi_proxy::Statement::setMaxParamSize(unsigned int idx, unsigned int maxSize) {
+	void * e = NULL;
+	OCCIgateway_Statement_setMaxParamSize(&e, stmt, idx, maxSize);
+	checkException(e);
+}
+
+void occi_proxy::Statement::setNull(unsigned int idx, Type type) {
+	void * e = NULL;
+	OCCIgateway_Statement_setNull(&e, stmt, idx, static_cast<unsigned int>(type));
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

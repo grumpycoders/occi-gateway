@@ -947,6 +947,26 @@ void OCCIgateway_Statement_setMaxIterations(void ** exception, void * _stmt, uns
 	}
 }
 
+void OCCIgateway_Statement_setMaxParamSize(void ** exception, void * _stmt, unsigned int idx, unsigned int maxSize) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setMaxParamSize(idx, maxSize);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
+void OCCIgateway_Statement_setNull(void ** exception, void * _stmt, unsigned int idx, unsigned int type) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setNull(idx, static_cast<Type>(type));
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

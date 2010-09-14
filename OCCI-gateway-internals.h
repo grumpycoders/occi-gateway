@@ -113,6 +113,8 @@ extern "C" {
 	OGWEXPORT void OCCIgateway_Statement_setFloat(void ** exception, void * stmt, unsigned int idx, float value);
 	OGWEXPORT void OCCIgateway_Statement_setInt(void ** exception, void * stmt, unsigned int idx, int value);
 	OGWEXPORT void OCCIgateway_Statement_setMaxIterations(void ** exception, void * stmt, unsigned int maxIterations);
+	OGWEXPORT void OCCIgateway_Statement_setMaxParamSize(void ** exception, void * stmt, unsigned int idx, unsigned int maxSize);
+	OGWEXPORT void OCCIgateway_Statement_setNull(void ** exception, void * stmt, unsigned int idx, unsigned int type);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
