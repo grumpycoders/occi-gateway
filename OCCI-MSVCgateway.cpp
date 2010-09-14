@@ -917,6 +917,16 @@ void OCCIgateway_Statement_setErrorOnTruncate(void ** exception, void * _stmt, u
 	}
 }
 
+void OCCIgateway_Statement_setFloat(void ** exception, void * _stmt, unsigned int idx, float value) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setFloat(idx, value);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

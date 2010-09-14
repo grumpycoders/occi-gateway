@@ -644,6 +644,12 @@ void occi_proxy::Statement::setErrorOnNull(unsigned int idx, bool causeException
 	checkException(e);
 }
 
+void occi_proxy::Statement::setFloat(unsigned int idx, float value) {
+	void * e = NULL;
+	OCCIgateway_Statement_setFloat(&e, stmt, idx, value);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

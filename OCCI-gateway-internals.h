@@ -110,6 +110,7 @@ extern "C" {
 	OGWEXPORT void OCCIgateway_Statement_setDouble(void ** exception, void * stmt, unsigned int idx, double value);
 	OGWEXPORT void OCCIgateway_Statement_setErrorOnNull(void ** exception, void * stmt, unsigned int idx, int causeException);
 	OGWEXPORT void OCCIgateway_Statement_setErrorOnTruncate(void ** exception, void * stmt, unsigned int idx, int causeException);
+	OGWEXPORT void OCCIgateway_Statement_setFloat(void ** exception, void * stmt, unsigned int idx, float value);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);

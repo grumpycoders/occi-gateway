@@ -247,6 +247,7 @@ namespace occi_proxy {
 		void setDouble(unsigned int idx, double value);
 		void setErrorOnNull(unsigned int idx, bool causeException);
 		void setErrorOnTruncate(unsigned int idx, bool causeException);
+		void setFloat(unsigned int idx, float value);
       protected:
 		  Statement(void *, float);
         void * stmt;
