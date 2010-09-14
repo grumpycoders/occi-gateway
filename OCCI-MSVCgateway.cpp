@@ -857,6 +857,16 @@ void OCCIgateway_Statement_setBytes(void ** exception, void * _stmt, unsigned in
 	}
 }
 
+void OCCIgateway_Statement_setCharacterStreamMode(void ** exception, void * _stmt, unsigned int idx, unsigned int size) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setCharacterStreamMode(idx, size);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

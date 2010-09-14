@@ -608,6 +608,12 @@ void occi_proxy::Statement::setBytes(unsigned int idx, const Bytes &bytes) {
 	checkException(e);
 }
 
+void occi_proxy::Statement::setCharacterStreamMode(unsigned int idx, unsigned int size) {
+	void * e = NULL;
+	OCCIgateway_Statement_setCharacterStreamMode(&e, stmt, idx, size);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

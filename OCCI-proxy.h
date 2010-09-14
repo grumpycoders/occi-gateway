@@ -241,6 +241,7 @@ namespace occi_proxy {
 		void setAutoCommit(bool autoCommit);
 		void setBinaryStreamMode(unsigned int idx, unsigned int size);
 		void setBytes(unsigned int idx, const Bytes &bytes);
+		void setCharacterStreamMode(unsigned int idx, unsigned int size);
       protected:
 		  Statement(void *, float);
         void * stmt;
