@@ -4,6 +4,16 @@
 #include <occi.h>
 
 namespace occi_proxy {
+	class SQLException;
+	class Blob;
+	class Bytes;
+	class Clob;
+	class Number;
+	class ResultSet;
+	class Stream;
+	class Statement;
+	class Connection;
+	class Environment;
 	enum Type {
 		OCCI_SQLT_CHR = oracle::occi::OCCI_SQLT_CHR,
 		OCCI_SQLT_NUM = oracle::occi::OCCI_SQLT_NUM,
@@ -89,22 +99,21 @@ namespace occi_proxy {
     template<class T> class refCounter;
     class SQLException {
       public:
-          SQLException(void *);
           SQLException(const SQLException &);
           ~SQLException();
         const char * what() const;
         std::string getMessage() const;
         int getErrorCode() const;
+		static void checkException(void *) throw (SQLException);
       protected:
+		  SQLException(void *, float);
         static void dtor(void * obj);
         friend class refCounter<SQLException>;
       private:
         refCounter<SQLException> * ref; 
     };
-    class Stream;
     class Blob {
       public:
-          Blob(void *);
           Blob(const Blob &);
           ~Blob();
         Stream * getStream(unsigned int offset = 1, unsigned int amount = 0);
@@ -114,71 +123,73 @@ namespace occi_proxy {
 		unsigned int writeChunk(unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset = 1);
 		void close();
       protected:
+		  Blob(void *, float);
         static void dtor(void * obj);
         friend class refCounter<Blob>;
+		friend class Statement;
       private:
         refCounter<Blob> * ref;
     };
     class Bytes {
       public:
-          Bytes(void *);
           Bytes(const Bytes &);
           ~Bytes();
         unsigned int length() const;
         void getBytes(unsigned char * dst, unsigned int count, unsigned int srcBegin = 0, unsigned int dstBegin = 0) const;
       protected:
+		  Bytes(void *, float);
         static void dtor(void * obj);
         friend class refCounter<Bytes>;
+		friend class Statement;
       private:
         refCounter<Bytes> * ref;
     };
     class Clob {
       public:
-          Clob(void *);
           Clob(const Clob &);
           ~Clob();
         Stream * getStream(unsigned int offset = 1, unsigned int amount = 0);
         void closeStream(Stream * strm);
       protected:
+		  Clob(void *, float);
         static void dtor(void * obj);
         friend class refCounter<Clob>;
+		friend class Statement;
       private:
         refCounter<Clob> * ref;
     };
-	class Environment;
 	class Number {
 	  public:
-		  Number(void *);
 		  Number(const Number &);
 		  ~Number();
 		std::string toText(const Environment * env, std::string fmt, std::string nslparam = "") const;
 	  protected:
+		  Number(void *, float);
 		static void dtor(void * obj);
 		friend class refCounter<Number>;
+		friend class Statement;
 	  private:
 		refCounter<Number> * ref;
 	};
-    class Statement;
     class ResultSet {
       public:
-          ResultSet(void *);
           ~ResultSet();
       protected:
+		  ResultSet(void *, float);
         void * rset;
         friend class Statement;
     };
     class Stream {
       public:
-          Stream(void *);
           ~Stream();
       protected:
+		  Stream(void *, float);
         void * strm;
         friend class Statement;
         friend class ResultSet;
         friend class Blob;
         friend class Clob;
     };
-    class Connection;
     class Statement {
       public:
         enum Status {
@@ -189,7 +200,6 @@ namespace occi_proxy {
             NEEDS_STREAM_DATA = oracle::occi::Statement::NEEDS_STREAM_DATA,
             STREAM_DATA_AVAILABLE = oracle::occi::Statement::STREAM_DATA_AVAILABLE,
         };
-          Statement(void *);
           ~Statement();
         void addIteration();
         void closeResultSet(ResultSet * rset);
@@ -228,13 +238,12 @@ namespace occi_proxy {
 		void setAutoCommit(bool autoCommit);
 		void setBinaryStreamMode(unsigned int idx, unsigned int size);
       protected:
+		  Statement(void *, float);
         void * stmt;
         friend class Connection;
     };
-    class Environment;
     class Connection {
       public:
-            Connection(void *);
             ~Connection();
           void changePassword(const std::string &username, const std::string &oldPassword, const std::string &newPassword);
           void commit();
@@ -244,6 +253,7 @@ namespace occi_proxy {
           std::string getClientNCHARCharSet() const ;
           void rollback();
       protected:
+		  Connection(void *, float);
         void * conn;
         friend class Environment;
     };
@@ -259,7 +269,6 @@ namespace occi_proxy {
             EVENTS = oracle::occi::Environment::EVENTS,
             USE_LDAP = oracle::occi::Environment::USE_LDAP,
         };
-          Environment(void *);
           ~Environment();
         static Environment * createEnvironment(Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0);
         static Environment * createEnvironment(const std::string &charset, const std::string &ncharset, Mode mode, void *ctxp = 0, void *(*malocfp)(void *ctxp, size_t size) = 0, void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize) = 0, void (*mfreefp)(void *ctxp, void *memptr) = 0);
@@ -272,6 +281,7 @@ namespace occi_proxy {
         unsigned int getCurrentHeapSize() const ;
         void terminateConnection(Connection * conn);
       private:
+		  Environment(void *, float);
         void * envr;
 		friend class Number;
     };
