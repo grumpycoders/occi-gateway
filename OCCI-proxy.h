@@ -165,7 +165,8 @@ namespace occi_proxy {
 	  public:
 		  Number(const Number &);
 		  ~Number();
-		std::string toText(const Environment * envr, std::string fmt, std::string nslparam = "") const;
+		std::string toText(const Environment * envr, const std::string &fmt, const std::string &nslparam = "") const;
+		void fromText(const Environment * envr, const std::string &number, const std::string &fmt, const std::string &nslparam = "");
 	  protected:
 		  Number(void *, float);
 		static void dtor(void * obj);

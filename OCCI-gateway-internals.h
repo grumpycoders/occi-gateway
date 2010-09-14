@@ -41,6 +41,7 @@ extern "C" {
 	/* Number */
 	OGWEXPORT void OCCIgateway_Number_dtor(void * number);
 	OGWEXPORT const char * OCCIgateway_Number_toText(void ** exception, void * number, void * envr, const char * v1, const char * v2);
+	OGWEXPORT const char * OCCIgateway_Number_fromText(void ** exception, void * number, void * envr, const char * v1, const char * v2, const char * v3);
 
 	/* Environment */
     OGWEXPORT void OCCIgateway_Environment_dtor(void ** exception, void * envr);

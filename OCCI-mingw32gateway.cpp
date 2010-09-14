@@ -147,7 +147,7 @@ occi_proxy::Number::Number(const Number &number) : ref(number.ref->addRef()) { }
 occi_proxy::Number::~Number() { ref->release(); }
 void occi_proxy::Number::dtor(void * obj) { OCCIgateway_Number_dtor(obj); }
 
-std::string occi_proxy::Number::toText(const occi_proxy::Environment * env, std::string v1, std::string v2) const {
+std::string occi_proxy::Number::toText(const occi_proxy::Environment * env, const std::string &v1, const std::string &v2) const {
 	const char * p = NULL;
 	void * e = NULL;
 	p = OCCIgateway_Number_toText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str());
@@ -155,6 +155,12 @@ std::string occi_proxy::Number::toText(const occi_proxy::Environment * env, std:
 	std::string r = p;
 	free((void *)p);
 	return r;
+}
+
+void occi_proxy::Number::fromText(const occi_proxy::Environment * env, const std::string &v1, const std::string &v2, const std::string &v3) const {
+	void * e = NULL;
+	OCCIgateway_Number_fromText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str(), v3->c_str());
+	checkException(e);
 }
 
 /* Environment */

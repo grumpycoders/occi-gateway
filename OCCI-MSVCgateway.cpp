@@ -191,6 +191,17 @@ const char * OCCIgateway_Number_toText(void ** exception, void * _number, void *
 	return r;
 }
 
+const char * OCCIgateway_Number_fromText(void ** exception, void * _number, void * _envr, const char * v1, const char * v2, const char * v3) {
+	Number * number = static_cast<Number *>(_number);
+	Environment * envr = static_cast<Environment *>(_envr);
+	*exception = NULL;
+	try {
+		number->toText(envr, v1, v2, v3);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* Environment */
 void OCCIgateway_Environment_dtor(void ** exception, void * _envr) {
     Environment * envr = static_cast<Environment *>(_envr);
