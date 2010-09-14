@@ -1,6 +1,8 @@
 #include <string.h>
 #include "OCCI-gateway-internals.h"
 
+#pragma warning(disable: 4996)
+
 /* SQLException */
 void OCCIgateway_SQLException_dtor(void * _e) {
     SQLException * e = static_cast<SQLException *>(_e);
@@ -54,6 +56,48 @@ void OCCIgateway_Blob_closeStream(void ** exception, void * _blob, void * _strm)
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }
+}
+
+void OCCIgateway_Blob_open(void ** exception, void * _blob, unsigned int mode) {
+	Blob * blob = static_cast<Blob *>(_blob);
+	*exception = NULL;
+	try {
+		blob->open(static_cast<LobOpenMode>(mode));
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
+void OCCIgateway_Blob_setEmpty(void ** exception, void * _blob) {
+	Blob * blob = static_cast<Blob *>(_blob);
+	*exception = NULL;
+	try {
+		blob->setEmpty();
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
+unsigned int OCCIgateway_Blob_writeChunk(void ** exception, void * _blob, unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset) {
+	unsigned int r = 0;
+	Blob * blob = static_cast<Blob *>(_blob);
+	*exception = NULL;
+	try {
+		r = blob->writeChunk(amt, buffer, bufsize, offset);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return r;
+}
+
+void OCCIgateway_Blob_close(void ** exception, void * _blob) {
+	Blob * blob = static_cast<Blob *>(_blob);
+	*exception = NULL;
+	try {
+		blob->close();
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
 }
 
 /* Bytes */
@@ -774,7 +818,7 @@ void OCCIgateway_Statement_setAutoCommit(void ** exception, void * _stmt, int au
 	Statement * stmt = static_cast<Statement *>(_stmt);
 	*exception = NULL;
 	try {
-		stmt->setAutoCommit(autoCommit);
+		stmt->setAutoCommit(!!autoCommit);
 	} catch (SQLException e) {
 		*exception = new SQLException(e);
 	}

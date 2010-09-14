@@ -61,6 +61,32 @@ void occi_proxy::Blob::closeStream(occi_proxy::Stream * strm) {
     delete strm;
 }
 
+void occi_proxy::Blob::open(LobOpenMode mode) {
+	void * e = NULL;
+	OCCIgateway_Blob_open(&e, ref->obj, static_cast<unsigned int>(mode));
+	checkException(e);
+}
+
+void occi_proxy::Blob::setEmpty() {
+	void * e = NULL;
+	OCCIgateway_Blob_setEmpty(&e, ref->obj);
+	checkException(e);
+}
+
+unsigned int occi_proxy::Blob::writeChunk(unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset) {
+	void * e = NULL;
+	unsigned int r;
+	r = OCCIgateway_Blob_writeChunk(&e, ref->obj, amt, buffer, bufsize, offset);
+	checkException(e);
+	return r;
+}
+
+void occi_proxy::Blob::close() {
+	void * e = NULL;
+	OCCIgateway_Blob_close(&e, ref->obj);
+	checkException(e);
+}
+
 /* Bytes */
 occi_proxy::Bytes::Bytes(void * bytes) : ref(new occi_proxy::refCounter<Bytes>(bytes)) { }
 occi_proxy::Bytes::Bytes(const Bytes &bytes) : ref(bytes.ref->addRef()) { }

@@ -22,6 +22,10 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Blob_dtor(void * blob);
     OGWEXPORT void * OCCIgateway_Blob_getStream(void ** exception, void * blob, unsigned int v1, unsigned int v2);
     OGWEXPORT void OCCIgateway_Blob_closeStream(void ** exception, void * blob, void * strm);
+	OGWEXPORT void OCCIgateway_Blob_open(void ** exception, void * blob, unsigned int mode);
+	OGWEXPORT void OCCIgateway_Blob_setEmpty(void ** exception, void * blob);
+	OGWEXPORT unsigned int OCCIgateway_Blob_writeChunk(void ** exception, void * blob, unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset);
+	OGWEXPORT void OCCIgateway_Blob_close(void ** exception, void * blob);
 
     /* Bytes */
     OGWEXPORT void OCCIgateway_Bytes_dtor(void * bytes);
