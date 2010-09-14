@@ -722,6 +722,14 @@ void occi_proxy::Statement::setUInt(unsigned int idx, unsigned int value) {
 	checkException(e);
 }
 
+occi_proxy::Statement::Status occi_proxy::Statement::status() const {
+	unsigned int r = 0;
+	void * e = NULL;
+	OCCIgateway_Statement_status(&e, stmt);
+	checkException(e);
+	return static_cast<occi_proxy::Statement::Status>(r);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

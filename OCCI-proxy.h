@@ -260,6 +260,7 @@ namespace occi_proxy {
 		void setSQL(const std::string &sql);
 		void setString(unsigned int idx, const std::string &str);
 		void setUInt(unsigned int idx, unsigned int value);
+		Status status() const;
       protected:
 		  Statement(void *, float);
         void * stmt;
