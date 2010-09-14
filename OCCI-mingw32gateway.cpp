@@ -2,7 +2,7 @@
 #include "OCCI-proxy.h"
 
 static void checkException(void * e) {
-	occi_proxy::SQLException::checkException(e);
+    occi_proxy::SQLException::checkException(e);
 }
 
 template<class T>
@@ -24,8 +24,8 @@ occi_proxy::SQLException::~SQLException() { ref->release(); }
 void occi_proxy::SQLException::dtor(void * obj) { OCCIgateway_SQLException_dtor(obj); }
 
 void occi_proxy::SQLException::checkException(void * e) throw (occi_proxy::SQLException) {
-	if (e)
-		throw occi_proxy::SQLException(e, .0f);
+    if (e)
+        throw occi_proxy::SQLException(e, .0f);
 }
 
 const char * occi_proxy::SQLException::what() const {
@@ -33,10 +33,10 @@ const char * occi_proxy::SQLException::what() const {
 }
 
 std::string occi_proxy::SQLException::getMessage() const {
-	const char * p = OCCIgateway_SQLException_getMessage(ref->obj);
-	std::string r = p;
-	free((void *)p);
-	return r;
+    const char * p = OCCIgateway_SQLException_getMessage(ref->obj);
+    std::string r = p;
+    free((void *)p);
+    return r;
 }
 
 int occi_proxy::SQLException::getErrorCode() const {
@@ -66,29 +66,29 @@ void occi_proxy::Blob::closeStream(occi_proxy::Stream * strm) {
 }
 
 void occi_proxy::Blob::open(LobOpenMode mode) {
-	void * e = NULL;
-	OCCIgateway_Blob_open(&e, ref->obj, static_cast<unsigned int>(mode));
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Blob_open(&e, ref->obj, static_cast<unsigned int>(mode));
+    checkException(e);
 }
 
 void occi_proxy::Blob::setEmpty() {
-	void * e = NULL;
-	OCCIgateway_Blob_setEmpty(&e, ref->obj);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Blob_setEmpty(&e, ref->obj);
+    checkException(e);
 }
 
 unsigned int occi_proxy::Blob::writeChunk(unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset) {
-	void * e = NULL;
-	unsigned int r;
-	r = OCCIgateway_Blob_writeChunk(&e, ref->obj, amt, buffer, bufsize, offset);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    unsigned int r;
+    r = OCCIgateway_Blob_writeChunk(&e, ref->obj, amt, buffer, bufsize, offset);
+    checkException(e);
+    return r;
 }
 
 void occi_proxy::Blob::close() {
-	void * e = NULL;
-	OCCIgateway_Blob_close(&e, ref->obj);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Blob_close(&e, ref->obj);
+    checkException(e);
 }
 
 /* Bytes */
@@ -98,11 +98,11 @@ occi_proxy::Bytes::~Bytes() { ref->release(); }
 void occi_proxy::Bytes::dtor(void * obj) { OCCIgateway_Bytes_dtor(obj); }
 
 occi_proxy::Bytes::Bytes(unsigned char * value, unsigned int count, unsigned int offset, const occi_proxy::Environment * envr) {
-	void * e = NULL;
-	void * b = NULL;
-	b = OCCIgateway_Bytes_ctor(&e, value, count, offset, envr ? envr->envr : NULL);
-	checkException(e);
-	ref = new occi_proxy::refCounter<Bytes>(b);
+    void * e = NULL;
+    void * b = NULL;
+    b = OCCIgateway_Bytes_ctor(&e, value, count, offset, envr ? envr->envr : NULL);
+    checkException(e);
+    ref = new occi_proxy::refCounter<Bytes>(b);
 }
 
 unsigned int occi_proxy::Bytes::length() const {
@@ -148,19 +148,19 @@ occi_proxy::Number::~Number() { ref->release(); }
 void occi_proxy::Number::dtor(void * obj) { OCCIgateway_Number_dtor(obj); }
 
 std::string occi_proxy::Number::toText(const occi_proxy::Environment * env, const std::string &v1, const std::string &v2) const {
-	const char * p = NULL;
-	void * e = NULL;
-	p = OCCIgateway_Number_toText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str());
-	checkException(e);
-	std::string r = p;
-	free((void *)p);
-	return r;
+    const char * p = NULL;
+    void * e = NULL;
+    p = OCCIgateway_Number_toText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str());
+    checkException(e);
+    std::string r = p;
+    free((void *)p);
+    return r;
 }
 
 void occi_proxy::Number::fromText(const occi_proxy::Environment * env, const std::string &v1, const std::string &v2, const std::string &v3) {
-	void * e = NULL;
-	OCCIgateway_Number_fromText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str(), v3.c_str());
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Number_fromText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str(), v3.c_str());
+    checkException(e);
 }
 
 /* Environment */
@@ -292,8 +292,8 @@ std::string occi_proxy::Connection::getClientCharSet() const {
     const char * p = NULL;
     p = OCCIgateway_Connection_getClientCharSet(&e, conn);
     checkException(e);
-	std::string r = p;
-	free((void *)p);
+    std::string r = p;
+    free((void *)p);
     return r;
 }
 
@@ -302,8 +302,8 @@ std::string occi_proxy::Connection::getClientNCHARCharSet() const {
     const char * p = NULL;
     p = OCCIgateway_Connection_getClientNCHARCharSet(&e, conn);
     checkException(e);
-	std::string r = p;
-	free((void *)p);
+    std::string r = p;
+    free((void *)p);
     return r;
 }
 
@@ -405,8 +405,8 @@ std::string occi_proxy::Statement::getCharSet(unsigned int idx) {
     const char * p = NULL;
     p = OCCIgateway_Statement_getCharSet(&e, stmt, idx);
     checkException(e);
-	std::string r = p;
-	free((void *)p);
+    std::string r = p;
+    free((void *)p);
     return r;
 }
 
@@ -419,315 +419,315 @@ occi_proxy::Clob occi_proxy::Statement::getClob(unsigned int idx) {
 }
 
 unsigned int occi_proxy::Statement::getCurrentIteration() const {
-	void * e = NULL;
-	unsigned int r = 0;
-	r = OCCIgateway_Statement_getCurrentIteration(&e, stmt);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Statement_getCurrentIteration(&e, stmt);
+    checkException(e);
+    return r;
 }
 
 unsigned int occi_proxy::Statement::getCurrentStreamIteration() const {
-	void * e = NULL;
-	unsigned int r = 0;
-	r = OCCIgateway_Statement_getCurrentStreamIteration(&e, stmt);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Statement_getCurrentStreamIteration(&e, stmt);
+    checkException(e);
+    return r;
 }
 
 unsigned int occi_proxy::Statement::getCurrentStreamParam() const {
-	void * e = NULL;
-	unsigned int r = 0;
-	r = OCCIgateway_Statement_getCurrentStreamParam(&e, stmt);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Statement_getCurrentStreamParam(&e, stmt);
+    checkException(e);
+    return r;
 }
 
 occi_proxy::ResultSet * occi_proxy::Statement::getCursor(unsigned int idx) {
-	void * e = NULL;
-	void * rset = NULL;
-	rset = OCCIgateway_Statement_getCursor(&e, stmt, idx);
-	checkException(e);
-	return new occi_proxy::ResultSet(rset, .0f);
+    void * e = NULL;
+    void * rset = NULL;
+    rset = OCCIgateway_Statement_getCursor(&e, stmt, idx);
+    checkException(e);
+    return new occi_proxy::ResultSet(rset, .0f);
 }
 
 bool occi_proxy::Statement::getDatabaseNCHARParam(unsigned int idx) {
-	void * e = NULL;
-	int r = 0;
-	r = OCCIgateway_Statement_getDatabaseNCHARParam(&e, stmt, idx);
-	checkException(e);
-	return !!r;
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_Statement_getDatabaseNCHARParam(&e, stmt, idx);
+    checkException(e);
+    return !!r;
 }
 
 double occi_proxy::Statement::getDouble(unsigned int idx) {
-	void * e = NULL;
-	double r = 0;
-	r = OCCIgateway_Statement_getDouble(&e, stmt, idx);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    double r = 0;
+    r = OCCIgateway_Statement_getDouble(&e, stmt, idx);
+    checkException(e);
+    return r;
 }
 
 float occi_proxy::Statement::getFloat(unsigned int idx) {
-	void * e = NULL;
-	float r = 0;
-	r = OCCIgateway_Statement_getFloat(&e, stmt, idx);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    float r = 0;
+    r = OCCIgateway_Statement_getFloat(&e, stmt, idx);
+    checkException(e);
+    return r;
 }
 
 int occi_proxy::Statement::getInt(unsigned int idx) {
-	void * e = NULL;
-	int r = 0;
-	r = OCCIgateway_Statement_getInt(&e, stmt, idx);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_Statement_getInt(&e, stmt, idx);
+    checkException(e);
+    return r;
 }
 
 unsigned int occi_proxy::Statement::getMaxIterations() const {
-	void * e = NULL;
-	unsigned int r = 0;
-	r = OCCIgateway_Statement_getMaxIterations(&e, stmt);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Statement_getMaxIterations(&e, stmt);
+    checkException(e);
+    return r;
 }
 
 unsigned int occi_proxy::Statement::getMaxParamSize(unsigned int idx) const {
-	void * e = NULL;
-	unsigned int r = 0;
-	r = OCCIgateway_Statement_getMaxParamSize(&e, stmt, idx);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Statement_getMaxParamSize(&e, stmt, idx);
+    checkException(e);
+    return r;
 }
 
 occi_proxy::Number occi_proxy::Statement::getNumber(unsigned int idx) {
-	void * e = NULL;
-	void * r = NULL;
-	r = OCCIgateway_Statement_getNumber(&e, stmt, idx);
-	checkException(e);
-	return Number(r, .0f);
+    void * e = NULL;
+    void * r = NULL;
+    r = OCCIgateway_Statement_getNumber(&e, stmt, idx);
+    checkException(e);
+    return Number(r, .0f);
 }
 
 occi_proxy::ResultSet * occi_proxy::Statement::getResultSet() {
-	void * e = NULL;
-	void * rset = NULL;
-	rset = OCCIgateway_Statement_getResultSet(&e, stmt);
-	checkException(e);
-	return new occi_proxy::ResultSet(rset, .0f);
+    void * e = NULL;
+    void * rset = NULL;
+    rset = OCCIgateway_Statement_getResultSet(&e, stmt);
+    checkException(e);
+    return new occi_proxy::ResultSet(rset, .0f);
 }
 
 occi_proxy::Bytes occi_proxy::Statement::getRowid(unsigned int idx) {
-	void * e = NULL;
-	void * bytes = NULL;
-	bytes = OCCIgateway_Statement_getRowid(&e, stmt, idx);
-	checkException(e);
-	return Bytes(bytes, .0f);
+    void * e = NULL;
+    void * bytes = NULL;
+    bytes = OCCIgateway_Statement_getRowid(&e, stmt, idx);
+    checkException(e);
+    return Bytes(bytes, .0f);
 }
 
 std::string occi_proxy::Statement::getSQL() const {
-	void * e = NULL;
-	const char * p = NULL;
-	p = OCCIgateway_Statement_getSQL(&e, stmt);
-	checkException(e);
-	std::string r = p;
-	free((void *)p);
-	return r;
+    void * e = NULL;
+    const char * p = NULL;
+    p = OCCIgateway_Statement_getSQL(&e, stmt);
+    checkException(e);
+    std::string r = p;
+    free((void *)p);
+    return r;
 }
 
 occi_proxy::Stream * occi_proxy::Statement::getStream(unsigned int idx) {
-	void * e = NULL;
-	void * strm = NULL;
-	strm = OCCIgateway_Statement_getStream(&e, stmt, idx);
-	checkException(e);
-	return new Stream(strm, .0f);
+    void * e = NULL;
+    void * strm = NULL;
+    strm = OCCIgateway_Statement_getStream(&e, stmt, idx);
+    checkException(e);
+    return new Stream(strm, .0f);
 }
 
 std::string occi_proxy::Statement::getString(unsigned int idx) {
-	void * e = NULL;
-	const char * p = NULL;
-	p = OCCIgateway_Statement_getString(&e, stmt, idx);
-	checkException(e);
-	std::string r = p;
-	free((void *)p);
-	return r;
+    void * e = NULL;
+    const char * p = NULL;
+    p = OCCIgateway_Statement_getString(&e, stmt, idx);
+    checkException(e);
+    std::string r = p;
+    free((void *)p);
+    return r;
 }
 
 unsigned int occi_proxy::Statement::getUInt(unsigned int idx) {
-	void * e = NULL;
-	unsigned int r = 0;
-	r = OCCIgateway_Statement_getUInt(&e, stmt, idx);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Statement_getUInt(&e, stmt, idx);
+    checkException(e);
+    return r;
 }
 
 unsigned int occi_proxy::Statement::getUpdateCount() const {
-	void * e = NULL;
-	unsigned int r = 0;
-	r = OCCIgateway_Statement_getUpdateCount(&e, stmt);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Statement_getUpdateCount(&e, stmt);
+    checkException(e);
+    return r;
 }
 
 bool occi_proxy::Statement::isNull(unsigned int idx) const {
-	void * e = NULL;
-	int r = 0;
-	r = OCCIgateway_Statement_isNull(&e, stmt, idx);
-	checkException(e);
-	return !!r;
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_Statement_isNull(&e, stmt, idx);
+    checkException(e);
+    return !!r;
 }
 
 bool occi_proxy::Statement::isTruncated(unsigned int idx) const {
-	void * e = NULL;
-	int r = 0;
-	r = OCCIgateway_Statement_isTruncated(&e, stmt, idx);
-	checkException(e);
-	return !!r;
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_Statement_isTruncated(&e, stmt, idx);
+    checkException(e);
+    return !!r;
 }
 
 int occi_proxy::Statement::preTruncationLength(unsigned int idx) const {
-	void * e = NULL;
-	int r = 0;
-	r = OCCIgateway_Statement_preTruncationLength(&e, stmt, idx);
-	checkException(e);
-	return r;
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_Statement_preTruncationLength(&e, stmt, idx);
+    checkException(e);
+    return r;
 }
 
 void occi_proxy::Statement::registerOutParam(unsigned int idx, occi_proxy::Type type, unsigned int maxSize, const std::string &sqltype) {
-	void * e = NULL;
-	OCCIgateway_Statement_registerOutParam(&e, stmt, idx, static_cast<unsigned int>(type), maxSize, sqltype.c_str());
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_registerOutParam(&e, stmt, idx, static_cast<unsigned int>(type), maxSize, sqltype.c_str());
+    checkException(e);
 }
 
 void occi_proxy::Statement::setAutoCommit(bool autoCommit) {
-	void * e = NULL;
-	OCCIgateway_Statement_setAutoCommit(&e, stmt, !!autoCommit);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setAutoCommit(&e, stmt, !!autoCommit);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setBinaryStreamMode(unsigned int idx, unsigned int size) {
-	void * e = NULL;
-	OCCIgateway_Statement_setBinaryStreamMode(&e, stmt, idx, size);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setBinaryStreamMode(&e, stmt, idx, size);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setBytes(unsigned int idx, const Bytes &bytes) {
-	void * e = NULL;
-	OCCIgateway_Statement_setBytes(&e, stmt, idx, bytes.ref->obj);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setBytes(&e, stmt, idx, bytes.ref->obj);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setCharacterStreamMode(unsigned int idx, unsigned int size) {
-	void * e = NULL;
-	OCCIgateway_Statement_setCharacterStreamMode(&e, stmt, idx, size);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setCharacterStreamMode(&e, stmt, idx, size);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setCharSet(unsigned int idx, const std::string &charset) {
-	void * e = NULL;
-	OCCIgateway_Statement_setCharSet(&e, stmt, idx, charset.c_str());
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setCharSet(&e, stmt, idx, charset.c_str());
+    checkException(e);
 }
 
 void occi_proxy::Statement::setDatabaseNCHARParam(unsigned int idx, bool isNCHAR) {
-	void * e = NULL;
-	OCCIgateway_Statement_setDatabaseNCHARParam(&e, stmt, idx, isNCHAR);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setDatabaseNCHARParam(&e, stmt, idx, isNCHAR);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setDouble(unsigned int idx, double value) {
-	void * e = NULL;
-	OCCIgateway_Statement_setDouble(&e, stmt, idx, value);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setDouble(&e, stmt, idx, value);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setErrorOnTruncate(unsigned int idx, bool causeException) {
-	void * e = NULL;
-	OCCIgateway_Statement_setErrorOnTruncate(&e, stmt, idx, causeException);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setErrorOnTruncate(&e, stmt, idx, causeException);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setErrorOnNull(unsigned int idx, bool causeException) {
-	void * e = NULL;
-	OCCIgateway_Statement_setErrorOnNull(&e, stmt, idx, causeException);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setErrorOnNull(&e, stmt, idx, causeException);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setFloat(unsigned int idx, float value) {
-	void * e = NULL;
-	OCCIgateway_Statement_setFloat(&e, stmt, idx, value);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setFloat(&e, stmt, idx, value);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setInt(unsigned int idx, int value) {
-	void * e = NULL;
-	OCCIgateway_Statement_setInt(&e, stmt, idx, value);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setInt(&e, stmt, idx, value);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setMaxIterations(unsigned int maxIterations) {
-	void * e = NULL;
-	OCCIgateway_Statement_setMaxIterations(&e, stmt, maxIterations);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setMaxIterations(&e, stmt, maxIterations);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setMaxParamSize(unsigned int idx, unsigned int maxSize) {
-	void * e = NULL;
-	OCCIgateway_Statement_setMaxParamSize(&e, stmt, idx, maxSize);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setMaxParamSize(&e, stmt, idx, maxSize);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setNull(unsigned int idx, Type type) {
-	void * e = NULL;
-	OCCIgateway_Statement_setNull(&e, stmt, idx, static_cast<unsigned int>(type));
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setNull(&e, stmt, idx, static_cast<unsigned int>(type));
+    checkException(e);
 }
 
 void occi_proxy::Statement::setNumber(unsigned int idx, const Number &n) {
-	void * e = NULL;
-	OCCIgateway_Statement_setNumber(&e, stmt, idx, n.ref->obj);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setNumber(&e, stmt, idx, n.ref->obj);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setPrefetchMemorySize(unsigned int rowCount) {
-	void * e = NULL;
-	OCCIgateway_Statement_setPrefetchMemorySize(&e, stmt, rowCount);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setPrefetchMemorySize(&e, stmt, rowCount);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setPrefetchRowCount(unsigned int rowCount) {
-	void * e = NULL;
-	OCCIgateway_Statement_setPrefetchRowCount(&e, stmt, rowCount);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setPrefetchRowCount(&e, stmt, rowCount);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setRowid(unsigned int idx, const Bytes &bytes) {
-	void * e = NULL;
-	OCCIgateway_Statement_setRowid(&e, stmt, idx, bytes.ref->obj);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setRowid(&e, stmt, idx, bytes.ref->obj);
+    checkException(e);
 }
 
 void occi_proxy::Statement::setSQL(const std::string &sql) {
-	void * e = NULL;
-	OCCIgateway_Statement_setSQL(&e, stmt, sql.c_str());
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setSQL(&e, stmt, sql.c_str());
+    checkException(e);
 }
 
 void occi_proxy::Statement::setString(unsigned int idx, const std::string &sql) {
-	void * e = NULL;
-	OCCIgateway_Statement_setString(&e, stmt, idx, sql.c_str());
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setString(&e, stmt, idx, sql.c_str());
+    checkException(e);
 }
 
 void occi_proxy::Statement::setUInt(unsigned int idx, unsigned int value) {
-	void * e = NULL;
-	OCCIgateway_Statement_setUInt(&e, stmt, idx, value);
-	checkException(e);
+    void * e = NULL;
+    OCCIgateway_Statement_setUInt(&e, stmt, idx, value);
+    checkException(e);
 }
 
 occi_proxy::Statement::Status occi_proxy::Statement::status() const {
-	unsigned int r = 0;
-	void * e = NULL;
-	OCCIgateway_Statement_status(&e, stmt);
-	checkException(e);
-	return static_cast<occi_proxy::Statement::Status>(r);
+    unsigned int r = 0;
+    void * e = NULL;
+    OCCIgateway_Statement_status(&e, stmt);
+    checkException(e);
+    return static_cast<occi_proxy::Statement::Status>(r);
 }
 
 /* ResultSet */

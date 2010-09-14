@@ -59,58 +59,58 @@ void OCCIgateway_Blob_closeStream(void ** exception, void * _blob, void * _strm)
 }
 
 void OCCIgateway_Blob_open(void ** exception, void * _blob, unsigned int mode) {
-	Blob * blob = static_cast<Blob *>(_blob);
-	*exception = NULL;
-	try {
-		blob->open(static_cast<LobOpenMode>(mode));
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Blob * blob = static_cast<Blob *>(_blob);
+    *exception = NULL;
+    try {
+        blob->open(static_cast<LobOpenMode>(mode));
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Blob_setEmpty(void ** exception, void * _blob) {
-	Blob * blob = static_cast<Blob *>(_blob);
-	*exception = NULL;
-	try {
-		blob->setEmpty();
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Blob * blob = static_cast<Blob *>(_blob);
+    *exception = NULL;
+    try {
+        blob->setEmpty();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 unsigned int OCCIgateway_Blob_writeChunk(void ** exception, void * _blob, unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset) {
-	unsigned int r = 0;
-	Blob * blob = static_cast<Blob *>(_blob);
-	*exception = NULL;
-	try {
-		r = blob->writeChunk(amt, buffer, bufsize, offset);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Blob * blob = static_cast<Blob *>(_blob);
+    *exception = NULL;
+    try {
+        r = blob->writeChunk(amt, buffer, bufsize, offset);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 void OCCIgateway_Blob_close(void ** exception, void * _blob) {
-	Blob * blob = static_cast<Blob *>(_blob);
-	*exception = NULL;
-	try {
-		blob->close();
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Blob * blob = static_cast<Blob *>(_blob);
+    *exception = NULL;
+    try {
+        blob->close();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 /* Bytes */
 void * OCCIgateway_Bytes_ctor(void ** exception, unsigned char * value, unsigned int count, unsigned int offset, void * _envr) {
-	Bytes * bytes = NULL;
-	Environment * envr = static_cast<Environment *>(_envr);
-	*exception = NULL;
-	try {
-		bytes = new Bytes(value, count, offset, envr);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return bytes;
+    Bytes * bytes = NULL;
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        bytes = new Bytes(value, count, offset, envr);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return bytes;
 }
 
 void OCCIgateway_Bytes_dtor(void * _bytes) {
@@ -173,33 +173,33 @@ void OCCIgateway_Clob_closeStream(void ** exception, void * _clob, void * _strm)
 
 /* Number */
 void OCCIgateway_Number_dtor(void * _number) {
-	Number * number = static_cast<Number *>(_number);
+    Number * number = static_cast<Number *>(_number);
 
-	delete number;
+    delete number;
 }
 
 const char * OCCIgateway_Number_toText(void ** exception, void * _number, void * _envr, const char * v1, const char * v2) {
-	const char * r = NULL;
-	Number * number = static_cast<Number *>(_number);
-	Environment * envr = static_cast<Environment *>(_envr);
-	*exception = NULL;
-	try {
-		r = strdup(number->toText(envr, v1, v2).c_str());
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    const char * r = NULL;
+    Number * number = static_cast<Number *>(_number);
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        r = strdup(number->toText(envr, v1, v2).c_str());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 void OCCIgateway_Number_fromText(void ** exception, void * _number, void * _envr, const char * v1, const char * v2, const char * v3) {
-	Number * number = static_cast<Number *>(_number);
-	Environment * envr = static_cast<Environment *>(_envr);
-	*exception = NULL;
-	try {
-		number->fromText(envr, v1, v2, v3);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Number * number = static_cast<Number *>(_number);
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+        number->fromText(envr, v1, v2, v3);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 /* Environment */
@@ -574,492 +574,492 @@ void * OCCIgateway_Statement_getClob(void ** exception, void * _stmt, unsigned i
 }
 
 unsigned int OCCIgateway_Statement_getCurrentIteration(void ** exception, void * _stmt) {
-	unsigned int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getCurrentIteration();
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getCurrentIteration();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 unsigned int OCCIgateway_Statement_getCurrentStreamIteration(void ** exception, void * _stmt) {
-	unsigned int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getCurrentStreamIteration();
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getCurrentStreamIteration();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 unsigned int OCCIgateway_Statement_getCurrentStreamParam(void ** exception, void * _stmt) {
-	unsigned int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getCurrentStreamParam();
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getCurrentStreamParam();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 void * OCCIgateway_Statement_getCursor(void ** exception, void * _stmt, unsigned int idx) {
-	ResultSet * rset = NULL;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		rset = stmt->getCursor(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return rset;
+    ResultSet * rset = NULL;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        rset = stmt->getCursor(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return rset;
 }
 
 int OCCIgateway_Statement_getDatabaseNCHARParam(void ** exception, void * _stmt, unsigned int idx) {
-	bool r = false;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getDatabaseNCHARParam(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    bool r = false;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getDatabaseNCHARParam(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 double OCCIgateway_Statement_getDouble(void ** exception, void * _stmt, unsigned int idx) {
-	double r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getDouble(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    double r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getDouble(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 float OCCIgateway_Statement_getFloat(void ** exception, void * _stmt, unsigned int idx) {
-	float r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getFloat(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    float r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getFloat(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 int OCCIgateway_Statement_getInt(void ** exception, void * _stmt, unsigned int idx) {
-	int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getInt(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getInt(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 unsigned int OCCIgateway_Statement_getMaxIterations(void ** exception, void * _stmt) {
-	unsigned int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getMaxIterations();
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getMaxIterations();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 unsigned int OCCIgateway_Statement_getMaxParamSize(void ** exception, void * _stmt, unsigned int idx) {
-	unsigned int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getMaxParamSize(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getMaxParamSize(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 void * OCCIgateway_Statement_getNumber(void ** exception, void * _stmt, unsigned int idx) {
-	Number n;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		n = stmt->getNumber(idx);
-		return new Number(n);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return NULL;
+    Number n;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        n = stmt->getNumber(idx);
+        return new Number(n);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
 }
 
 void * OCCIgateway_Statement_getResultSet(void ** exception, void * _stmt) {
-	ResultSet * r;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getResultSet();
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    ResultSet * r;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getResultSet();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 void * OCCIgateway_Statement_getRowid(void ** exception, void * _stmt, unsigned int idx) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	Bytes bytes;
-	*exception = NULL;
-	try {
-		bytes = stmt->getRowid(idx);
-		return new Bytes(bytes);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return NULL;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Bytes bytes;
+    *exception = NULL;
+    try {
+        bytes = stmt->getRowid(idx);
+        return new Bytes(bytes);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
 }
 
 const char * OCCIgateway_Statement_getSQL(void ** exception, void * _stmt) {
-	const char * r = NULL;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = strdup(stmt->getSQL().c_str());
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    const char * r = NULL;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = strdup(stmt->getSQL().c_str());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 void * OCCIgateway_Statement_getStream(void ** exception, void * _stmt, unsigned int idx) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	Stream * strm = NULL;
-	*exception = NULL;
-	try {
-		strm = stmt->getStream(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return strm;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Stream * strm = NULL;
+    *exception = NULL;
+    try {
+        strm = stmt->getStream(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return strm;
 }
 
 const char * OCCIgateway_Statement_getString(void ** exception, void * _stmt, unsigned int idx) {
-	const char * r = NULL;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = strdup(stmt->getString(idx).c_str());
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    const char * r = NULL;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = strdup(stmt->getString(idx).c_str());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 unsigned int OCCIgateway_Statement_getUInt(void ** exception, void * _stmt, unsigned int idx) {
-	unsigned int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getUInt(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getUInt(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 unsigned int OCCIgateway_Statement_getUpdateCount(void ** exception, void * _stmt) {
-	unsigned int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->getUpdateCount();
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->getUpdateCount();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 int OCCIgateway_Statement_isNull(void ** exception, void * _stmt, unsigned int idx) {
-	bool r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->isNull(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    bool r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->isNull(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 int OCCIgateway_Statement_isTruncated(void ** exception, void * _stmt, unsigned int idx) {
-	bool r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->isTruncated(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    bool r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->isTruncated(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 int OCCIgateway_Statement_preTruncationLength(void ** exception, void * _stmt, unsigned int idx) {
-	int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = stmt->preTruncationLength(idx);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = stmt->preTruncationLength(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 void OCCIgateway_Statement_registerOutParam(void ** exception, void * _stmt, unsigned int idx, unsigned int v1, unsigned int v2, const char * v3) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->registerOutParam(idx, static_cast<Type>(v1), v2, v3);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->registerOutParam(idx, static_cast<Type>(v1), v2, v3);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setAutoCommit(void ** exception, void * _stmt, int autoCommit) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setAutoCommit(!!autoCommit);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setAutoCommit(!!autoCommit);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setBinaryStreamMode(void ** exception, void * _stmt, unsigned int idx, unsigned int size) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setBinaryStreamMode(idx, size);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setBinaryStreamMode(idx, size);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setBytes(void ** exception, void * _stmt, unsigned int idx, void * _bytes) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	Bytes * bytes = static_cast<Bytes *>(_bytes);
-	*exception = NULL;
-	try {
-		stmt->setBytes(idx, *bytes);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Bytes * bytes = static_cast<Bytes *>(_bytes);
+    *exception = NULL;
+    try {
+        stmt->setBytes(idx, *bytes);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setCharacterStreamMode(void ** exception, void * _stmt, unsigned int idx, unsigned int size) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setCharacterStreamMode(idx, size);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setCharacterStreamMode(idx, size);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setCharSet(void ** exception, void * _stmt, unsigned int idx, const char * charset) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setCharSet(idx, charset);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setCharSet(idx, charset);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setDatabaseNCHARParam(void ** exception, void * _stmt, unsigned int idx, int isNCHAR) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setDatabaseNCHARParam(idx, !!isNCHAR);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setDatabaseNCHARParam(idx, !!isNCHAR);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setDouble(void ** exception, void * _stmt, unsigned int idx, double value) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setDouble(idx, value);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setDouble(idx, value);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setErrorOnNull(void ** exception, void * _stmt, unsigned int idx, int causeException) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setErrorOnNull(idx, !!causeException);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setErrorOnNull(idx, !!causeException);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setErrorOnTruncate(void ** exception, void * _stmt, unsigned int idx, int causeException) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setErrorOnTruncate(idx, !!causeException);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setErrorOnTruncate(idx, !!causeException);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setFloat(void ** exception, void * _stmt, unsigned int idx, float value) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setFloat(idx, value);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setFloat(idx, value);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setInt(void ** exception, void * _stmt, unsigned int idx, int value) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setInt(idx, value);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setInt(idx, value);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setMaxIterations(void ** exception, void * _stmt, unsigned int maxIterations) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setMaxIterations(maxIterations);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setMaxIterations(maxIterations);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setMaxParamSize(void ** exception, void * _stmt, unsigned int idx, unsigned int maxSize) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setMaxParamSize(idx, maxSize);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setMaxParamSize(idx, maxSize);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setNull(void ** exception, void * _stmt, unsigned int idx, unsigned int type) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setNull(idx, static_cast<Type>(type));
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setNull(idx, static_cast<Type>(type));
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setNumber(void ** exception, void * _stmt, unsigned int idx, void * _n) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	Number * n = static_cast<Number *>(_n);
-	*exception = NULL;
-	try {
-		stmt->setNumber(idx, *n);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Number * n = static_cast<Number *>(_n);
+    *exception = NULL;
+    try {
+        stmt->setNumber(idx, *n);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setPrefetchMemorySize(void ** exception, void * _stmt, unsigned int bytes) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setPrefetchMemorySize(bytes);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setPrefetchMemorySize(bytes);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setPrefetchRowCount(void ** exception, void * _stmt, unsigned int rowCount) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setPrefetchRowCount(rowCount);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setPrefetchRowCount(rowCount);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setRowid(void ** exception, void * _stmt, unsigned int idx, void * _bytes) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	Bytes * bytes = static_cast<Bytes *>(_bytes);
-	*exception = NULL;
-	try {
-		stmt->setRowid(idx, *bytes);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    Bytes * bytes = static_cast<Bytes *>(_bytes);
+    *exception = NULL;
+    try {
+        stmt->setRowid(idx, *bytes);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setSQL(void ** exception, void * _stmt, const char * sql) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setSQL(sql);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setSQL(sql);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setString(void ** exception, void * _stmt, unsigned int idx, const char * str) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setString(idx, str);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setString(idx, str);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 void OCCIgateway_Statement_setUInt(void ** exception, void * _stmt, unsigned int idx, unsigned int value) {
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		stmt->setInt(idx, value);
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        stmt->setInt(idx, value);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
 }
 
 unsigned int OCCIgateway_Statement_status(void ** exception, void * _stmt) {
-	unsigned int r = 0;
-	Statement * stmt = static_cast<Statement *>(_stmt);
-	*exception = NULL;
-	try {
-		r = static_cast<unsigned int>(stmt->status());
-	} catch (SQLException e) {
-		*exception = new SQLException(e);
-	}
-	return r;
+    unsigned int r = 0;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+        r = static_cast<unsigned int>(stmt->status());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
 }
 
 /* ResultSet */
