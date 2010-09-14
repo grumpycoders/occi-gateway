@@ -698,6 +698,18 @@ void occi_proxy::Statement::setPrefetchRowCount(unsigned int rowCount) {
 	checkException(e);
 }
 
+void occi_proxy::Statement::setRowid(unsigned int idx, const Bytes &bytes) {
+	void * e = NULL;
+	OCCIgateway_Statement_setRowid(&e, stmt, idx, bytes.ref->obj);
+	checkException(e);
+}
+
+void occi_proxy::Statement::setSQL(const std::string &sql) {
+	void * e = NULL;
+	OCCIgateway_Statement_setSQL(&e, stmt, sql.c_str());
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

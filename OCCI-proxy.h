@@ -256,6 +256,8 @@ namespace occi_proxy {
 		void setNumber(unsigned int idx, const Number &n);
 		void setPrefetchMemorySize(unsigned int bytes);
 		void setPrefetchRowCount(unsigned int rowCount);
+		void setRowid(unsigned int idx, const Bytes &x);
+		void setSQL(const std::string &sql);
       protected:
 		  Statement(void *, float);
         void * stmt;

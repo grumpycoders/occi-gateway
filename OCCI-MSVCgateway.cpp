@@ -1009,6 +1009,27 @@ void OCCIgateway_Statement_setPrefetchRowCount(void ** exception, void * _stmt, 
 	}
 }
 
+void OCCIgateway_Statement_setRowid(void ** exception, void * _stmt, unsigned int idx, void * _bytes) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	Bytes * bytes = static_cast<Bytes *>(_bytes);
+	*exception = NULL;
+	try {
+		stmt->setRowid(idx, *bytes);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
+void OCCIgateway_Statement_setSQL(void ** exception, void * _stmt, const char * sql) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setSQL(sql);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
