@@ -710,6 +710,12 @@ void occi_proxy::Statement::setSQL(const std::string &sql) {
 	checkException(e);
 }
 
+void occi_proxy::Statement::setString(unsigned int idx, const std::string &sql) {
+	void * e = NULL;
+	OCCIgateway_Statement_setString(&e, stmt, idx, sql.c_str());
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

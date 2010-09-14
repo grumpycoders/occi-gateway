@@ -121,6 +121,7 @@ extern "C" {
 	OGWEXPORT void OCCIgateway_Statement_setPrefetchRowCount(void ** exception, void * stmt, unsigned int bytes);
 	OGWEXPORT void OCCIgateway_Statement_setRowid(void ** exception, void * stmt, unsigned int idx, void * bytes);
 	OGWEXPORT void OCCIgateway_Statement_setSQL(void ** exception, void * stmt, const char * sql);
+	OGWEXPORT void OCCIgateway_Statement_setString(void ** exception, void * stmt, unsigned int idx, const char * str);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
