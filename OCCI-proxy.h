@@ -242,6 +242,7 @@ namespace occi_proxy {
 		void setBinaryStreamMode(unsigned int idx, unsigned int size);
 		void setBytes(unsigned int idx, const Bytes &bytes);
 		void setCharacterStreamMode(unsigned int idx, unsigned int size);
+		void setCharSet(unsigned int idx, const std::string &charset);
       protected:
 		  Statement(void *, float);
         void * stmt;

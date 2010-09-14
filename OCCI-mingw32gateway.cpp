@@ -614,6 +614,12 @@ void occi_proxy::Statement::setCharacterStreamMode(unsigned int idx, unsigned in
 	checkException(e);
 }
 
+void occi_proxy::Statement::setCharSet(unsigned int idx, const std::string &charset) {
+	void * e = NULL;
+	OCCIgateway_Statement_setCharSet(&e, stmt, idx, charset.c_str());
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
