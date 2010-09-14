@@ -255,6 +255,7 @@ namespace occi_proxy {
 		void setNull(unsigned int idx, Type type);
 		void setNumber(unsigned int idx, const Number &n);
 		void setPrefetchMemorySize(unsigned int bytes);
+		void setPrefetchRowCount(unsigned int rowCount);
       protected:
 		  Statement(void *, float);
         void * stmt;

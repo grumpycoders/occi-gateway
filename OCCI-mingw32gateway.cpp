@@ -686,9 +686,15 @@ void occi_proxy::Statement::setNumber(unsigned int idx, const Number &n) {
 	checkException(e);
 }
 
-void occi_proxy::Statement::setPrefetchMemorySize(unsigned int bytes) {
+void occi_proxy::Statement::setPrefetchMemorySize(unsigned int rowCount) {
 	void * e = NULL;
-	OCCIgateway_Statement_setPrefetchMemorySize(&e, stmt, bytes);
+	OCCIgateway_Statement_setPrefetchMemorySize(&e, stmt, rowCount);
+	checkException(e);
+}
+
+void occi_proxy::Statement::setPrefetchRowCount(unsigned int rowCount) {
+	void * e = NULL;
+	OCCIgateway_Statement_setPrefetchRowCount(&e, stmt, rowCount);
 	checkException(e);
 }
 
