@@ -246,6 +246,7 @@ namespace occi_proxy {
 		void setDatabaseNCHARParam(unsigned int idx, bool isNCHAR);
 		void setDouble(unsigned int idx, double value);
 		void setErrorOnNull(unsigned int idx, bool causeException);
+		void setErrorOnTruncate(unsigned int idx, bool causeException);
       protected:
 		  Statement(void *, float);
         void * stmt;

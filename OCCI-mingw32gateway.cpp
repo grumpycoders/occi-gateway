@@ -632,6 +632,12 @@ void occi_proxy::Statement::setDouble(unsigned int idx, double value) {
 	checkException(e);
 }
 
+void occi_proxy::Statement::setErrorOnTruncate(unsigned int idx, bool causeException) {
+	void * e = NULL;
+	OCCIgateway_Statement_setErrorOnTruncate(&e, stmt, idx, causeException);
+	checkException(e);
+}
+
 void occi_proxy::Statement::setErrorOnNull(unsigned int idx, bool causeException) {
 	void * e = NULL;
 	OCCIgateway_Statement_setErrorOnNull(&e, stmt, idx, causeException);
