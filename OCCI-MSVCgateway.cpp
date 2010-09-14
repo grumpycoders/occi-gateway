@@ -927,6 +927,26 @@ void OCCIgateway_Statement_setFloat(void ** exception, void * _stmt, unsigned in
 	}
 }
 
+void OCCIgateway_Statement_setInt(void ** exception, void * _stmt, unsigned int idx, int value) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setInt(idx, value);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
+void OCCIgateway_Statement_setMaxIterations(void ** exception, void * _stmt, unsigned int maxIterations) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setMaxIterations(maxIterations);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

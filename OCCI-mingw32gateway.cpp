@@ -650,6 +650,18 @@ void occi_proxy::Statement::setFloat(unsigned int idx, float value) {
 	checkException(e);
 }
 
+void occi_proxy::Statement::setInt(unsigned int idx, int value) {
+	void * e = NULL;
+	OCCIgateway_Statement_setInt(&e, stmt, idx, value);
+	checkException(e);
+}
+
+void occi_proxy::Statement::setMaxIterations(unsigned int maxIterations) {
+	void * e = NULL;
+	OCCIgateway_Statement_setMaxIterations(&e, stmt, maxIterations);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

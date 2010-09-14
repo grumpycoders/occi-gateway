@@ -248,6 +248,8 @@ namespace occi_proxy {
 		void setErrorOnNull(unsigned int idx, bool causeException);
 		void setErrorOnTruncate(unsigned int idx, bool causeException);
 		void setFloat(unsigned int idx, float value);
+		void setInt(unsigned int idx, int value);
+		void setMaxIterations(unsigned int maxIterations);
       protected:
 		  Statement(void *, float);
         void * stmt;
