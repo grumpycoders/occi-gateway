@@ -41,7 +41,7 @@ extern "C" {
 	/* Number */
 	OGWEXPORT void OCCIgateway_Number_dtor(void * number);
 	OGWEXPORT const char * OCCIgateway_Number_toText(void ** exception, void * number, void * envr, const char * v1, const char * v2);
-	OGWEXPORT const char * OCCIgateway_Number_fromText(void ** exception, void * number, void * envr, const char * v1, const char * v2, const char * v3);
+	OGWEXPORT void OCCIgateway_Number_fromText(void ** exception, void * number, void * envr, const char * v1, const char * v2, const char * v3);
 
 	/* Environment */
     OGWEXPORT void OCCIgateway_Environment_dtor(void ** exception, void * envr);
@@ -116,6 +116,7 @@ extern "C" {
 	OGWEXPORT void OCCIgateway_Statement_setMaxIterations(void ** exception, void * stmt, unsigned int maxIterations);
 	OGWEXPORT void OCCIgateway_Statement_setMaxParamSize(void ** exception, void * stmt, unsigned int idx, unsigned int maxSize);
 	OGWEXPORT void OCCIgateway_Statement_setNull(void ** exception, void * stmt, unsigned int idx, unsigned int type);
+	OGWEXPORT void OCCIgateway_Statement_setNumber(void ** exception, void * stmt, unsigned int idx, void * number);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);

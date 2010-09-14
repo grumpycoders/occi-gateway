@@ -157,9 +157,9 @@ std::string occi_proxy::Number::toText(const occi_proxy::Environment * env, cons
 	return r;
 }
 
-void occi_proxy::Number::fromText(const occi_proxy::Environment * env, const std::string &v1, const std::string &v2, const std::string &v3) const {
+void occi_proxy::Number::fromText(const occi_proxy::Environment * env, const std::string &v1, const std::string &v2, const std::string &v3) {
 	void * e = NULL;
-	OCCIgateway_Number_fromText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str(), v3->c_str());
+	OCCIgateway_Number_fromText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str(), v3.c_str());
 	checkException(e);
 }
 
@@ -677,6 +677,12 @@ void occi_proxy::Statement::setMaxParamSize(unsigned int idx, unsigned int maxSi
 void occi_proxy::Statement::setNull(unsigned int idx, Type type) {
 	void * e = NULL;
 	OCCIgateway_Statement_setNull(&e, stmt, idx, static_cast<unsigned int>(type));
+	checkException(e);
+}
+
+void occi_proxy::Statement::setNumber(unsigned int idx, const Number &n) {
+	void * e = NULL;
+	OCCIgateway_Statement_setNumber(&e, stmt, idx, n.ref->obj);
 	checkException(e);
 }
 

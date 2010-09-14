@@ -191,12 +191,12 @@ const char * OCCIgateway_Number_toText(void ** exception, void * _number, void *
 	return r;
 }
 
-const char * OCCIgateway_Number_fromText(void ** exception, void * _number, void * _envr, const char * v1, const char * v2, const char * v3) {
+void OCCIgateway_Number_fromText(void ** exception, void * _number, void * _envr, const char * v1, const char * v2, const char * v3) {
 	Number * number = static_cast<Number *>(_number);
 	Environment * envr = static_cast<Environment *>(_envr);
 	*exception = NULL;
 	try {
-		number->toText(envr, v1, v2, v3);
+		number->fromText(envr, v1, v2, v3);
 	} catch (SQLException e) {
 		*exception = new SQLException(e);
 	}
@@ -973,6 +973,17 @@ void OCCIgateway_Statement_setNull(void ** exception, void * _stmt, unsigned int
 	*exception = NULL;
 	try {
 		stmt->setNull(idx, static_cast<Type>(type));
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
+void OCCIgateway_Statement_setNumber(void ** exception, void * _stmt, unsigned int idx, void * _n) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	Number * n = static_cast<Number *>(_n);
+	*exception = NULL;
+	try {
+		stmt->setNumber(idx, *n);
 	} catch (SQLException e) {
 		*exception = new SQLException(e);
 	}
