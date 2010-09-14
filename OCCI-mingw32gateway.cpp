@@ -602,6 +602,12 @@ void occi_proxy::Statement::setBinaryStreamMode(unsigned int idx, unsigned int s
 	checkException(e);
 }
 
+void occi_proxy::Statement::setBytes(unsigned int idx, const Bytes &bytes) {
+	void * e = NULL;
+	OCCIgateway_Statement_setBytes(&e, stmt, idx, bytes.ref->obj);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
