@@ -108,6 +108,7 @@ extern "C" {
 	OGWEXPORT void OCCIgateway_Statement_setCharSet(void ** exception, void * stmt, unsigned int idx, const char * charset);
 	OGWEXPORT void OCCIgateway_Statement_setDatabaseNCHARParam(void ** exception, void * stmt, unsigned int idx, int isNCHAR);
 	OGWEXPORT void OCCIgateway_Statement_setDouble(void ** exception, void * stmt, unsigned int idx, double value);
+	OGWEXPORT void OCCIgateway_Statement_setErrorOnNull(void ** exception, void * stmt, unsigned int idx, int causeException);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);

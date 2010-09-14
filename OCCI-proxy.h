@@ -245,6 +245,7 @@ namespace occi_proxy {
 		void setCharSet(unsigned int idx, const std::string &charset);
 		void setDatabaseNCHARParam(unsigned int idx, bool isNCHAR);
 		void setDouble(unsigned int idx, double value);
+		void setErrorOnNull(unsigned int idx, bool causeException);
       protected:
 		  Statement(void *, float);
         void * stmt;
