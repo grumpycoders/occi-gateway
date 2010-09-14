@@ -97,6 +97,14 @@ occi_proxy::Bytes::Bytes(const Bytes &bytes) : ref(bytes.ref->addRef()) { }
 occi_proxy::Bytes::~Bytes() { ref->release(); }
 void occi_proxy::Bytes::dtor(void * obj) { OCCIgateway_Bytes_dtor(obj); }
 
+occi_proxy::Bytes::Bytes(unsigned char * value, unsigned int count, unsigned int offset, const occi_proxy::Environment * envr) {
+	void * e = NULL;
+	void * b = NULL;
+	b = OCCIgateway_Bytes_ctor(&e, value, count, offset, envr ? envr->envr : NULL);
+	checkException(e);
+	ref = new occi_proxy::refCounter<Bytes>(b);
+}
+
 unsigned int occi_proxy::Bytes::length() const {
     void * e = NULL;
     unsigned int r;
@@ -142,7 +150,7 @@ void occi_proxy::Number::dtor(void * obj) { OCCIgateway_Number_dtor(obj); }
 std::string occi_proxy::Number::toText(const occi_proxy::Environment * env, std::string v1, std::string v2) const {
 	const char * p = NULL;
 	void * e = NULL;
-	p = OCCIgateway_Number_toText(&e, ref->obj, env->envr, v1.c_str(), v2.c_str());
+	p = OCCIgateway_Number_toText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str());
 	checkException(e);
 	std::string r = p;
 	free((void *)p);

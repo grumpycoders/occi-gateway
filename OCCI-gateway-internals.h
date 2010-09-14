@@ -28,6 +28,7 @@ extern "C" {
 	OGWEXPORT void OCCIgateway_Blob_close(void ** exception, void * blob);
 
     /* Bytes */
+	OGWEXPORT void * OCCIgateway_Bytes_ctor(void ** exception, unsigned char * value, unsigned int count, unsigned int offset, void * envr);
     OGWEXPORT void OCCIgateway_Bytes_dtor(void * bytes);
     OGWEXPORT unsigned int OCCIgateway_Bytes_length(void ** exception, void * bytes);
     OGWEXPORT void OCCIgateway_Bytes_getBytes(void ** exception, void * bytes, unsigned char * v1, unsigned int v2, unsigned int v3, unsigned int v4);

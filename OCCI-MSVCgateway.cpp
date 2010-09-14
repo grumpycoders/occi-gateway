@@ -101,6 +101,18 @@ void OCCIgateway_Blob_close(void ** exception, void * _blob) {
 }
 
 /* Bytes */
+void * OCCIgateway_Bytes_ctor(void ** exception, unsigned char * value, unsigned int count, unsigned int offset, void * _envr) {
+	Bytes * bytes = NULL;
+	Environment * envr = static_cast<Environment *>(_envr);
+	*exception = NULL;
+	try {
+		bytes = new Bytes(value, count, offset, envr);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+	return bytes;
+}
+
 void OCCIgateway_Bytes_dtor(void * _bytes) {
     Bytes * bytes = static_cast<Bytes *>(_bytes);
 

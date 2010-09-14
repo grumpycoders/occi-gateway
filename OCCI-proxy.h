@@ -3,6 +3,8 @@
 
 #include <occi.h>
 
+#pragma warning (disable: 4290)
+
 namespace occi_proxy {
 	class SQLException;
 	class Blob;
@@ -132,6 +134,7 @@ namespace occi_proxy {
     };
     class Bytes {
       public:
+		  Bytes(unsigned char * value, unsigned int count, unsigned int offset = 0, const Environment * envr = NULL);
           Bytes(const Bytes &);
           ~Bytes();
         unsigned int length() const;
@@ -162,7 +165,7 @@ namespace occi_proxy {
 	  public:
 		  Number(const Number &);
 		  ~Number();
-		std::string toText(const Environment * env, std::string fmt, std::string nslparam = "") const;
+		std::string toText(const Environment * envr, std::string fmt, std::string nslparam = "") const;
 	  protected:
 		  Number(void *, float);
 		static void dtor(void * obj);
@@ -284,6 +287,7 @@ namespace occi_proxy {
 		  Environment(void *, float);
         void * envr;
 		friend class Number;
+		friend class Bytes;
     };
 };
 
