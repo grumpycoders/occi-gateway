@@ -887,6 +887,16 @@ void OCCIgateway_Statement_setDatabaseNCHARParam(void ** exception, void * _stmt
 	}
 }
 
+void OCCIgateway_Statement_setDouble(void ** exception, void * _stmt, unsigned int idx, double value) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setDouble(idx, value);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

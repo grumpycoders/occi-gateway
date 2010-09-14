@@ -626,6 +626,12 @@ void occi_proxy::Statement::setDatabaseNCHARParam(unsigned int idx, bool isNCHAR
 	checkException(e);
 }
 
+void occi_proxy::Statement::setDouble(unsigned int idx, double value) {
+	void * e = NULL;
+	OCCIgateway_Statement_setDouble(&e, stmt, idx, value);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
