@@ -122,6 +122,7 @@ extern "C" {
 	OGWEXPORT void OCCIgateway_Statement_setRowid(void ** exception, void * stmt, unsigned int idx, void * bytes);
 	OGWEXPORT void OCCIgateway_Statement_setSQL(void ** exception, void * stmt, const char * sql);
 	OGWEXPORT void OCCIgateway_Statement_setString(void ** exception, void * stmt, unsigned int idx, const char * str);
+	OGWEXPORT void OCCIgateway_Statement_setUInt(void ** exception, void * stmt, unsigned int idx, unsigned int value);
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);

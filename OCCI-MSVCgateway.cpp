@@ -1040,6 +1040,16 @@ void OCCIgateway_Statement_setString(void ** exception, void * _stmt, unsigned i
 	}
 }
 
+void OCCIgateway_Statement_setUInt(void ** exception, void * _stmt, unsigned int idx, unsigned int value) {
+	Statement * stmt = static_cast<Statement *>(_stmt);
+	*exception = NULL;
+	try {
+		stmt->setInt(idx, value);
+	} catch (SQLException e) {
+		*exception = new SQLException(e);
+	}
+}
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);

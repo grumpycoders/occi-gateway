@@ -716,6 +716,12 @@ void occi_proxy::Statement::setString(unsigned int idx, const std::string &sql) 
 	checkException(e);
 }
 
+void occi_proxy::Statement::setUInt(unsigned int idx, unsigned int value) {
+	void * e = NULL;
+	OCCIgateway_Statement_setUInt(&e, stmt, idx, value);
+	checkException(e);
+}
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {

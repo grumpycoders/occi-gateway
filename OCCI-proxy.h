@@ -259,6 +259,7 @@ namespace occi_proxy {
 		void setRowid(unsigned int idx, const Bytes &x);
 		void setSQL(const std::string &sql);
 		void setString(unsigned int idx, const std::string &str);
+		void setUInt(unsigned int idx, unsigned int value);
       protected:
 		  Statement(void *, float);
         void * stmt;
