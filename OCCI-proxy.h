@@ -188,6 +188,7 @@ namespace occi_proxy {
         Clob getClob(unsigned int idx);
         unsigned int getCurrentStreamColumn() const;
         unsigned int getCurrentStreamRow() const;
+        ResultSet * getCursor(unsigned int idx);
       protected:
           ResultSet(void *, float);
         void * rset;

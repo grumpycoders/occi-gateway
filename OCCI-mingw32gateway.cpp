@@ -795,6 +795,14 @@ unsigned int occi_proxy::ResultSet::getCurrentStreamRow() const {
     return r;
 }
 
+occi_proxy::ResultSet * occi_proxy::ResultSet::getCursor(unsigned int idx) {
+    void * r = 0;
+    void * e = NULL;
+    r = OCCIgateway_ResultSet_getCursor(&e, rset, idx);
+    checkException(e);
+    return new occi_proxy::ResultSet(r, .0f);
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {

@@ -1153,6 +1153,17 @@ unsigned int OCCIgateway_ResultSet_getCurrentStreamRow(void ** exception, void *
     return r;
 }
 
+void * OCCIgateway_ResultSet_getCursor(void ** exception, void * _rset, unsigned int idx) {
+    void * r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    try {
+        r = rset->getCursor(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);
