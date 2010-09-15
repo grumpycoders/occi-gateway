@@ -999,6 +999,22 @@ occi_proxy::Stream::~Stream() {
     checkException(e);
 }
 
+int occi_proxy::Stream::readBuffer(char * buffer, unsigned int size) {
+    int r = 0;
+    void * e = NULL;
+    r = OCCIgateway_Stream_readBuffer(&e, strm, buffer, size);
+    checkException(e);
+    return r;
+}
+
+int occi_proxy::Stream::readLastBuffer(char * buffer, unsigned int size) {
+    int r = 0;
+    void * e = NULL;
+    r = OCCIgateway_Stream_readLastBuffer(&e, strm, buffer, size);
+    checkException(e);
+    return r;
+}
+
 void occi_proxy::Stream::writeBuffer(char * buffer, unsigned int size) {
     void * e = NULL;
     OCCIgateway_Stream_writeBuffer(&e, strm, buffer, size);

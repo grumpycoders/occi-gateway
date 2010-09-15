@@ -1451,6 +1451,30 @@ void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     }
 }
 
+int OCCIgateway_Stream_readBuffer(void ** exception, void * _strm, char * buffer, unsigned int size) {
+    int r = 0;
+    Stream * strm = static_cast<Stream *>(_strm);
+    *exception = NULL;
+    try {
+        r = strm->readBuffer(buffer, size);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+int OCCIgateway_Stream_readLastBuffer(void ** exception, void * _strm, char * buffer, unsigned int size) {
+    int r = 0;
+    Stream * strm = static_cast<Stream *>(_strm);
+    *exception = NULL;
+    try {
+        r = strm->readLastBuffer(buffer, size);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 void OCCIgateway_Stream_writeBuffer(void ** exception, void * _strm, char * buffer, unsigned int size) {
     Stream * strm = static_cast<Stream *>(_strm);
     *exception = NULL;

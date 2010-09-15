@@ -384,9 +384,17 @@ namespace occi_proxy {
     };
     class Stream {
       public:
+        enum Status {
+            READY_FOR_READ = oracle::occi::Stream::READY_FOR_READ,
+            READY_FOR_WRITE = oracle::occi::Stream::READY_FOR_WRITE,
+            INACTIVE = oracle::occi::Stream::INACTIVE,
+        };
           ~Stream();
+        int readBuffer(char * buffer, unsigned int size);
+        int readLastBuffer(char * buffer, unsigned int size);
         void writeBuffer(char * buffer, unsigned int size);
         void writeLastBuffer(char * buffer, unsigned int size);
+        Status status() const;
       protected:
           Stream(void *, float);
         void * strm;
