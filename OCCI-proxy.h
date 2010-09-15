@@ -178,6 +178,7 @@ namespace occi_proxy {
     class ResultSet {
       public:
           ~ResultSet();
+        void cancel();
       protected:
           ResultSet(void *, float);
         void * rset;

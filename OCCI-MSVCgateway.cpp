@@ -1072,6 +1072,15 @@ void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     }
 }
 
+void OCCIgateway_ResultSet_cancel(void ** exception, void * _rset) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    try {
+        rset->cancel();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

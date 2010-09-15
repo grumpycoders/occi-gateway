@@ -739,6 +739,12 @@ occi_proxy::ResultSet::~ResultSet() {
     checkException(e);
 }
 
+void occi_proxy::ResultSet::cancel() {
+    void * e = NULL;
+    OCCIgateway_ResultSet_cancel(&e, rset);
+    checkException(e);
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {
