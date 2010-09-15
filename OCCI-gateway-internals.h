@@ -128,6 +128,7 @@ extern "C" {
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
     OGWEXPORT void OCCIgateway_ResultSet_cancel(void ** exception, void * rset);
+    OGWEXPORT const char * OCCIgateway_ResultSet_getCharSet(void ** exception, void * rset, unsigned int idx);
     
     /* Stream */
     OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);

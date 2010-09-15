@@ -179,6 +179,7 @@ namespace occi_proxy {
       public:
           ~ResultSet();
         void cancel();
+        std::string getCharSet(unsigned int idx) const;
       protected:
           ResultSet(void *, float);
         void * rset;

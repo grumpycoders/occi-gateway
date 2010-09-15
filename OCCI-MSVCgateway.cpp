@@ -1081,6 +1081,17 @@ void OCCIgateway_ResultSet_cancel(void ** exception, void * _rset) {
     }
 }
 
+const char * OCCIgateway_ResultSet_getCharSet(void ** exception, void * _rset, unsigned int idx) {
+    const char * r = NULL;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    try {
+        r = strdup(rset->getCharSet(idx).c_str());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

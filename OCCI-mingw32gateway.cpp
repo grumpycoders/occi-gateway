@@ -745,6 +745,16 @@ void occi_proxy::ResultSet::cancel() {
     checkException(e);
 }
 
+std::string occi_proxy::ResultSet::getCharSet(unsigned int idx) const {
+    const char * p = NULL;
+    void * e = NULL;
+    p = OCCIgateway_ResultSet_getCharSet(&e, rset, idx);
+    checkException(e);
+    std::string r = p;
+    free((void *)p);
+    return r;
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {
