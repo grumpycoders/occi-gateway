@@ -175,6 +175,7 @@ namespace occi_proxy {
         static void dtor(void * obj);
         friend class refCounter<Number>;
         friend class Statement;
+        friend class ResultSet;
       private:
         refCounter<Number> * ref;
     };
@@ -194,6 +195,13 @@ namespace occi_proxy {
         int getInt(unsigned int idx);
         unsigned int getMaxColumnSize(unsigned int idx) const;
         unsigned int getNumArrayRows() const;
+        Number getNumber(unsigned int idx);
+        Bytes getRowid(unsigned int idx);
+        Stream * getStream(unsigned int idx);
+        std::string getString(unsigned int idx);
+        unsigned int getUInt(unsigned int idx);
+        bool isNull(unsigned int idx) const;
+        bool isTruncated(unsigned int idx) const;
       protected:
           ResultSet(void *, float);
         void * rset;

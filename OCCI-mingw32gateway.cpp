@@ -843,6 +843,64 @@ unsigned int occi_proxy::ResultSet::getNumArrayRows() const {
     return r;
 }
 
+occi_proxy::Number occi_proxy::ResultSet::getNumber(unsigned int idx) {
+    void * e = NULL;
+    void * r = NULL;
+    r = OCCIgateway_ResultSet_getNumber(&e, rset, idx);
+    checkException(e);
+    return Number(r, .0f);
+}
+
+occi_proxy::Bytes occi_proxy::ResultSet::getRowid(unsigned int idx) {
+    void * e = NULL;
+    void * bytes = NULL;
+    bytes = OCCIgateway_ResultSet_getRowid(&e, rset, idx);
+    checkException(e);
+    return Bytes(bytes, .0f);
+}
+
+occi_proxy::Stream * occi_proxy::ResultSet::getStream(unsigned int idx) {
+    void * e = NULL;
+    void * strm = NULL;
+    strm = OCCIgateway_ResultSet_getStream(&e, rset, idx);
+    checkException(e);
+    return new Stream(strm, .0f);
+}
+
+std::string occi_proxy::ResultSet::getString(unsigned int idx) {
+    void * e = NULL;
+    const char * p = NULL;
+    p = OCCIgateway_ResultSet_getString(&e, rset, idx);
+    checkException(e);
+    std::string r = p;
+    free((void *)p);
+    return r;
+}
+
+unsigned int occi_proxy::ResultSet::getUInt(unsigned int idx) {
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_ResultSet_getUInt(&e, rset, idx);
+    checkException(e);
+    return r;
+}
+
+bool occi_proxy::ResultSet::isNull(unsigned int idx) const {
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_ResultSet_isNull(&e, rset, idx);
+    checkException(e);
+    return !!r;
+}
+
+bool occi_proxy::ResultSet::isTruncated(unsigned int idx) const {
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_ResultSet_isTruncated(&e, rset, idx);
+    checkException(e);
+    return !!r;
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {

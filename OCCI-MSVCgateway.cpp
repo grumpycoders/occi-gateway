@@ -1223,6 +1223,92 @@ unsigned int OCCIgateway_ResultSet_getNumArrayRows(void ** exception, void * _rs
     return r;
 }
 
+void * OCCIgateway_ResultSet_getNumber(void ** exception, void * _rset, unsigned int idx) {
+    Number n;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        n = rset->getNumber(idx);
+        return new Number(n);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
+}
+
+void * OCCIgateway_ResultSet_getRowid(void ** exception, void * _rset, unsigned int idx) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    Bytes bytes;
+    *exception = NULL;
+    try {
+        bytes = rset->getRowid(idx);
+        return new Bytes(bytes);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
+}
+
+void * OCCIgateway_ResultSet_getStream(void ** exception, void * _rset, unsigned int idx) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    Stream * strm = NULL;
+    *exception = NULL;
+    try {
+        strm = rset->getStream(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return strm;
+}
+
+const char * OCCIgateway_ResultSet_getString(void ** exception, void * _rset, unsigned int idx) {
+    const char * r = NULL;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = strdup(rset->getString(idx).c_str());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+unsigned int OCCIgateway_ResultSet_getUInt(void ** exception, void * _rset, unsigned int idx) {
+    unsigned int r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = rset->getUInt(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+int OCCIgateway_ResultSet_isNull(void ** exception, void * _rset, unsigned int idx) {
+    bool r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = rset->isNull(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+int OCCIgateway_ResultSet_isTruncated(void ** exception, void * _rset, unsigned int idx) {
+    bool r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = rset->isTruncated(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);
