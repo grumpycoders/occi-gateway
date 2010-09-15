@@ -133,6 +133,7 @@ extern "C" {
     OGWEXPORT void * OCCIgateway_ResultSet_getBytes(void ** exception, void * stmt, unsigned int idx);
     OGWEXPORT void * OCCIgateway_ResultSet_getClob(void ** exception, void * stmt, unsigned int idx);
     OGWEXPORT unsigned int OCCIgateway_ResultSet_getCurrentStreamColumn(void ** exception, void * rset);
+    OGWEXPORT unsigned int OCCIgateway_ResultSet_getCurrentStreamRow(void ** exception, void * rset);
     
     /* Stream */
     OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);

@@ -1142,6 +1142,17 @@ unsigned int OCCIgateway_ResultSet_getCurrentStreamColumn(void ** exception, voi
     return r;
 }
 
+unsigned int OCCIgateway_ResultSet_getCurrentStreamRow(void ** exception, void * _rset) {
+    unsigned int r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    try {
+        r = rset->getCurrentStreamRow();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

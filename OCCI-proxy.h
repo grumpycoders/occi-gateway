@@ -187,6 +187,7 @@ namespace occi_proxy {
         Bytes getBytes(unsigned int idx);
         Clob getClob(unsigned int idx);
         unsigned int getCurrentStreamColumn() const;
+        unsigned int getCurrentStreamRow() const;
       protected:
           ResultSet(void *, float);
         void * rset;

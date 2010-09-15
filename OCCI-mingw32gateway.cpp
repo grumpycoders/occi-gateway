@@ -787,6 +787,14 @@ unsigned int occi_proxy::ResultSet::getCurrentStreamColumn() const {
     return r;
 }
 
+unsigned int occi_proxy::ResultSet::getCurrentStreamRow() const {
+    unsigned int r = 0;
+    void * e = NULL;
+    r = OCCIgateway_ResultSet_getCurrentStreamRow(&e, rset);
+    checkException(e);
+    return r;
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {
