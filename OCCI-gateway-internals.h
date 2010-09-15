@@ -160,6 +160,7 @@ extern "C" {
     OGWEXPORT void OCCIgateway_ResultSet_setErrorOnTruncate(void ** exception, void * rset, unsigned int idx, int causeException);
     OGWEXPORT void OCCIgateway_ResultSet_setMaxColumnSize(void ** exception, void * rset, unsigned int idx, int max);
     OGWEXPORT unsigned int OCCIgateway_ResultSet_status(void ** exception, void * rset);
+    OGWEXPORT void ** OCCIgateway_ResultSet_getColumnListMetaData(size_t * size, void ** exception, void * rset);
     
     /* Stream */
     OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);

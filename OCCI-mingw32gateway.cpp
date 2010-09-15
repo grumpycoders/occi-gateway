@@ -977,6 +977,19 @@ occi_proxy::ResultSet::Status occi_proxy::ResultSet::status() const {
     return static_cast<occi_proxy::ResultSet::Status>(r);
 }
 
+std::vector<occi_proxy::MetaData> occi_proxy::ResultSet::getColumnListMetaData() const {
+    size_t s = 0;
+    std::vector<occi_proxy::MetaData> r;
+    void * e = NULL;
+    void ** p = NULL;
+    p = OCCIgateway_ResultSet_getColumnListMetaData(&s, &e, rset);
+    checkException(e);
+    for (size_t i = 0; i < s; i++)
+        r.push_back(MetaData(p[i], .0f));
+    free(p);
+    return r;
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {

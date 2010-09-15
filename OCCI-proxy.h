@@ -335,6 +335,7 @@ namespace occi_proxy {
           MetaData(void *, float);
         static void dtor(void * obj);
         friend class refCounter<MetaData>;
+        friend class ResultSet;
       private:
         refCounter<MetaData> * ref;
     };

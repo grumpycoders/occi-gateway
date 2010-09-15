@@ -1424,6 +1424,23 @@ unsigned int OCCIgateway_ResultSet_status(void ** exception, void * _rset) {
     return r;
 }
 
+void ** OCCIgateway_ResultSet_getColumnListMetaData(size_t * size, void ** exception, void * _rset) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    void ** r = NULL;
+    *size = 0;
+    *exception = NULL;
+    try {
+        std::vector<MetaData> v = rset->getColumnListMetaData();
+        r = (void **) malloc(sizeof(void *) * (*size = v.size()));
+        int c = 0;
+        for (std::vector<MetaData>::iterator i = v.begin(); i != v.end(); c++, i++)
+            r[c] = new MetaData(*i);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);
