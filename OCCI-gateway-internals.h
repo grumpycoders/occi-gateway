@@ -168,6 +168,7 @@ extern "C" {
     OGWEXPORT int OCCIgateway_Stream_readLastBuffer(void ** exception, void * strm, char * buffer, unsigned int size);
     OGWEXPORT void OCCIgateway_Stream_writeBuffer(void ** exception, void * strm, char * buffer, unsigned int size);
     OGWEXPORT void OCCIgateway_Stream_writeLastBuffer(void ** exception, void * strm, char * buffer, unsigned int size);
+    OGWEXPORT unsigned int OCCIgateway_Stream_status(void ** exception, void * strm);
 }
 
 #endif

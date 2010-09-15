@@ -1494,3 +1494,15 @@ void OCCIgateway_Stream_writeLastBuffer(void ** exception, void * _strm, char * 
         *exception = new SQLException(e);
     }
 }
+
+unsigned int OCCIgateway_Stream_status(void ** exception, void * _strm) {
+    ResultSet * strm = static_cast<ResultSet *>(_strm);
+    unsigned int r = 0;
+    *exception = NULL;
+    try {
+        r = static_cast<unsigned int>(strm->status());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}

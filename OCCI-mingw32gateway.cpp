@@ -1026,3 +1026,11 @@ void occi_proxy::Stream::writeLastBuffer(char * buffer, unsigned int size) {
     OCCIgateway_Stream_writeLastBuffer(&e, strm, buffer, size);
     checkException(e);
 }
+
+occi_proxy::Stream::Status occi_proxy::Stream::status() const {
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Stream_status(&e, strm);
+    checkException(e);
+    return static_cast<occi_proxy::Stream::Status>(r);
+}
