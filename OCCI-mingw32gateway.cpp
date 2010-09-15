@@ -827,6 +827,14 @@ int occi_proxy::ResultSet::getInt(unsigned int idx) {
     return r;
 }
 
+unsigned int occi_proxy::ResultSet::getMaxColumnSize(unsigned int idx) const {
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_ResultSet_getMaxColumnSize(&e, rset, idx);
+    checkException(e);
+    return r;
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {

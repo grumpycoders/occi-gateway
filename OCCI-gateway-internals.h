@@ -138,6 +138,7 @@ extern "C" {
     OGWEXPORT double OCCIgateway_ResultSet_getDouble(void ** exception, void * rset, unsigned int idx);
     OGWEXPORT float OCCIgateway_ResultSet_getFloat(void ** exception, void * rset, unsigned int idx);
     OGWEXPORT int OCCIgateway_ResultSet_getInt(void ** exception, void * rset, unsigned int idx);
+    OGWEXPORT unsigned int OCCIgateway_ResultSet_getMaxColumnSize(void ** exception, void * rset, unsigned int idx);
     
     /* Stream */
     OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);

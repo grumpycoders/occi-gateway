@@ -1200,6 +1200,18 @@ int OCCIgateway_ResultSet_getInt(void ** exception, void * _rset, unsigned int i
     return r;
 }
 
+unsigned int OCCIgateway_ResultSet_getMaxColumnSize(void ** exception, void * _rset, unsigned int idx) {
+    unsigned int r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = rset->getMaxColumnSize(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

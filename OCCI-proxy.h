@@ -192,6 +192,7 @@ namespace occi_proxy {
         double getDouble(unsigned int idx);
         float getFloat(unsigned int idx);
         int getInt(unsigned int idx);
+        unsigned int getMaxColumnSize(unsigned int idx) const;
       protected:
           ResultSet(void *, float);
         void * rset;
