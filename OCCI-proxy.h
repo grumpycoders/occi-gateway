@@ -385,6 +385,8 @@ namespace occi_proxy {
     class Stream {
       public:
           ~Stream();
+        void writeBuffer(char * buffer, unsigned int size);
+        void writeLastBuffer(char * buffer, unsigned int size);
       protected:
           Stream(void *, float);
         void * strm;

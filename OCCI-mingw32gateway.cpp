@@ -998,3 +998,15 @@ occi_proxy::Stream::~Stream() {
         OCCIgateway_ResultSet_dtor(&e, strm);
     checkException(e);
 }
+
+void occi_proxy::Stream::writeBuffer(char * buffer, unsigned int size) {
+    void * e = NULL;
+    OCCIgateway_Stream_writeBuffer(&e, strm, buffer, size);
+    checkException(e);
+}
+
+void occi_proxy::Stream::writeLastBuffer(char * buffer, unsigned int size) {
+    void * e = NULL;
+    OCCIgateway_Stream_writeLastBuffer(&e, strm, buffer, size);
+    checkException(e);
+}
