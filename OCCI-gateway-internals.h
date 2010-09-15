@@ -43,6 +43,10 @@ extern "C" {
     OGWEXPORT const char * OCCIgateway_Number_toText(void ** exception, void * number, void * envr, const char * v1, const char * v2);
     OGWEXPORT void OCCIgateway_Number_fromText(void ** exception, void * number, void * envr, const char * v1, const char * v2, const char * v3);
 
+    /* MetaData */
+    OGWEXPORT void OCCIgateway_MetaData_dtor(void * meta);
+    OGWEXPORT const char * OCCIgateway_MetaData_getString(void ** exception, void * meta, unsigned int attrid);
+
     /* Environment */
     OGWEXPORT void OCCIgateway_Environment_dtor(void ** exception, void * envr);
     OGWEXPORT void * OCCIgateway_createEnvironment(void ** exception, Environment::Mode mode, void *ctxp, void *(*malocfp)(void *ctxp, size_t size), void *(*ralocfp)(void *ctxp, void *memptr, size_t newsize), void (*mfreefp)(void *ctxp, void *memptr));

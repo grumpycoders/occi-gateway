@@ -163,6 +163,22 @@ void occi_proxy::Number::fromText(const occi_proxy::Environment * env, const std
     checkException(e);
 }
 
+/* MetaData */
+occi_proxy::MetaData::MetaData(void * meta, float) : ref(new occi_proxy::refCounter<MetaData>(meta)) { }
+occi_proxy::MetaData::MetaData(const MetaData &meta) : ref(meta.ref->addRef()) { }
+occi_proxy::MetaData::~MetaData() { ref->release(); }
+void occi_proxy::MetaData::dtor(void * obj) { OCCIgateway_MetaData_dtor(obj); }
+
+std::string occi_proxy::MetaData::getString(occi_proxy::MetaData::AttrId attrid) const {
+    const char * p = NULL;
+    void * e = NULL;
+    p = OCCIgateway_MetaData_getString(&e, ref->obj, static_cast<unsigned int>(attrid));
+    checkException(e);
+    std::string r = p;
+    free((void *)p);
+    return r;
+}
+
 /* Environment */
 occi_proxy::Environment::Environment(void * _envr, float) : envr(_envr) { }
 occi_proxy::Environment::~Environment() {

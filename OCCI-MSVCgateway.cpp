@@ -202,6 +202,25 @@ void OCCIgateway_Number_fromText(void ** exception, void * _number, void * _envr
     }
 }
 
+/* MetaData */
+void OCCIgateway_MetaData_dtor(void * _meta) {
+    MetaData * meta = static_cast<MetaData *>(_meta);
+
+    delete meta;
+}
+
+const char * OCCIgateway_MetaData_getString(void ** exception, void * _meta, unsigned int attrid) {
+    const char * r = NULL;
+    MetaData * meta = static_cast<MetaData *>(_meta);
+    *exception = NULL;
+    try {
+        r = strdup(meta->getString(static_cast<MetaData::AttrId>(attrid)).c_str());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Environment */
 void OCCIgateway_Environment_dtor(void ** exception, void * _envr) {
     Environment * envr = static_cast<Environment *>(_envr);
