@@ -779,6 +779,14 @@ occi_proxy::Clob occi_proxy::ResultSet::getClob(unsigned int idx) {
     return Clob(clob, .0f);
 }
 
+unsigned int occi_proxy::ResultSet::getCurrentStreamColumn() const {
+    unsigned int r = 0;
+    void * e = NULL;
+    r = OCCIgateway_ResultSet_getCurrentStreamColumn(&e, rset);
+    checkException(e);
+    return r;
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {
