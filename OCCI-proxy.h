@@ -181,6 +181,11 @@ namespace occi_proxy {
     };
     class ResultSet {
       public:
+        enum Status {
+            END_OF_FETCH = oracle::occi::ResultSet::END_OF_FETCH,
+            DATA_AVAILABLE = oracle::occi::ResultSet::DATA_AVAILABLE,
+            STREAM_DATA_AVAILABLE = oracle::occi::ResultSet::STREAM_DATA_AVAILABLE,
+        };
           ~ResultSet();
         void cancel();
         std::string getCharSet(unsigned int idx) const;
@@ -202,6 +207,7 @@ namespace occi_proxy {
         unsigned int getUInt(unsigned int idx);
         bool isNull(unsigned int idx) const;
         bool isTruncated(unsigned int idx) const;
+        Status next(unsigned int numRows = 1);
       protected:
           ResultSet(void *, float);
         void * rset;

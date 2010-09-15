@@ -147,6 +147,7 @@ extern "C" {
     OGWEXPORT unsigned int OCCIgateway_ResultSet_getUInt(void ** exception, void * rset, unsigned int idx);
     OGWEXPORT int OCCIgateway_ResultSet_isNull(void ** exception, void * rset, unsigned int idx);
     OGWEXPORT int OCCIgateway_ResultSet_isTruncated(void ** exception, void * rset, unsigned int idx);
+    OGWEXPORT unsigned int OCCIgateway_ResultSet_next(void ** exception, void * rset, unsigned int numRows);
     
     /* Stream */
     OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);

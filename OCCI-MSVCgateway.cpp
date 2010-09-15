@@ -1309,6 +1309,18 @@ int OCCIgateway_ResultSet_isTruncated(void ** exception, void * _rset, unsigned 
     return r;
 }
 
+unsigned int OCCIgateway_ResultSet_next(void ** exception, void * _rset, unsigned int numRows) {
+    unsigned int r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = static_cast<unsigned int>(rset->next(numRows));
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

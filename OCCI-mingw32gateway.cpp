@@ -725,7 +725,7 @@ void occi_proxy::Statement::setUInt(unsigned int idx, unsigned int value) {
 occi_proxy::Statement::Status occi_proxy::Statement::status() const {
     unsigned int r = 0;
     void * e = NULL;
-    OCCIgateway_Statement_status(&e, stmt);
+    r = OCCIgateway_Statement_status(&e, stmt);
     checkException(e);
     return static_cast<occi_proxy::Statement::Status>(r);
 }
@@ -899,6 +899,14 @@ bool occi_proxy::ResultSet::isTruncated(unsigned int idx) const {
     r = OCCIgateway_ResultSet_isTruncated(&e, rset, idx);
     checkException(e);
     return !!r;
+}
+
+occi_proxy::ResultSet::Status occi_proxy::ResultSet::next(unsigned int numRows) {
+    unsigned int r = 0;
+    void * e = NULL;
+    r = OCCIgateway_ResultSet_next(&e, rset, numRows);
+    checkException(e);
+    return static_cast<occi_proxy::ResultSet::Status>(r);
 }
 
 /* Stream */
