@@ -1383,6 +1383,28 @@ void OCCIgateway_ResultSet_setErrorOnTruncate(void ** exception, void * _rset, u
     }
 }
 
+void OCCIgateway_ResultSet_setMaxColumnSize(void ** exception, void * _rset, unsigned int idx, int max) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        rset->setMaxColumnSize(idx, max);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+unsigned int OCCIgateway_ResultSet_status(void ** exception, void * _rset) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    unsigned int r = 0;
+    *exception = NULL;
+    try {
+        r = static_cast<unsigned int>(rset->status());
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

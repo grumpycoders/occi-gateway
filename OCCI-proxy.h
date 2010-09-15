@@ -214,6 +214,8 @@ namespace occi_proxy {
         void setCharSet(unsigned int idx, const std::string &charset);
         void setErrorOnNull(unsigned int idx, bool causeException);
         void setErrorOnTruncate(unsigned int idx, bool causeException);
+        void setMaxColumnSize(unsigned int idx, unsigned int max);
+        Status status() const;
       protected:
           ResultSet(void *, float);
         void * rset;

@@ -947,6 +947,20 @@ void occi_proxy::ResultSet::setErrorOnNull(unsigned int idx, bool causeException
     checkException(e);
 }
 
+void occi_proxy::ResultSet::setMaxColumnSize(unsigned int idx, unsigned int max) {
+    void * e = NULL;
+    OCCIgateway_ResultSet_setMaxColumnSize(&e, rset, idx, max);
+    checkException(e);
+}
+
+occi_proxy::ResultSet::Status occi_proxy::ResultSet::status() const {
+    unsigned int r = 0;
+    void * e = NULL;
+    r = OCCIgateway_ResultSet_status(&e, rset);
+    checkException(e);
+    return static_cast<occi_proxy::ResultSet::Status>(r);
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {
