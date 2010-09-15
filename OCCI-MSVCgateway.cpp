@@ -1164,6 +1164,42 @@ void * OCCIgateway_ResultSet_getCursor(void ** exception, void * _rset, unsigned
     return r;
 }
 
+double OCCIgateway_ResultSet_getDouble(void ** exception, void * _rset, unsigned int idx) {
+    double r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = rset->getDouble(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+float OCCIgateway_ResultSet_getFloat(void ** exception, void * _rset, unsigned int idx) {
+    float r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = rset->getFloat(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+int OCCIgateway_ResultSet_getInt(void ** exception, void * _rset, unsigned int idx) {
+    int r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = rset->getInt(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

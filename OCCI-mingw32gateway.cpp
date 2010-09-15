@@ -803,6 +803,30 @@ occi_proxy::ResultSet * occi_proxy::ResultSet::getCursor(unsigned int idx) {
     return new occi_proxy::ResultSet(r, .0f);
 }
 
+double occi_proxy::ResultSet::getDouble(unsigned int idx) {
+    void * e = NULL;
+    double r = 0;
+    r = OCCIgateway_ResultSet_getDouble(&e, rset, idx);
+    checkException(e);
+    return r;
+}
+
+float occi_proxy::ResultSet::getFloat(unsigned int idx) {
+    void * e = NULL;
+    float r = 0;
+    r = OCCIgateway_ResultSet_getFloat(&e, rset, idx);
+    checkException(e);
+    return r;
+}
+
+int occi_proxy::ResultSet::getInt(unsigned int idx) {
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_ResultSet_getInt(&e, rset, idx);
+    checkException(e);
+    return r;
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {

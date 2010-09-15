@@ -129,12 +129,15 @@ extern "C" {
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
     OGWEXPORT void OCCIgateway_ResultSet_cancel(void ** exception, void * rset);
     OGWEXPORT const char * OCCIgateway_ResultSet_getCharSet(void ** exception, void * rset, unsigned int idx);
-    OGWEXPORT void * OCCIgateway_ResultSet_getBlob(void ** exception, void * stmt, unsigned int idx);
-    OGWEXPORT void * OCCIgateway_ResultSet_getBytes(void ** exception, void * stmt, unsigned int idx);
-    OGWEXPORT void * OCCIgateway_ResultSet_getClob(void ** exception, void * stmt, unsigned int idx);
+    OGWEXPORT void * OCCIgateway_ResultSet_getBlob(void ** exception, void * rset, unsigned int idx);
+    OGWEXPORT void * OCCIgateway_ResultSet_getBytes(void ** exception, void * rset, unsigned int idx);
+    OGWEXPORT void * OCCIgateway_ResultSet_getClob(void ** exception, void * rset, unsigned int idx);
     OGWEXPORT unsigned int OCCIgateway_ResultSet_getCurrentStreamColumn(void ** exception, void * rset);
     OGWEXPORT unsigned int OCCIgateway_ResultSet_getCurrentStreamRow(void ** exception, void * rset);
     OGWEXPORT void * OCCIgateway_ResultSet_getCursor(void ** exception, void * rset, unsigned int idx);
+    OGWEXPORT double OCCIgateway_ResultSet_getDouble(void ** exception, void * rset, unsigned int idx);
+    OGWEXPORT float OCCIgateway_ResultSet_getFloat(void ** exception, void * rset, unsigned int idx);
+    OGWEXPORT int OCCIgateway_ResultSet_getInt(void ** exception, void * rset, unsigned int idx);
     
     /* Stream */
     OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);

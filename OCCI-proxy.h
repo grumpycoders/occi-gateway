@@ -189,6 +189,9 @@ namespace occi_proxy {
         unsigned int getCurrentStreamColumn() const;
         unsigned int getCurrentStreamRow() const;
         ResultSet * getCursor(unsigned int idx);
+        double getDouble(unsigned int idx);
+        float getFloat(unsigned int idx);
+        int getInt(unsigned int idx);
       protected:
           ResultSet(void *, float);
         void * rset;
