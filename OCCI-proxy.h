@@ -208,6 +208,12 @@ namespace occi_proxy {
         bool isNull(unsigned int idx) const;
         bool isTruncated(unsigned int idx) const;
         Status next(unsigned int numRows = 1);
+        int preTruncationLength(unsigned int idx) const;
+        void setBinaryStreamMode(unsigned int idx, unsigned int size);
+        void setCharacterStreamMode(unsigned int idx, unsigned int size);
+        void setCharSet(unsigned int idx, const std::string &charset);
+        void setErrorOnNull(unsigned int idx, bool causeException);
+        void setErrorOnTruncate(unsigned int idx, bool causeException);
       protected:
           ResultSet(void *, float);
         void * rset;

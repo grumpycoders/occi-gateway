@@ -1321,6 +1321,68 @@ unsigned int OCCIgateway_ResultSet_next(void ** exception, void * _rset, unsigne
     return r;
 }
 
+int OCCIgateway_ResultSet_preTruncationLength(void ** exception, void * _rset, unsigned int idx) {
+    int r = 0;
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        r = rset->preTruncationLength(idx);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
+void OCCIgateway_ResultSet_setBinaryStreamMode(void ** exception, void * _rset, unsigned int idx, unsigned int size) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        rset->setBinaryStreamMode(idx, size);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_ResultSet_setCharacterStreamMode(void ** exception, void * _rset, unsigned int idx, unsigned int size) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        rset->setCharacterStreamMode(idx, size);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_ResultSet_setCharSet(void ** exception, void * _rset, unsigned int idx, const char * charset) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        rset->setCharSet(idx, charset);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_ResultSet_setErrorOnNull(void ** exception, void * _rset, unsigned int idx, int causeException) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        rset->setErrorOnNull(idx, !!causeException);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_ResultSet_setErrorOnTruncate(void ** exception, void * _rset, unsigned int idx, int causeException) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        rset->setErrorOnTruncate(idx, !!causeException);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

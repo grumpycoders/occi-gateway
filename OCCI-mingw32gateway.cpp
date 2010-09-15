@@ -909,6 +909,44 @@ occi_proxy::ResultSet::Status occi_proxy::ResultSet::next(unsigned int numRows) 
     return static_cast<occi_proxy::ResultSet::Status>(r);
 }
 
+int occi_proxy::ResultSet::preTruncationLength(unsigned int idx) const {
+    void * e = NULL;
+    int r = 0;
+    r = OCCIgateway_ResultSet_preTruncationLength(&e, rset, idx);
+    checkException(e);
+    return r;
+}
+
+void occi_proxy::ResultSet::setBinaryStreamMode(unsigned int idx, unsigned int size) {
+    void * e = NULL;
+    OCCIgateway_ResultSet_setBinaryStreamMode(&e, rset, idx, size);
+    checkException(e);
+}
+
+void occi_proxy::ResultSet::setCharacterStreamMode(unsigned int idx, unsigned int size) {
+    void * e = NULL;
+    OCCIgateway_ResultSet_setCharacterStreamMode(&e, rset, idx, size);
+    checkException(e);
+}
+
+void occi_proxy::ResultSet::setCharSet(unsigned int idx, const std::string &charset) {
+    void * e = NULL;
+    OCCIgateway_ResultSet_setCharSet(&e, rset, idx, charset.c_str());
+    checkException(e);
+}
+
+void occi_proxy::ResultSet::setErrorOnTruncate(unsigned int idx, bool causeException) {
+    void * e = NULL;
+    OCCIgateway_ResultSet_setErrorOnTruncate(&e, rset, idx, causeException);
+    checkException(e);
+}
+
+void occi_proxy::ResultSet::setErrorOnNull(unsigned int idx, bool causeException) {
+    void * e = NULL;
+    OCCIgateway_ResultSet_setErrorOnNull(&e, rset, idx, causeException);
+    checkException(e);
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {

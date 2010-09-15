@@ -148,6 +148,12 @@ extern "C" {
     OGWEXPORT int OCCIgateway_ResultSet_isNull(void ** exception, void * rset, unsigned int idx);
     OGWEXPORT int OCCIgateway_ResultSet_isTruncated(void ** exception, void * rset, unsigned int idx);
     OGWEXPORT unsigned int OCCIgateway_ResultSet_next(void ** exception, void * rset, unsigned int numRows);
+    OGWEXPORT int OCCIgateway_ResultSet_preTruncationLength(void ** exception, void * rset, unsigned int idx);
+    OGWEXPORT void OCCIgateway_ResultSet_setBinaryStreamMode(void ** exception, void * rset, unsigned int idx, unsigned int size);
+    OGWEXPORT void OCCIgateway_ResultSet_setCharacterStreamMode(void ** exception, void * rset, unsigned int idx, unsigned int size);
+    OGWEXPORT void OCCIgateway_ResultSet_setCharSet(void ** exception, void * rset, unsigned int idx, const char * charset);
+    OGWEXPORT void OCCIgateway_ResultSet_setErrorOnNull(void ** exception, void * rset, unsigned int idx, int causeException);
+    OGWEXPORT void OCCIgateway_ResultSet_setErrorOnTruncate(void ** exception, void * rset, unsigned int idx, int causeException);
     
     /* Stream */
     OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);
