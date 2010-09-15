@@ -755,6 +755,14 @@ std::string occi_proxy::ResultSet::getCharSet(unsigned int idx) const {
     return r;
 }
 
+occi_proxy::Blob occi_proxy::ResultSet::getBlob(unsigned int idx) {
+    void * e = NULL;
+    void * blob = NULL;
+    blob = OCCIgateway_ResultSet_getBlob(&e, rset, idx);
+    checkException(e);
+    return Blob(blob, .0f);
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {

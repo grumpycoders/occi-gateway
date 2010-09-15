@@ -129,6 +129,7 @@ namespace occi_proxy {
         static void dtor(void * obj);
         friend class refCounter<Blob>;
         friend class Statement;
+        friend class ResultSet;
       private:
         refCounter<Blob> * ref;
     };
@@ -180,6 +181,7 @@ namespace occi_proxy {
           ~ResultSet();
         void cancel();
         std::string getCharSet(unsigned int idx) const;
+        Blob getBlob(unsigned int idx);
       protected:
           ResultSet(void *, float);
         void * rset;

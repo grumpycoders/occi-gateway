@@ -1092,6 +1092,19 @@ const char * OCCIgateway_ResultSet_getCharSet(void ** exception, void * _rset, u
     return r;
 }
 
+void * OCCIgateway_ResultSet_getBlob(void ** exception, void * _rset, unsigned int idx) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    Blob blob;
+    *exception = NULL;
+    try {
+        blob = rset->getBlob(idx);
+        return new Blob(blob);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);
