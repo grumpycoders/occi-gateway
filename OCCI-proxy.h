@@ -145,6 +145,7 @@ namespace occi_proxy {
         static void dtor(void * obj);
         friend class refCounter<Bytes>;
         friend class Statement;
+        friend class ResultSet;
       private:
         refCounter<Bytes> * ref;
     };
@@ -159,6 +160,7 @@ namespace occi_proxy {
         static void dtor(void * obj);
         friend class refCounter<Clob>;
         friend class Statement;
+        friend class ResultSet;
       private:
         refCounter<Clob> * ref;
     };
@@ -182,6 +184,8 @@ namespace occi_proxy {
         void cancel();
         std::string getCharSet(unsigned int idx) const;
         Blob getBlob(unsigned int idx);
+        Bytes getBytes(unsigned int idx);
+        Clob getClob(unsigned int idx);
       protected:
           ResultSet(void *, float);
         void * rset;

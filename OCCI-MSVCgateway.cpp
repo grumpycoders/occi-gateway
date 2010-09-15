@@ -1105,6 +1105,32 @@ void * OCCIgateway_ResultSet_getBlob(void ** exception, void * _rset, unsigned i
     return NULL;
 }
 
+void * OCCIgateway_ResultSet_getBytes(void ** exception, void * _rset, unsigned int idx) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    Bytes bytes;
+    *exception = NULL;
+    try {
+        bytes = rset->getBytes(idx);
+        return new Bytes(bytes);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
+}
+
+void * OCCIgateway_ResultSet_getClob(void ** exception, void * _rset, unsigned int idx) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    Clob clob;
+    *exception = NULL;
+    try {
+        clob = rset->getClob(idx);
+        return new Clob(clob);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return NULL;
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);

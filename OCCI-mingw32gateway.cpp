@@ -763,6 +763,22 @@ occi_proxy::Blob occi_proxy::ResultSet::getBlob(unsigned int idx) {
     return Blob(blob, .0f);
 }
 
+occi_proxy::Bytes occi_proxy::ResultSet::getBytes(unsigned int idx) {
+    void * e = NULL;
+    void * bytes = NULL;
+    bytes = OCCIgateway_ResultSet_getBytes(&e, rset, idx);
+    checkException(e);
+    return Bytes(bytes, .0f);
+}
+
+occi_proxy::Clob occi_proxy::ResultSet::getClob(unsigned int idx) {
+    void * e = NULL;
+    void * clob = NULL;
+    clob = OCCIgateway_ResultSet_getClob(&e, rset, idx);
+    checkException(e);
+    return Clob(clob, .0f);
+}
+
 /* Stream */
 occi_proxy::Stream::Stream(void * _strm, float) : strm(_strm) { }
 occi_proxy::Stream::~Stream() {
