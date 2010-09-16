@@ -26,6 +26,7 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Blob_setEmpty(void ** exception, void * blob);
     OGWEXPORT unsigned int OCCIgateway_Blob_writeChunk(void ** exception, void * blob, unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset);
     OGWEXPORT void OCCIgateway_Blob_close(void ** exception, void * blob);
+    OGWEXPORT unsigned int OCCIgateway_Blob_length(void ** exception, void * blob);
 
     /* Bytes */
     OGWEXPORT void * OCCIgateway_Bytes_ctor(void ** exception, unsigned char * value, unsigned int count, unsigned int offset, void * envr);
@@ -37,9 +38,11 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Clob_dtor(void * clob);
     OGWEXPORT void * OCCIgateway_Clob_getStream(void ** exception, void * clob, unsigned int v1, unsigned int v2);
     OGWEXPORT void OCCIgateway_Clob_closeStream(void ** exception, void * clob, void * strm);
+    OGWEXPORT unsigned int OCCIgateway_Clob_length(void ** exception, void * clob);
 
     /* Number */
     OGWEXPORT void OCCIgateway_Number_dtor(void * number);
+    OGWEXPORT void * OCCIgateway_Number_ctor_int(void ** exception, int v);
     OGWEXPORT const char * OCCIgateway_Number_toText(void ** exception, void * number, void * envr, const char * v1, const char * v2);
     OGWEXPORT void OCCIgateway_Number_fromText(void ** exception, void * number, void * envr, const char * v1, const char * v2, const char * v3);
 
@@ -65,6 +68,7 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Connection_changePassword(void ** exception, void * conn, const char * username, const char * oldpassword, const char * newpassword);
     OGWEXPORT void OCCIgateway_Connection_commit(void ** exception, void * conn);
     OGWEXPORT void * OCCIgateway_Connection_createStatement(void ** exception, void * conn, const char * sql);
+    OGWEXPORT void OCCIgateway_Connection_terminateStatement(void ** exception, void * conn, void * stmt);
     OGWEXPORT void OCCIgateway_Connection_flushCache(void ** exception, void * conn);
     OGWEXPORT const char * OCCIgateway_Connection_getClientCharSet(void ** exception, void * conn);
     OGWEXPORT const char * OCCIgateway_Connection_getClientNCHARCharSet(void ** exception, void * conn);
@@ -156,6 +160,7 @@ extern "C" {
     OGWEXPORT void OCCIgateway_ResultSet_setBinaryStreamMode(void ** exception, void * rset, unsigned int idx, unsigned int size);
     OGWEXPORT void OCCIgateway_ResultSet_setCharacterStreamMode(void ** exception, void * rset, unsigned int idx, unsigned int size);
     OGWEXPORT void OCCIgateway_ResultSet_setCharSet(void ** exception, void * rset, unsigned int idx, const char * charset);
+    OGWEXPORT void OCCIgateway_ResultSet_setDatabaseNCHARParam(void ** exception, void * rset, unsigned int idx, int isNCHAR);
     OGWEXPORT void OCCIgateway_ResultSet_setErrorOnNull(void ** exception, void * rset, unsigned int idx, int causeException);
     OGWEXPORT void OCCIgateway_ResultSet_setErrorOnTruncate(void ** exception, void * rset, unsigned int idx, int causeException);
     OGWEXPORT void OCCIgateway_ResultSet_setMaxColumnSize(void ** exception, void * rset, unsigned int idx, int max);

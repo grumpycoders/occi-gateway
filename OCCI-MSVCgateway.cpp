@@ -100,6 +100,18 @@ void OCCIgateway_Blob_close(void ** exception, void * _blob) {
     }
 }
 
+unsigned int OCCIgateway_Blob_length(void ** exception, void * _blob) {
+    unsigned int r = 0;
+    Blob * blob = static_cast<Blob *>(_blob);
+    *exception = NULL;
+    try {
+        r = blob->length();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Bytes */
 void * OCCIgateway_Bytes_ctor(void ** exception, unsigned char * value, unsigned int count, unsigned int offset, void * _envr) {
     Bytes * bytes = NULL;
@@ -171,7 +183,30 @@ void OCCIgateway_Clob_closeStream(void ** exception, void * _clob, void * _strm)
     }
 }
 
+unsigned int OCCIgateway_Clob_length(void ** exception, void * _clob) {
+    unsigned int r = 0;
+    Clob * clob = static_cast<Clob *>(_clob);
+    *exception = NULL;
+    try {
+        r = clob->length();
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Number */
+void * OCCIgateway_Number_ctor_int(void ** exception, int v) {
+    void * r = NULL;
+    *exception = NULL;
+    try {
+        r = new Number(v);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+    return r;
+}
+
 void OCCIgateway_Number_dtor(void * _number) {
     Number * number = static_cast<Number *>(_number);
 
@@ -1377,6 +1412,16 @@ void OCCIgateway_ResultSet_setCharSet(void ** exception, void * _rset, unsigned 
     *exception = NULL;
     try {
         rset->setCharSet(idx, charset);
+    } catch (SQLException e) {
+        *exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_ResultSet_setDatabaseNCHARParam(void ** exception, void * _rset, unsigned int idx, int isNCHAR) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+        rset->setDatabaseNCHARParam(idx, !!isNCHAR);
     } catch (SQLException e) {
         *exception = new SQLException(e);
     }

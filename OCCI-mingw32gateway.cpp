@@ -91,6 +91,14 @@ void occi_proxy::Blob::close() {
     checkException(e);
 }
 
+unsigned int occi_proxy::Blob::length() const {
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Blob_length(&e, ref->obj);
+    checkException(e);
+    return r;
+}
+
 /* Bytes */
 occi_proxy::Bytes::Bytes(void * bytes, float) : ref(new occi_proxy::refCounter<Bytes>(bytes)) { }
 occi_proxy::Bytes::Bytes(const Bytes &bytes) : ref(bytes.ref->addRef()) { }
@@ -141,8 +149,24 @@ void occi_proxy::Clob::closeStream(occi_proxy::Stream * strm) {
     delete strm;
 }
 
+unsigned int occi_proxy::Clob::length() const {
+    void * e = NULL;
+    unsigned int r = 0;
+    r = OCCIgateway_Clob_length(&e, ref->obj);
+    checkException(e);
+    return r;
+}
+
 /* Number */
+static void * proxy_Number_ctor_int(int v) {
+    void * e = NULL;
+    void * n = NULL;
+    n = OCCIgateway_Number_ctor_int(&e, v);
+    checkException(e);
+    return n;
+}
 occi_proxy::Number::Number(void * number, float) : ref(new occi_proxy::refCounter<Number>(number)) { }
+occi_proxy::Number::Number(int v) : ref(new occi_proxy::refCounter<Number>(proxy_Number_ctor_int(v))) { }
 occi_proxy::Number::Number(const Number &number) : ref(number.ref->addRef()) { }
 occi_proxy::Number::~Number() { ref->release(); }
 void occi_proxy::Number::dtor(void * obj) { OCCIgateway_Number_dtor(obj); }
@@ -295,6 +319,12 @@ occi_proxy::Statement * occi_proxy::Connection::createStatement(const std::strin
         delete stmt;
     checkException(e);
     return stmt;
+}
+
+void occi_proxy::Connection::terminateStatement(Statement * stmt) {
+    void * e = NULL;
+    OCCIgateway_Connection_terminateStatement(&e, conn, stmt->stmt);
+    checkException(e);
 }
 
 void occi_proxy::Connection::flushCache() {
@@ -948,6 +978,12 @@ void occi_proxy::ResultSet::setCharacterStreamMode(unsigned int idx, unsigned in
 void occi_proxy::ResultSet::setCharSet(unsigned int idx, const std::string &charset) {
     void * e = NULL;
     OCCIgateway_ResultSet_setCharSet(&e, rset, idx, charset.c_str());
+    checkException(e);
+}
+
+void occi_proxy::ResultSet::setDatabaseNCHARParam(unsigned int idx, bool isNCHAR) {
+    void * e = NULL;
+    OCCIgateway_ResultSet_setDatabaseNCHARParam(&e, rset, idx, isNCHAR);
     checkException(e);
 }
 

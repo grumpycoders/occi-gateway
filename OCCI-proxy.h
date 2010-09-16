@@ -124,6 +124,7 @@ namespace occi_proxy {
         void setEmpty();
         unsigned int writeChunk(unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset = 1);
         void close();
+        unsigned int length() const;
       protected:
           Blob(void *, float);
         static void dtor(void * obj);
@@ -155,6 +156,7 @@ namespace occi_proxy {
           ~Clob();
         Stream * getStream(unsigned int offset = 1, unsigned int amount = 0);
         void closeStream(Stream * strm);
+        unsigned int length() const;
       protected:
           Clob(void *, float);
         static void dtor(void * obj);
@@ -167,6 +169,7 @@ namespace occi_proxy {
     class Number {
       public:
           Number(const Number &);
+          Number(int);
           ~Number();
         std::string toText(const Environment * envr, const std::string &fmt, const std::string &nslparam = "") const;
         void fromText(const Environment * envr, const std::string &number, const std::string &fmt, const std::string &nslparam = "");
@@ -372,6 +375,7 @@ namespace occi_proxy {
         void setBinaryStreamMode(unsigned int idx, unsigned int size);
         void setCharacterStreamMode(unsigned int idx, unsigned int size);
         void setCharSet(unsigned int idx, const std::string &charset);
+        void setDatabaseNCHARParam(unsigned int idx, bool isNCHAR);
         void setErrorOnNull(unsigned int idx, bool causeException);
         void setErrorOnTruncate(unsigned int idx, bool causeException);
         void setMaxColumnSize(unsigned int idx, unsigned int max);
@@ -481,6 +485,7 @@ namespace occi_proxy {
           void changePassword(const std::string &username, const std::string &oldPassword, const std::string &newPassword);
           void commit();
           Statement * createStatement(const std::string &sql = "");
+          void terminateStatement(Statement * stmt);
           void flushCache();
           std::string getClientCharSet() const ;
           std::string getClientNCHARCharSet() const ;
