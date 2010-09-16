@@ -17,15 +17,22 @@ class occi_proxy::refCounter {
     unsigned int count;
 };
 
+class occi_proxy::SQLExceptionThrower {
+  public:
+    static void throwException(void * e) throw (SQLException) {
+        throw occi_proxy::SQLException(e, .0f);
+    }
+};
+
 /* SQLException */
 occi_proxy::SQLException::SQLException(void * e, float) : ref(new occi_proxy::refCounter<SQLException>(e)) { }
 occi_proxy::SQLException::SQLException(const SQLException &e) : ref(e.ref->addRef()) { }
 occi_proxy::SQLException::~SQLException() { ref->release(); }
 void occi_proxy::SQLException::dtor(void * obj) { OCCIgateway_SQLException_dtor(obj); }
 
-void occi_proxy::SQLException::checkException(void * e) throw (occi_proxy::SQLException) {
+void occi_proxy::SQLException::checkException(void * e) {
     if (e)
-        throw occi_proxy::SQLException(e, .0f);
+        SQLExceptionThrower::throwException(e);
 }
 
 const char * occi_proxy::SQLException::what() const {

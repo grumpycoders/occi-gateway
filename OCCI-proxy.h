@@ -99,6 +99,7 @@ namespace occi_proxy {
         OCCI_LOB_FULLREAD = oracle::occi::OCCI_LOB_FULLREAD,
     };
     template<class T> class refCounter;
+    class SQLExceptionThrower;
     class SQLException {
       public:
           SQLException(const SQLException &);
@@ -106,11 +107,12 @@ namespace occi_proxy {
         const char * what() const;
         std::string getMessage() const;
         int getErrorCode() const;
-        static void checkException(void *) throw (SQLException);
+        static void checkException(void *);
       protected:
           SQLException(void *, float);
         static void dtor(void * obj);
         friend class refCounter<SQLException>;
+        friend class SQLExceptionThrower;
       private:
         refCounter<SQLException> * ref; 
     };
