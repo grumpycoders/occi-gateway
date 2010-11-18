@@ -16,6 +16,7 @@ namespace occi_proxy {
     class Statement;
     class Connection;
     class Environment;
+    class StatelessConnectionPool;
     enum Type {
         OCCI_SQLT_CHR = oracle::occi::OCCI_SQLT_CHR,
         OCCI_SQLT_NUM = oracle::occi::OCCI_SQLT_NUM,
@@ -336,11 +337,16 @@ namespace occi_proxy {
           MetaData(const MetaData &);
           ~MetaData();
         std::string getString(AttrId attrid) const;
+    	std::vector<MetaData> getVector(AttrId attrid) const;
+    	int getInt(AttrId attrid) const;
+    	bool getBoolean(AttrId attrid) const;
+
       protected:
           MetaData(void *, float);
         static void dtor(void * obj);
         friend class refCounter<MetaData>;
         friend class ResultSet;
+    	friend class Connection;
       private:
         refCounter<MetaData> * ref;
     };
@@ -383,6 +389,7 @@ namespace occi_proxy {
         void setMaxColumnSize(unsigned int idx, unsigned int max);
         Status status() const;
         std::vector<MetaData> getColumnListMetaData() const;
+    	void setDataBuffer(unsigned int colIndex, void *buffer, Type type, sb4 size = 0, ub2 *length = NULL, sb2 *ind = NULL, ub2 *rc = NULL);
       protected:
           ResultSet(void *, float);
         void * rset;
@@ -476,6 +483,12 @@ namespace occi_proxy {
         void setString(unsigned int idx, const std::string &str);
         void setUInt(unsigned int idx, unsigned int value);
         Status status() const;
+    	OCIStmt * getOCIStatement() const;
+    	void disableCaching();
+    	void setDataBuffer(unsigned int paramIndex, void *buffer, Type type, sb4 size, ub2 *length, sb2 *ind = NULL, ub2 *rc = NULL);
+    	void setBinaryStreamMode(unsigned int colIndex, unsigned int size, bool INArg);
+    	void setCharacterStreamMode(unsigned int colIndex, unsigned int size, bool INArg);
+
       protected:
           Statement(void *, float);
         void * stmt;
@@ -492,10 +505,47 @@ namespace occi_proxy {
           std::string getClientCharSet() const ;
           std::string getClientNCHARCharSet() const ;
           void rollback();
+    	  OCISvcCtx*  getOCIServiceContext() const;
+    	  MetaData getMetaData(const std::string &object, MetaData::ParamType prmtyp = MetaData::PTYPE_UNK) const;
       protected:
           Connection(void *, float);
         void * conn;
         friend class Environment;
+    	friend class StatelessConnectionPool;
+    };
+    class StatelessConnectionPool {
+    public:
+    	enum PoolType {
+    		HETEROGENEOUS = oracle::occi::StatelessConnectionPool::HETEROGENEOUS,
+    		HOMOGENEOUS = oracle::occi::StatelessConnectionPool::HOMOGENEOUS,
+    		NO_RLB = oracle::occi::StatelessConnectionPool::NO_RLB
+    	};
+    	enum BusyOption {
+    		WAIT = oracle::occi::StatelessConnectionPool::WAIT,
+    		NOWAIT = oracle::occi::StatelessConnectionPool::NOWAIT,
+    		FORCEGET = oracle::occi::StatelessConnectionPool::FORCEGET
+    	};
+
+    	enum DestroyMode {
+    		DEFAULT = oracle::occi::StatelessConnectionPool::DEFAULT,
+    		SPD_FORCE = oracle::occi::StatelessConnectionPool::SPD_FORCE
+    	};
+    	void setBusyOption(BusyOption busyOption);
+    	void setStmtCacheSize(unsigned int cacheSize);
+    	void setTimeOut(unsigned int connTimeOut =0);
+    	unsigned int getOpenConnections() const;
+    	unsigned int getBusyConnections() const;
+    	Connection* getConnection( const std::string &tag ="");
+    	void releaseConnection (Connection *connection, const std::string &tag = "");
+    	void terminateConnection (Connection *connection);
+
+    	~StatelessConnectionPool();
+
+    protected:
+    	StatelessConnectionPool(void *, float);
+    	void * poolp;
+    	friend class Environment;
+
     };
     class Environment {
       public:
@@ -520,6 +570,11 @@ namespace occi_proxy {
         void setCacheOptSize(int optSize);
         unsigned int getCurrentHeapSize() const ;
         void terminateConnection(Connection * conn);
+    	StatelessConnectionPool * createStatelessConnectionPool(const std::string &poolUserName, const std::string &poolPassword, const std::string &connectString = "", unsigned int maxConn = 1, unsigned int minConn = 0, unsigned int incrConn = 1, StatelessConnectionPool::PoolType pType = StatelessConnectionPool::HETEROGENEOUS);
+    	void terminateStatelessConnectionPool(StatelessConnectionPool *poolp, StatelessConnectionPool::DestroyMode mode = StatelessConnectionPool::DEFAULT);
+    	OCIEnv * getOCIEnvironment() const;
+
+
       private:
           Environment(void *, float);
         void * envr;

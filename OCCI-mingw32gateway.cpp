@@ -42,7 +42,7 @@ const char * occi_proxy::SQLException::what() const {
 std::string occi_proxy::SQLException::getMessage() const {
     const char * p = OCCIgateway_SQLException_getMessage(ref->obj);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -184,7 +184,7 @@ std::string occi_proxy::Number::toText(const occi_proxy::Environment * env, cons
     p = OCCIgateway_Number_toText(&e, ref->obj, env ? env->envr : NULL, v1.c_str(), v2.c_str());
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -206,9 +206,37 @@ std::string occi_proxy::MetaData::getString(occi_proxy::MetaData::AttrId attrid)
     p = OCCIgateway_MetaData_getString(&e, ref->obj, static_cast<unsigned int>(attrid));
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
+
+std::vector<occi_proxy::MetaData> occi_proxy::MetaData::getVector(occi_proxy::MetaData::AttrId attrid) const {
+    size_t s = 0;
+    std::vector<occi_proxy::MetaData> r;
+    void * e = NULL;
+    void ** p = NULL;
+    p = OCCIgateway_MetaData_getVector(&s, &e, ref->obj, static_cast<unsigned int>(attrid));
+    checkException(e);
+    for (size_t i = 0; i < s; i++)
+    	r.push_back(MetaData(p[i], .0f));
+    OCCIgateway_free(p);
+    return r;
+
+}
+int occi_proxy::MetaData::getInt(occi_proxy::MetaData::AttrId attrid) const {
+    void * e = NULL;
+    int r = OCCIgateway_MetaData_getInt(&e, ref->obj, static_cast<unsigned int>(attrid));
+    checkException(e);
+    return r;
+}
+bool occi_proxy::MetaData::getBoolean(occi_proxy::MetaData::AttrId attrid) const
+{
+    void * e = NULL;
+    bool r = OCCIgateway_MetaData_getBoolean(&e, ref->obj, static_cast<unsigned int>(attrid));
+    checkException(e);
+    return r;
+}
+
 
 /* Environment */
 occi_proxy::Environment::Environment(void * _envr, float) : envr(_envr) { }
@@ -297,6 +325,40 @@ void occi_proxy::Environment::terminateConnection(occi_proxy::Connection * conn)
     delete conn;
 }
 
+occi_proxy::StatelessConnectionPool * occi_proxy::Environment::createStatelessConnectionPool(
+    const std::string &poolUserName,
+    const std::string &poolPassword,
+    const std::string &connectString,
+    unsigned int maxConn, unsigned int minConn,
+    unsigned int incrConn,
+    occi_proxy::StatelessConnectionPool::PoolType pType )
+{
+    occi_proxy::StatelessConnectionPool * poolp = NULL;
+    void * e = NULL;
+    poolp = new occi_proxy::StatelessConnectionPool(OCCIgateway_Environment_createStatelessConnectionPool(&e, envr, poolUserName.c_str(), poolPassword.c_str(), connectString.c_str(), maxConn, minConn, incrConn, static_cast<oracle::occi::StatelessConnectionPool::PoolType>(pType)), .0f);
+    if (e)
+    	delete poolp;
+    checkException(e);
+    return poolp;
+}
+
+void occi_proxy::Environment::terminateStatelessConnectionPool(occi_proxy::StatelessConnectionPool *poolp, occi_proxy::StatelessConnectionPool::DestroyMode mode )
+{
+    void * e = NULL;
+    OCCIgateway_Environment_terminateStatelessConnectionPool(&e, envr, poolp->poolp, static_cast<oracle::occi::StatelessConnectionPool::DestroyMode>(mode) );
+    checkException(e);
+}
+
+OCIEnv * occi_proxy::Environment::getOCIEnvironment() const
+{
+    OCIEnv * r = NULL;
+    void * e = NULL;
+    r = OCCIgateway_Environment_getOCIEnvironment(&e, envr);
+    checkException(e);
+    return r;
+}
+
+
 /* Connection */
 occi_proxy::Connection::Connection(void * _conn, float) : conn(_conn) { }
 occi_proxy::Connection::~Connection() {
@@ -346,7 +408,7 @@ std::string occi_proxy::Connection::getClientCharSet() const {
     p = OCCIgateway_Connection_getClientCharSet(&e, conn);
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -356,7 +418,7 @@ std::string occi_proxy::Connection::getClientNCHARCharSet() const {
     p = OCCIgateway_Connection_getClientNCHARCharSet(&e, conn);
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -364,6 +426,21 @@ void occi_proxy::Connection::rollback() {
     void * e = NULL;
     OCCIgateway_Connection_rollback(&e, conn);
     checkException(e);
+}
+
+OCISvcCtx * occi_proxy::Connection::getOCIServiceContext() const {
+    OCISvcCtx * r = NULL;
+    void * e = NULL;
+    r = OCCIgateway_Connection_getOCIServiceContext(&e, conn);
+    checkException(e);
+    return r;
+}
+
+occi_proxy::MetaData occi_proxy::Connection::getMetaData(const std::string &object, occi_proxy::MetaData::ParamType prmtyp ) const {
+    void * e = NULL;
+    void * r = OCCIgateway_Connection_getMetaData(&e, conn, object.c_str(), static_cast<oracle::occi::MetaData::ParamType>(prmtyp) );
+    checkException(e);
+    return MetaData( r, .0f) ;
 }
 
 /* Statement */
@@ -459,7 +536,7 @@ std::string occi_proxy::Statement::getCharSet(unsigned int idx) {
     p = OCCIgateway_Statement_getCharSet(&e, stmt, idx);
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -581,7 +658,7 @@ std::string occi_proxy::Statement::getSQL() const {
     p = OCCIgateway_Statement_getSQL(&e, stmt);
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -599,7 +676,7 @@ std::string occi_proxy::Statement::getString(unsigned int idx) {
     p = OCCIgateway_Statement_getString(&e, stmt, idx);
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -783,6 +860,43 @@ occi_proxy::Statement::Status occi_proxy::Statement::status() const {
     return static_cast<occi_proxy::Statement::Status>(r);
 }
 
+OCIStmt * occi_proxy::Statement::getOCIStatement() const {
+    OCIStmt * r = NULL;
+    void * e = NULL;
+    r = OCCIgateway_Statement_getOCIStatement(&e, stmt);
+    checkException(e);
+    return r;
+}
+
+void occi_proxy::Statement::disableCaching()
+{
+    void * e = NULL;
+    OCCIgateway_Statement_disableCaching(&e, stmt);
+    checkException(e);
+}
+
+void occi_proxy::Statement::setDataBuffer(unsigned int paramIndex, void *buffer, Type type, sb4 size, ub2 *length, sb2 *ind, ub2 *rc)
+{
+    void * e = NULL;
+    OCCIgateway_Statement_setDataBuffer(&e, stmt, paramIndex, buffer, static_cast<oracle::occi::Type>(type), size, length, ind, rc );
+    checkException(e);
+}
+
+void occi_proxy::Statement::setBinaryStreamMode(unsigned int colIndex, unsigned int size, bool INArg)
+{
+    void * e = NULL;
+    OCCIgateway_Statement_setBinaryStreamModeEx(&e, stmt, colIndex, size, INArg );
+    checkException(e);
+}
+
+void occi_proxy::Statement::setCharacterStreamMode(unsigned int colIndex, unsigned int size, bool INArg)
+{
+    void * e = NULL;
+    OCCIgateway_Statement_setCharacterStreamModeEx(&e, stmt, colIndex, size, INArg );
+    checkException(e);
+}
+
+
 /* ResultSet */
 occi_proxy::ResultSet::ResultSet(void * _rset, float) : rset(_rset) { }
 occi_proxy::ResultSet::~ResultSet() {
@@ -804,7 +918,7 @@ std::string occi_proxy::ResultSet::getCharSet(unsigned int idx) const {
     p = OCCIgateway_ResultSet_getCharSet(&e, rset, idx);
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -926,7 +1040,7 @@ std::string occi_proxy::ResultSet::getString(unsigned int idx) {
     p = OCCIgateway_ResultSet_getString(&e, rset, idx);
     checkException(e);
     std::string r = p;
-    free((void *)p);
+    OCCIgateway_free((void *)p);
     return r;
 }
 
@@ -1029,8 +1143,15 @@ std::vector<occi_proxy::MetaData> occi_proxy::ResultSet::getColumnListMetaData()
     checkException(e);
     for (size_t i = 0; i < s; i++)
         r.push_back(MetaData(p[i], .0f));
-    free(p);
+    OCCIgateway_free(p);
     return r;
+}
+
+void occi_proxy::ResultSet::setDataBuffer(unsigned int colIndex, void *buffer, Type type, sb4 size, ub2 *length, sb2 *ind, ub2 *rc)
+{
+    void * e = NULL;
+    OCCIgateway_ResultSet_setDataBuffer(&e, rset, colIndex, buffer, static_cast<oracle::occi::Type>(type), size, length, ind, rc );
+    checkException(e);
 }
 
 /* Stream */
@@ -1077,3 +1198,62 @@ occi_proxy::Stream::Status occi_proxy::Stream::status() const {
     checkException(e);
     return static_cast<occi_proxy::Stream::Status>(r);
 }
+
+/* StatelessConnectionPool */
+occi_proxy::StatelessConnectionPool::StatelessConnectionPool(void * _poolp, float) : poolp(_poolp) { }
+occi_proxy::StatelessConnectionPool::~StatelessConnectionPool() {
+    void * e = NULL;
+    if (poolp)
+    	OCCIgateway_ResultSet_dtor(&e, poolp);
+    checkException(e);
+}
+
+void occi_proxy::StatelessConnectionPool::setBusyOption(occi_proxy::StatelessConnectionPool::BusyOption busyOption) {
+    void * e = NULL;
+    OCCIgateway_StatelessConnectionPool_setBusyOption(&e, poolp, static_cast<oracle::occi::StatelessConnectionPool::BusyOption>(busyOption));
+    checkException(e);
+}
+void occi_proxy::StatelessConnectionPool::setStmtCacheSize(unsigned int cacheSize) {
+    void * e = NULL;
+    OCCIgateway_StatelessConnectionPool_setStmtCacheSize(&e, poolp, cacheSize);
+    checkException(e);
+}
+void occi_proxy::StatelessConnectionPool::setTimeOut(unsigned int connTimeOut) {
+    void * e = NULL;
+    OCCIgateway_StatelessConnectionPool_setTimeOut(&e, poolp, connTimeOut);
+    checkException(e);
+}
+unsigned int occi_proxy::StatelessConnectionPool::getOpenConnections() const {
+    unsigned int r = 0;
+    void * e = NULL;
+    r = OCCIgateway_StatelessConnectionPool_getOpenConnections(&e, poolp);
+    checkException(e);
+    return r;
+}
+unsigned int occi_proxy::StatelessConnectionPool::getBusyConnections() const {
+    unsigned int r = 0;
+    void * e = NULL;
+    r = OCCIgateway_StatelessConnectionPool_getBusyConnections(&e, poolp);
+    checkException(e);
+    return r;
+}
+occi_proxy::Connection* occi_proxy::StatelessConnectionPool::getConnection(const std::string &tag) {
+    occi_proxy::Connection * conn;
+    void * e = NULL;
+    conn = new occi_proxy::Connection( OCCIgateway_StatelessConnectionPool_getConnection(&e, poolp, tag.c_str()), .0f);
+    if (e)
+    	delete conn;
+    checkException(e);
+    return conn;
+}
+void occi_proxy::StatelessConnectionPool::releaseConnection (occi_proxy::Connection *connection, const std::string &tag) {
+    void * e = NULL;
+    OCCIgateway_StatelessConnectionPool_releaseConnection(&e, poolp, connection->conn, tag.c_str());
+    checkException(e);
+}
+void occi_proxy::StatelessConnectionPool::terminateConnection (occi_proxy::Connection *connection) {
+    void * e = NULL;
+    OCCIgateway_StatelessConnectionPool_terminateConnection(&e, poolp, connection->conn);
+    checkException(e);
+}
+

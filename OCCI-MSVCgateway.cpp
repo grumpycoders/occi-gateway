@@ -3,6 +3,11 @@
 
 #pragma warning(disable: 4996)
 
+/* utility to ensure that the same heap that allocated memory (e.g. strdup) frees it */
+void OCCIgateway_free(void * p) {
+    free(p);
+}
+
 /* SQLException */
 void OCCIgateway_SQLException_dtor(void * _e) {
     SQLException * e = static_cast<SQLException *>(_e);
@@ -256,6 +261,46 @@ const char * OCCIgateway_MetaData_getString(void ** exception, void * _meta, uns
     return r;
 }
 
+void ** OCCIgateway_MetaData_getVector(size_t * size, void ** exception, void * _meta, unsigned int attrid) {
+    MetaData * meta = static_cast<MetaData *>(_meta);
+    void ** r = NULL;
+    *size = 0;
+    *exception = NULL;
+    try {
+    	std::vector<MetaData> v = meta->getVector(static_cast<MetaData::AttrId>(attrid));
+    	r = (void **) malloc(sizeof(void *) * (*size = v.size()));
+    	int c = 0;
+    	for (std::vector<MetaData>::iterator i = v.begin(); i != v.end(); c++, i++)
+    		r[c] = new MetaData(*i);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return r;
+}
+int OCCIgateway_MetaData_getInt(void ** exception, void * _meta, unsigned int attrid) {
+    int r = 0;
+    MetaData * meta = static_cast<MetaData *>(_meta);
+    *exception = NULL;
+    try {
+    	r = meta->getInt(static_cast<MetaData::AttrId>(attrid));
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return r;
+}
+bool OCCIgateway_MetaData_getBoolean(void ** exception, void * _meta, unsigned int attrid) {
+    bool r = false;
+    MetaData * meta = static_cast<MetaData *>(_meta);
+    *exception = NULL;
+    try {
+    	r = meta->getBoolean(static_cast<MetaData::AttrId>(attrid));
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return r;
+}
+
+
 /* Environment */
 void OCCIgateway_Environment_dtor(void ** exception, void * _envr) {
     Environment * envr = static_cast<Environment *>(_envr);
@@ -378,6 +423,41 @@ void OCCIgateway_Environment_terminateConnection(void ** exception, void * _envr
     }
 }
 
+void * OCCIgateway_Environment_createStatelessConnectionPool(void ** exception, void * _envr, const char * poolUserName, const char * poolPassword, const char * connectString, unsigned int maxConn, unsigned int minConn, unsigned int incrConn, StatelessConnectionPool::PoolType pType ) {
+    StatelessConnectionPool * poolp = NULL;
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+    	poolp = envr->createStatelessConnectionPool(poolUserName, poolPassword, connectString, maxConn, minConn, incrConn, pType);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return poolp;
+}
+
+void OCCIgateway_Environment_terminateStatelessConnectionPool(void ** exception, void * _envr, void * _poolp, StatelessConnectionPool::DestroyMode mode) {
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    Environment * envr = static_cast<Environment *>(_envr);
+    *exception = NULL;
+    try {
+    	envr->terminateStatelessConnectionPool(poolp, mode);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+OCIEnv * OCCIgateway_Environment_getOCIEnvironment(void ** exception, void * _envr) {
+    Environment * envr = static_cast<Environment *>(_envr);
+    OCIEnv * r = NULL;
+    *exception = NULL;
+    try {
+    	r = envr->getOCIEnvironment();
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return r;
+}
+
 /* Connection */
 void OCCIgateway_Connection_dtor(void ** exception, void * _conn) {
     Connection * conn = static_cast<Connection *>(_conn);
@@ -472,6 +552,31 @@ void OCCIgateway_Connection_rollback(void ** exception, void * _conn) {
         *exception = new SQLException(e);
     }
 }
+
+OCISvcCtx * OCCIgateway_Connection_getOCIServiceContext(void ** exception, void * _conn) {
+    OCISvcCtx * r = NULL;
+    Connection * conn = static_cast<Connection *>(_conn);
+    *exception = NULL;
+    try {
+    	r = conn->getOCIServiceContext();
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return r;
+}
+
+void * OCCIgateway_Connection_getMetaData(void ** exception, void * _conn, const char * object, MetaData::ParamType prmtyp) {
+    MetaData * meta = NULL;
+    Connection * conn = static_cast<Connection *>(_conn);
+    *exception = NULL;
+    try {
+    	meta = new MetaData(conn->getMetaData(object, prmtyp));
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return meta;
+}
+
 
 /* Statement */
 void OCCIgateway_Statement_dtor(void ** exception, void * _stmt) {
@@ -1116,6 +1221,59 @@ unsigned int OCCIgateway_Statement_status(void ** exception, void * _stmt) {
     return r;
 }
 
+OCIStmt * OCCIgateway_Statement_getOCIStatement(void ** exception, void * _stmt) {
+    OCIStmt * r = NULL;
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+    	r = stmt->getOCIStatement();
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return r;
+}
+
+void OCCIgateway_Statement_disableCaching(void ** exception, void * _stmt) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+    	stmt->disableCaching();
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_Statement_setDataBuffer(void ** exception, void * _stmt, unsigned int paramIndex, void *buffer, Type type, sb4 size, ub2 *length, sb2 *ind, ub2 *rc) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+    	stmt->setDataBuffer(paramIndex, buffer, type, size, length, ind, rc);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_Statement_setBinaryStreamModeEx(void ** exception, void * _stmt, unsigned int colIndex, unsigned int size, bool INArg) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+    	stmt->setBinaryStreamMode(colIndex,size,INArg);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_Statement_setCharacterStreamModeEx(void ** exception, void * _stmt, unsigned int colIndex, unsigned int size, bool INArg) {
+    Statement * stmt = static_cast<Statement *>(_stmt);
+    *exception = NULL;
+    try {
+    	stmt->setCharacterStreamMode(colIndex,size,INArg);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+
 /* ResultSet */
 void OCCIgateway_ResultSet_dtor(void ** exception, void * _rset) {
     ResultSet * rset = static_cast<ResultSet *>(_rset);
@@ -1486,6 +1644,16 @@ void ** OCCIgateway_ResultSet_getColumnListMetaData(size_t * size, void ** excep
     return r;
 }
 
+void OCCIgateway_ResultSet_setDataBuffer(void ** exception, void * _rset, unsigned int colIndex, void *buffer, Type type, sb4 size, ub2 *length, sb2 *ind, ub2 *rc) {
+    ResultSet * rset = static_cast<ResultSet *>(_rset);
+    *exception = NULL;
+    try {
+    	rset->setDataBuffer(colIndex,buffer,type,size,length,ind,rc);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
 /* Stream */
 void OCCIgateway_Stream_dtor(void ** exception, void * _strm) {
     Stream * strm = static_cast<Stream *>(_strm);
@@ -1551,3 +1719,94 @@ unsigned int OCCIgateway_Stream_status(void ** exception, void * _strm) {
     }
     return r;
 }
+
+/* StatelessConnectionPool */
+void OCCIgateway_StatelessConnectionPool_dtor(void ** exception, void * _poolp) {
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    try {
+    	delete poolp;
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_StatelessConnectionPool_setBusyOption(void ** exception, void * _poolp, StatelessConnectionPool::BusyOption busyOption ) {
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    try {
+    	poolp->setBusyOption(busyOption);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_StatelessConnectionPool_setStmtCacheSize(void ** exception, void * _poolp, unsigned int cacheSize) {
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    try {
+    	poolp->setStmtCacheSize(cacheSize);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_StatelessConnectionPool_setTimeOut(void ** exception, void * _poolp, unsigned int connTimeOut) {
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    try {
+    	poolp->setTimeOut(connTimeOut);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+unsigned int OCCIgateway_StatelessConnectionPool_getOpenConnections(void ** exception, void * _poolp) {
+    unsigned int r = 0;
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    try {
+    	r = poolp->getOpenConnections();
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return r;
+}
+
+unsigned int OCCIgateway_StatelessConnectionPool_getBusyConnections(void ** exception, void * _poolp) {
+    unsigned int r = 0;
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    try {
+    	r = poolp->getBusyConnections();
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return r;
+}
+
+void * OCCIgateway_StatelessConnectionPool_getConnection(void ** exception, void * _poolp, const char * tag) {
+    Connection * conn = NULL;
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    try {
+    	conn = poolp->getConnection(tag);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+    return conn;
+}
+
+void OCCIgateway_StatelessConnectionPool_releaseConnection (void ** exception, void * _poolp, void * _connection, const char * tag) {
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    Connection * conn = static_cast<Connection *>(_connection);
+    try {
+    	poolp->releaseConnection(conn, tag);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+
+void OCCIgateway_StatelessConnectionPool_terminateConnection (void ** exception, void * _poolp, void * _connection) {
+    StatelessConnectionPool * poolp = static_cast<StatelessConnectionPool *>(_poolp);
+    Connection * conn = static_cast<Connection *>(_connection);
+    try {
+    	poolp->terminateConnection(conn);
+    } catch (SQLException e) {
+    	*exception = new SQLException(e);
+    }
+}
+

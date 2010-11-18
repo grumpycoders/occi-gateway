@@ -49,6 +49,9 @@ extern "C" {
     /* MetaData */
     OGWEXPORT void OCCIgateway_MetaData_dtor(void * meta);
     OGWEXPORT const char * OCCIgateway_MetaData_getString(void ** exception, void * meta, unsigned int attrid);
+    OGWEXPORT void ** OCCIgateway_MetaData_getVector(size_t * size, void ** exception, void * meta, unsigned int attrid);
+    OGWEXPORT int OCCIgateway_MetaData_getInt(void ** exception, void * meta, unsigned int attrid);
+    OGWEXPORT bool OCCIgateway_MetaData_getBoolean(void ** exception, void * meta, unsigned int attrid);
 
     /* Environment */
     OGWEXPORT void OCCIgateway_Environment_dtor(void ** exception, void * envr);
@@ -62,6 +65,9 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Environment_setCacheOptSize(void ** exception, void * envr, int v);
     OGWEXPORT unsigned int OCCIgateway_Environment_getCurrentHeapSize(void ** exception, void * envr);
     OGWEXPORT void OCCIgateway_Environment_terminateConnection(void ** exception, void * envr, void * conn);
+    OGWEXPORT void * OCCIgateway_Environment_createStatelessConnectionPool(void ** exception, void * envr, const char * poolUserName, const char * poolPassword, const char * connectString, unsigned int maxConn, unsigned int minConn, unsigned int incrConn, StatelessConnectionPool::PoolType pType );
+    OGWEXPORT void OCCIgateway_Environment_terminateStatelessConnectionPool(void ** exception, void * envr, void * poolp, StatelessConnectionPool::DestroyMode mode);
+    OGWEXPORT OCIEnv * OCCIgateway_Environment_getOCIEnvironment(void ** exception, void * envr);
 
     /* Connection */
     OGWEXPORT void OCCIgateway_Connection_dtor(void ** exception, void * conn);
@@ -73,6 +79,8 @@ extern "C" {
     OGWEXPORT const char * OCCIgateway_Connection_getClientCharSet(void ** exception, void * conn);
     OGWEXPORT const char * OCCIgateway_Connection_getClientNCHARCharSet(void ** exception, void * conn);
     OGWEXPORT void OCCIgateway_Connection_rollback(void ** exception, void * conn);
+    OGWEXPORT OCISvcCtx * OCCIgateway_Connection_getOCIServiceContext(void ** exception, void * conn);
+    OGWEXPORT void * OCCIgateway_Connection_getMetaData(void ** exception, void * conn, const char * object, MetaData::ParamType prmtyp);
 
     /* Statement */
     OGWEXPORT void OCCIgateway_Statement_dtor(void ** exception, void * stmt);
@@ -132,6 +140,12 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Statement_setString(void ** exception, void * stmt, unsigned int idx, const char * str);
     OGWEXPORT void OCCIgateway_Statement_setUInt(void ** exception, void * stmt, unsigned int idx, unsigned int value);
     OGWEXPORT unsigned int OCCIgateway_Statement_status(void ** exception, void * stmt);
+    OGWEXPORT OCIStmt * OCCIgateway_Statement_getOCIStatement(void ** exception, void * stmt);
+    OGWEXPORT void OCCIgateway_Statement_disableCaching(void ** exception, void * stmt);
+    OGWEXPORT void OCCIgateway_Statement_setDataBuffer(void ** exception, void * stmt, unsigned int paramIndex, void *buffer, Type type, sb4 size, ub2 *length, sb2 *ind, ub2 *rc);
+    OGWEXPORT void OCCIgateway_Statement_setBinaryStreamModeEx(void ** exception, void * stmt, unsigned int colIndex, unsigned int size, bool INArg);
+    OGWEXPORT void OCCIgateway_Statement_setCharacterStreamModeEx(void ** exception, void * stmt, unsigned int colIndex, unsigned int size, bool INArg);
+
 
     /* ResultSet */
     OGWEXPORT void OCCIgateway_ResultSet_dtor(void ** exception, void * rset);
@@ -166,6 +180,7 @@ extern "C" {
     OGWEXPORT void OCCIgateway_ResultSet_setMaxColumnSize(void ** exception, void * rset, unsigned int idx, int max);
     OGWEXPORT unsigned int OCCIgateway_ResultSet_status(void ** exception, void * rset);
     OGWEXPORT void ** OCCIgateway_ResultSet_getColumnListMetaData(size_t * size, void ** exception, void * rset);
+    OGWEXPORT void OCCIgateway_ResultSet_setDataBuffer(void ** exception, void * rset, unsigned int colIndex, void *buffer, Type type, sb4 size, ub2 *length, sb2 *ind, ub2 *rc);
     
     /* Stream */
     OGWEXPORT void OCCIgateway_Stream_dtor(void ** exception, void * strm);
@@ -174,6 +189,20 @@ extern "C" {
     OGWEXPORT void OCCIgateway_Stream_writeBuffer(void ** exception, void * strm, char * buffer, unsigned int size);
     OGWEXPORT void OCCIgateway_Stream_writeLastBuffer(void ** exception, void * strm, char * buffer, unsigned int size);
     OGWEXPORT unsigned int OCCIgateway_Stream_status(void ** exception, void * strm);
+
+    /* StatelessConnectionPool */
+    OGWEXPORT void OCCIgateway_StatelessConnectionPool_dtor(void ** exception, void * poolp);
+    OGWEXPORT void OCCIgateway_StatelessConnectionPool_setBusyOption(void ** exception, void * poolp, StatelessConnectionPool::BusyOption busyOption );
+    OGWEXPORT void OCCIgateway_StatelessConnectionPool_setStmtCacheSize(void ** exception, void * poolp, unsigned int cacheSize);
+    OGWEXPORT void OCCIgateway_StatelessConnectionPool_setTimeOut(void ** exception, void * poolp, unsigned int connTimeOut);
+    OGWEXPORT unsigned int OCCIgateway_StatelessConnectionPool_getOpenConnections(void ** exception, void * poolp);
+    OGWEXPORT unsigned int OCCIgateway_StatelessConnectionPool_getBusyConnections(void ** exception, void * poolp);
+    OGWEXPORT void * OCCIgateway_StatelessConnectionPool_getConnection(void ** exception, void * poolp, const char * tag);
+    OGWEXPORT void OCCIgateway_StatelessConnectionPool_releaseConnection (void ** exception, void * poolp, void * connection, const char * tag);
+    OGWEXPORT void OCCIgateway_StatelessConnectionPool_terminateConnection (void ** exception, void * poolp, void * connection);
+
+    /* Utility to dealloc memory alloc'd in the gateway dll */
+    OGWEXPORT void OCCIgateway_free(void * p);
 }
 
 #endif
