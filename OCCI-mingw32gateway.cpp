@@ -57,7 +57,7 @@ occi_proxy::Blob::~Blob() { ref->release(); }
 void occi_proxy::Blob::dtor(void * obj) { OCCIgateway_Blob_dtor(obj); }
 
 occi_proxy::Stream * occi_proxy::Blob::getStream(unsigned int v1, unsigned int v2) {
-    void * strm;
+    void * strm = NULL;
     void * e = NULL;
     strm = OCCIgateway_Blob_getStream(&e, ref->obj, v1, v2);
     checkException(e);
@@ -86,7 +86,7 @@ void occi_proxy::Blob::setEmpty() {
 
 unsigned int occi_proxy::Blob::writeChunk(unsigned int amt, unsigned char * buffer, unsigned int bufsize, unsigned int offset) {
     void * e = NULL;
-    unsigned int r;
+    unsigned int r = 0;
     r = OCCIgateway_Blob_writeChunk(&e, ref->obj, amt, buffer, bufsize, offset);
     checkException(e);
     return r;
@@ -122,7 +122,7 @@ occi_proxy::Bytes::Bytes(unsigned char * value, unsigned int count, unsigned int
 
 unsigned int occi_proxy::Bytes::length() const {
     void * e = NULL;
-    unsigned int r;
+    unsigned int r = 0;
     r = OCCIgateway_Bytes_length(&e, ref->obj);
     checkException(e);
     return r;
@@ -282,7 +282,7 @@ occi_proxy::Connection * occi_proxy::Environment::createConnection(const std::st
 }
 
 int occi_proxy::Environment::getCacheMaxSize() const {
-    int r;
+    int r = 0;
     void * e = NULL;
     r = OCCIgateway_Environment_getCacheMaxSize(&e, envr);
     checkException(e);
@@ -290,7 +290,7 @@ int occi_proxy::Environment::getCacheMaxSize() const {
 }
 
 int occi_proxy::Environment::getCacheOptSize() const {
-    int r;
+    int r = 0;
     void * e = NULL;
     r = OCCIgateway_Environment_getCacheOptSize(&e, envr);
     checkException(e);
@@ -310,7 +310,7 @@ void occi_proxy::Environment::setCacheOptSize(int v) {
 }
 
 unsigned int occi_proxy::Environment::getCurrentHeapSize() const {
-    unsigned int r;
+    unsigned int r = 0;
     void * e = NULL;
     r = OCCIgateway_Environment_getCurrentHeapSize(&e, envr);
     checkException(e);
@@ -476,7 +476,7 @@ void occi_proxy::Statement::closeStream(occi_proxy::Stream * strm) {
 
 occi_proxy::Statement::Status occi_proxy::Statement::execute(const std::string &sql) {
     void * e = NULL;
-    occi_proxy::Statement::Status r;
+	occi_proxy::Statement::Status r = occi_proxy::Statement::UNPREPARED;
     r = static_cast<occi_proxy::Statement::Status>(OCCIgateway_Statement_execute(&e, stmt, sql.c_str()));
     checkException(e);
     return r;
@@ -484,7 +484,7 @@ occi_proxy::Statement::Status occi_proxy::Statement::execute(const std::string &
 
 occi_proxy::Statement::Status occi_proxy::Statement::executeArrayUpdate(unsigned int v) {
     void * e = NULL;
-    occi_proxy::Statement::Status r;
+    occi_proxy::Statement::Status r = occi_proxy::Statement::UNPREPARED;
     r = static_cast<occi_proxy::Statement::Status>(OCCIgateway_Statement_executeArrayUpdate(&e, stmt, v));
     checkException(e);
     return r;
@@ -492,7 +492,7 @@ occi_proxy::Statement::Status occi_proxy::Statement::executeArrayUpdate(unsigned
 
 occi_proxy::ResultSet * occi_proxy::Statement::executeQuery(const std::string &sql) {
     void * e = NULL;
-    void * r;
+    void * r = NULL;
     r = OCCIgateway_Statement_executeQuery(&e, stmt, sql.c_str());
     checkException(e);
     return new occi_proxy::ResultSet(r, .0f);
@@ -500,7 +500,7 @@ occi_proxy::ResultSet * occi_proxy::Statement::executeQuery(const std::string &s
 
 unsigned int occi_proxy::Statement::executeUpdate(const std::string &sql) {
     void * e = NULL;
-    unsigned int r;
+    unsigned int r = 0;
     r = OCCIgateway_Statement_executeUpdate(&e, stmt, sql.c_str());
     checkException(e);
     return r;
@@ -508,7 +508,7 @@ unsigned int occi_proxy::Statement::executeUpdate(const std::string &sql) {
 
 bool occi_proxy::Statement::getAutoCommit() const {
     void * e = NULL;
-    int r;
+    int r = 0;
     r = OCCIgateway_Statement_getAutoCommit(&e, stmt);
     checkException(e);
     return !!r;

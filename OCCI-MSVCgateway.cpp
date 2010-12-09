@@ -138,7 +138,7 @@ void OCCIgateway_Bytes_dtor(void * _bytes) {
 
 unsigned int OCCIgateway_Bytes_length(void ** exception, void * _bytes) {
     Bytes * bytes = static_cast<Bytes *>(_bytes);
-    unsigned int r;
+    unsigned int r = 0;
     *exception = NULL;
     try {
         r = bytes->length();
@@ -623,7 +623,7 @@ void OCCIgateway_Statement_closeStream(void ** exception, void * _stmt, void * _
 
 int OCCIgateway_Statement_execute(void ** exception, void * _stmt, const char * sql) {
     Statement * stmt = static_cast<Statement *>(_stmt);
-    Statement::Status r;
+	Statement::Status r = Statement::UNPREPARED;
     *exception = NULL;
     try {
         r = stmt->execute(sql);
@@ -635,7 +635,7 @@ int OCCIgateway_Statement_execute(void ** exception, void * _stmt, const char * 
 
 int OCCIgateway_Statement_executeArrayUpdate(void ** exception, void * _stmt, unsigned int v) {
     Statement * stmt = static_cast<Statement *>(_stmt);
-    Statement::Status r;
+	Statement::Status r = Statement::UNPREPARED;
     *exception = NULL;
     try {
         r = stmt->executeArrayUpdate(v);
@@ -659,7 +659,7 @@ void * OCCIgateway_Statement_executeQuery(void ** exception, void * _stmt, const
 
 unsigned int OCCIgateway_Statement_executeUpdate(void ** exception, void * _stmt, const char * sql) {
     Statement * stmt = static_cast<Statement *>(_stmt);
-    unsigned int r;
+    unsigned int r = 0;
     *exception = NULL;
     try {
         r = stmt->executeUpdate(sql);
@@ -671,7 +671,7 @@ unsigned int OCCIgateway_Statement_executeUpdate(void ** exception, void * _stmt
 
 int OCCIgateway_Statement_getAutoCommit(void ** exception, void * _stmt) {
     Statement * stmt = static_cast<Statement *>(_stmt);
-    bool r;
+    bool r = false;
     *exception = NULL;
     try {
         r = stmt->getAutoCommit();
@@ -866,7 +866,7 @@ void * OCCIgateway_Statement_getNumber(void ** exception, void * _stmt, unsigned
 }
 
 void * OCCIgateway_Statement_getResultSet(void ** exception, void * _stmt) {
-    ResultSet * r;
+    ResultSet * r = NULL;
     Statement * stmt = static_cast<Statement *>(_stmt);
     *exception = NULL;
     try {
@@ -1510,7 +1510,7 @@ int OCCIgateway_ResultSet_isNull(void ** exception, void * _rset, unsigned int i
 }
 
 int OCCIgateway_ResultSet_isTruncated(void ** exception, void * _rset, unsigned int idx) {
-    bool r = 0;
+    bool r = false;
     ResultSet * rset = static_cast<ResultSet *>(_rset);
     *exception = NULL;
     try {
