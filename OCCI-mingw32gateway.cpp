@@ -476,7 +476,7 @@ void occi_proxy::Statement::closeStream(occi_proxy::Stream * strm) {
 
 occi_proxy::Statement::Status occi_proxy::Statement::execute(const std::string &sql) {
     void * e = NULL;
-	occi_proxy::Statement::Status r = occi_proxy::Statement::UNPREPARED;
+    occi_proxy::Statement::Status r = occi_proxy::Statement::UNPREPARED;
     r = static_cast<occi_proxy::Statement::Status>(OCCIgateway_Statement_execute(&e, stmt, sql.c_str()));
     checkException(e);
     return r;

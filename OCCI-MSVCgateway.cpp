@@ -623,7 +623,7 @@ void OCCIgateway_Statement_closeStream(void ** exception, void * _stmt, void * _
 
 int OCCIgateway_Statement_execute(void ** exception, void * _stmt, const char * sql) {
     Statement * stmt = static_cast<Statement *>(_stmt);
-	Statement::Status r = Statement::UNPREPARED;
+    Statement::Status r = Statement::UNPREPARED;
     *exception = NULL;
     try {
         r = stmt->execute(sql);
@@ -635,7 +635,7 @@ int OCCIgateway_Statement_execute(void ** exception, void * _stmt, const char * 
 
 int OCCIgateway_Statement_executeArrayUpdate(void ** exception, void * _stmt, unsigned int v) {
     Statement * stmt = static_cast<Statement *>(_stmt);
-	Statement::Status r = Statement::UNPREPARED;
+    Statement::Status r = Statement::UNPREPARED;
     *exception = NULL;
     try {
         r = stmt->executeArrayUpdate(v);
