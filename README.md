@@ -24,14 +24,14 @@ using namespace ORAPREFIX;
 ```
 
 And that's about it! The OCCI-proxy.h fakes most of the OCCI classes, inside the occi_proxy namespace. So just swap oracle::occi for occi_proxy, and load OCCI-proxy.h instead of occi.h, and you're done!
-#Isn't that software pointless ? Why not recoding your own OCI glue instead of using Oracle's ?
+# Isn't that software pointless ? Why not recoding your own OCI glue instead of using Oracle's ?
 Because that'd require me to fully understand OCI, which I don't want to. This software is mostly copy-and-paste, and a no-brainer to me.
-#If it was so mechanical to write that code, why not writing a generic parser that'd convert C++ code ?
+# If it was so mechanical to write that code, why not writing a generic parser that'd convert C++ code ?
 That might have been an option. A SWIG parser for example, that'd generate all the necessary files. But I think this is so fragile that it required hand-crafting. However, this is a good proof-of-concept that this might actually be doable generically.
-#I don't have Microsoft Visual Studio 2005 Express installed. Is there any pre-compiled version of your DLL?
+# I don't have Microsoft Visual Studio 2005 Express installed. Is there any pre-compiled version of your DLL?
 [Yes, here.](http://static.grumpycoder.net/pixel/OCCI-MSVCgateway.zip)
-#Is this software robust ?
+# Is this software robust ?
 Yes and no. I've tried to be quite consistent and proper in my coding, so that part should be quite robust. However, the trick it involves is pretty shady, so that part is very fragile. For instance, I've never managed to get this working with the instantclient, only the full oracle client. And only with Visual Studio 2005 (vc8). But it seems that once you get the basics working, everything works pretty smoothly, minus my local mistakes and typos, of course. Don't hesitate to forward me bugs and typos I may have committed.
-#Authors
-Main author: Nicolas "Pixel" Noble, pixel [at] grumpycoder.net
+# Authors
+Main author: Nicolas "Pixel" Noble, pixel [at] grumpycoder.net  
 Contributors: Bill Lowrey
